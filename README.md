@@ -33,6 +33,10 @@ bin
     └── hello
 ```
 
+# LICENSE
+
+FreeBSD
+
 # REQUIREMENTS
 
 * a [C++](https://www.cplusplus.com/) compiler with C++17 support
