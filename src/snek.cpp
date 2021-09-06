@@ -63,16 +63,6 @@ void Config::Launch() const {
 
 Config Load() {
     Config config;
-    config.ships = std::vector<Ship>{
-        Ship{
-            "mcandre/snek:glibc",
-            std::vector<std::string>{
-                "x86_64-pc-linux-gnu" } },
-        Ship{
-            "mcandre/snek:musl",
-            std::vector<std::string>{
-                "x86_64-alpine-linux-musl" } }
-    };
 
     const YAML::Node node = YAML::LoadFile(ConfigFile);
     const auto build_command_override = node["build_command"];

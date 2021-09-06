@@ -15,14 +15,12 @@ constexpr auto ConfigFile = "snek.yaml";
 
 constexpr auto BinaryCacheDir = "bin";
 
-constexpr auto DefaultBuildCommand = "make";
-
 struct Ship {
     std::string image = "";
 
     std::vector<std::string> targets;
 
-    std::string build_command = DefaultBuildCommand;
+    std::string build_command = "";
 
     void Launch(const std::string &cwd) const;
 };
@@ -30,7 +28,7 @@ struct Ship {
 std::ostream &operator<<(std::ostream &os, const Ship &o);
 
 struct Config {
-    std::string build_command = DefaultBuildCommand;
+    std::string build_command = "";
 
     std::vector<Ship> ships;
 
