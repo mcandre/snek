@@ -13,6 +13,8 @@
 #include "snek/snek.hpp"
 #include "yaml-cpp/yaml.h"
 
+using std::string_literals::operator""s;
+
 namespace snek {
 void Ship::Launch(const std::string &cwd) const {
     for (const auto &target : targets) {
@@ -100,6 +102,14 @@ Config Load() {
         }
 
         config.ships = ships;
+    }
+
+    if (config.build_command.empty()) {
+        throw "error: no build_command specified"s;
+    }
+
+    if (config.ships.empty()) {
+        throw "error: no ships specified"s;
     }
 
     return config;
