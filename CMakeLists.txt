@@ -80,18 +80,18 @@ endif()
 
 add_custom_target(doc COMMAND doxygen Doxyfile)
 
-add_custom_target(docker-build-glibc
-                  COMMAND docker build -t mcandre/snek:glibc .
-                  WORKING_DIRECTORY docker/glibc
+add_custom_target(docker-build-x86
+                  COMMAND docker build -t mcandre/snek:x86 .
+                  WORKING_DIRECTORY docker/x86
 )
 add_custom_target(docker-build-musl
                   COMMAND docker build -t mcandre/snek:musl .
                   WORKING_DIRECTORY docker/musl
 )
-add_custom_target(docker-build DEPENDS docker-build-glibc docker-build-musl)
+add_custom_target(docker-build DEPENDS docker-build-x86 docker-build-musl)
 
-add_custom_target(publish-glibc DEPENDS docker-build-glibc)
+add_custom_target(publish-x86 DEPENDS docker-build-x86)
 add_custom_target(publish-musl DEPENDS docker-build-musl)
-add_custom_target(publish DEPENDS publish-glibc publish-musl)
+add_custom_target(publish DEPENDS publish-x86 publish-musl)
 
 add_custom_target(clean-cmake COMMAND sh clean-cmake.sh)

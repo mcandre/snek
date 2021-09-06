@@ -16,7 +16,7 @@
 
 # SUMMARY
 
-snek streamlines the process of cross-platform software builds, by marshaling fleets of reusable LLVM containers.
+snek streamlines the process of cross-platform software builds. Enjoy preconfigured toolchains for common targets.
 
 # EXAMPLE
 
@@ -27,6 +27,8 @@ $ snek
 
 $ tree bin
 bin
+├── i686-pc-linux-gnu
+│   └── hello
 ├── x86_64-alpine-linux-musl
 │   └── hello
 └── x86_64-pc-linux-gnu
