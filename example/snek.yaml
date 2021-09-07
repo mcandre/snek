@@ -19,6 +19,7 @@ ships:
   - "powerpc64le-linux-gnu"
   - "riscv64-linux-gnu"
   - "s390x-linux-gnu"
+  - "sparc64-linux-gnu"
 - image: "mcandre/snek:musl"
   targets:
   - "x86_64-alpine-linux-musl"

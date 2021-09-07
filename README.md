@@ -53,6 +53,8 @@ bin
 │   └── hello
 ├── s390x-linux-gnu
 │   └── hello
+├── sparc64-linux-gnu
+│   └── hello
 ├── x86_64-alpine-linux-musl
 │   └── hello
 └── x86_64-pc-linux-gnu
