@@ -10,6 +10,10 @@ ships:
   - "aarch64-linux-gnu"
   - "arm-linux-gnueabi"
   - "arm-linux-gnueabihf"
+  - "mips-linux-gnu"
+  - "mips64-linux-gnuabi64"
+  - "mips64el-linux-gnuabi64"
+  - "mipsel-linux-gnu"
 - image: "mcandre/snek:musl"
   targets:
   - "x86_64-alpine-linux-musl"

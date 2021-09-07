@@ -25,7 +25,6 @@ $ cd example
 
 $ snek
 
-$ tree bin
 bin
 ├── aarch64-linux-gnu
 │   └── hello
@@ -34,6 +33,14 @@ bin
 ├── arm-linux-gnueabihf
 │   └── hello
 ├── i686-pc-linux-gnu
+│   └── hello
+├── mips-linux-gnu
+│   └── hello
+├── mips64-linux-gnuabi64
+│   └── hello
+├── mips64el-linux-gnuabi64
+│   └── hello
+├── mipsel-linux-gnu
 │   └── hello
 ├── x86_64-alpine-linux-musl
 │   └── hello
