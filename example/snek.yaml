@@ -3,8 +3,8 @@ build_command: "make"
 ships:
 - image: "mcandre/snek:glibc-x86"
   targets:
-  - "x86_64-pc-linux-gnu"
   - "i686-pc-linux-gnu"
+  - "x86_64-pc-linux-gnu"
 - image: "mcandre/snek:glibc-other"
   targets:
   - "aarch64-linux-gnu"
@@ -25,4 +25,15 @@ ships:
   - "x86_64-alpine-linux-musl"
 - image: "mcandre/snek:musl-void"
   targets:
+  - "aarch64-linux-musl"
+  - "arm-linux-musleabi"
+  - "arm-linux-musleabihf"
+  - "armv7l-linux-musleabihf"
+  - "i686-linux-musl"
+  - "mips-linux-musl"
+  - "mips-linux-muslhf"
+  - "powerpc-linux-musl"
+  - "powerpc64-linux-musl"
+  - "powerpc64le-linux-musl"
+  - "powerpcle-linux-musl"
   - "x86_64-unknown-linux-musl"

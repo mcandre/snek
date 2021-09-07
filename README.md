@@ -23,19 +23,31 @@ snek streamlines the process of cross-platform software builds. Enjoy preconfigu
 ```console
 $ cd example
 
-$ snek
-
 $ tree bin
 bin
 ├── aarch64-linux-gnu
+│   └── hello
+├── aarch64-linux-musl
 │   └── hello
 ├── arm-linux-gnueabi
 │   └── hello
 ├── arm-linux-gnueabihf
 │   └── hello
+├── arm-linux-musleabi
+│   └── hello
+├── arm-linux-musleabihf
+│   └── hello
+├── armv7l-linux-musleabihf
+│   └── hello
+├── i686-linux-musl
+│   └── hello
 ├── i686-pc-linux-gnu
 │   └── hello
 ├── mips-linux-gnu
+│   └── hello
+├── mips-linux-musl
+│   └── hello
+├── mips-linux-muslhf
 │   └── hello
 ├── mips64-linux-gnuabi64
 │   └── hello
@@ -45,9 +57,17 @@ bin
 │   └── hello
 ├── powerpc-linux-gnu
 │   └── hello
+├── powerpc-linux-musl
+│   └── hello
 ├── powerpc64-linux-gnu
 │   └── hello
+├── powerpc64-linux-musl
+│   └── hello
 ├── powerpc64le-linux-gnu
+│   └── hello
+├── powerpc64le-linux-musl
+│   └── hello
+├── powerpcle-linux-musl
 │   └── hello
 ├── riscv64-linux-gnu
 │   └── hello
