@@ -49,7 +49,12 @@ int main(int argc, const char **argv) {
         const auto config = snek::Load();
 
         if (debug) {
-            std::cerr << config << std::endl;
+            YAML::Emitter yy;
+            yy << config;
+            std::cerr << "config loaded" << std::endl
+                      << std::endl
+                      << yy.c_str() << std::endl
+                      << std::endl;
         }
 
         config.Launch();
@@ -57,6 +62,8 @@ int main(int argc, const char **argv) {
     } catch (const YAML::BadFile &err) {
         std::cerr << "error: could not open config file for reading: " << snek::ConfigFile << std::endl;
     } catch (const YAML::ParserException &err) {
+        std::cerr << err.what() << std::endl;
+    } catch (const YAML::TypedBadConversion<snek::Config> &err) {
         std::cerr << err.what() << std::endl;
     } catch (const std::string &err) {
         std::cerr << err << std::endl;

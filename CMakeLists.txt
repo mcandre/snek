@@ -84,14 +84,31 @@ add_custom_target(docker-build-glibc-x86
                   COMMAND docker build -t mcandre/snek:glibc-x86 .
                   WORKING_DIRECTORY docker/glibc-x86
 )
+add_custom_target(docker-build-glibc-other
+                  COMMAND docker build -t mcandre/snek:glibc-other .
+                  WORKING_DIRECTORY docker/glibc-other
+)
 add_custom_target(docker-build-musl
                   COMMAND docker build -t mcandre/snek:musl .
                   WORKING_DIRECTORY docker/musl
 )
-add_custom_target(docker-build DEPENDS docker-build-glibc-x86 docker-build-musl)
+
+add_custom_target(docker-build
+                  DEPENDS
+                  docker-build-glibc-x86
+                  docker-build-glibc-other
+                  docker-build-musl
+)
 
 add_custom_target(publish-glibc-x86 DEPENDS docker-build-glibc-x86)
+add_custom_target(publish-glibc-other DEPENDS docker-build-glibc-other)
 add_custom_target(publish-musl DEPENDS docker-build-musl)
-add_custom_target(publish DEPENDS publish-glibc-x86 publish-musl)
+
+add_custom_target(publish
+                  DEPENDS
+                  publish-glibc-x86
+                  publish-glibc-other
+                  ublish-musl
+)
 
 add_custom_target(clean-cmake COMMAND sh clean-cmake.sh)

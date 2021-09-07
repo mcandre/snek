@@ -15,8 +15,86 @@
 
 using std::string_literals::operator""s;
 
+namespace YAML {
+template<>
+struct convert<snek::Ship> {
+    static bool decode(const Node &n, snek::Ship &o) {
+        if (!n.IsMap()) {
+            return false;
+        }
+
+        const auto image_node = n["image"];
+
+        if (!image_node) {
+            return false;
+        }
+
+        const auto image = image_node.as<std::string>();
+
+        if (image.empty()) {
+            return false;
+        }
+
+        o.image = image;
+
+        const auto targets_node = n["targets"];
+
+        if (!targets_node) {
+            return false;
+        }
+
+        const auto targets = targets_node.as<std::vector<std::string>>();
+
+        if (targets.empty()) {
+            return false;
+        }
+
+        o.targets = targets;
+        return true;
+    }
+};
+
+template<>
+struct convert<snek::Config> {
+    static bool decode(const Node &n, snek::Config &o) {
+        if (!n.IsMap()) {
+            return false;
+        }
+
+        const auto build_command_node = n["build_command"];
+
+        if (!build_command_node) {
+            return false;
+        }
+
+        const auto build_command = build_command_node.as<std::string>();
+
+        if (build_command.empty()) {
+            return false;
+        }
+
+        o.build_command = build_command;
+
+        const auto ships_node = n["ships"];
+
+        if (!ships_node) {
+            return false;
+        }
+
+        const auto ships = ships_node.as<std::vector<snek::Ship>>();
+
+        if (ships.empty()) {
+            return false;
+        }
+
+        o.ships = ships;
+        return true;
+    }
+};
+}
+
 namespace snek {
-void Ship::Launch(const std::string &cwd) const {
+void Ship::Launch(const std::string &cwd, const std::string &build_command) const {
     for (const auto &target : targets) {
         std::cerr << "building " << target << std::endl;
 
@@ -42,88 +120,52 @@ void Ship::Launch(const std::string &cwd) const {
     }
 }
 
-std::ostream &operator<<(std::ostream &os, const Ship &o) {
-    os << "Ship {"
-       << " image: " << o.image
-       << ", targets: [ ";
+YAML::Emitter &operator<<(YAML::Emitter &out, const Ship &o) {
+    out << YAML::BeginMap
+        << YAML::Key << "image" << YAML::Value << o.image
+        << YAML::Key << "targets" << YAML::BeginSeq;
 
     for (const auto &target : o.targets) {
-        os << target << ",";
+        out << target;
     }
 
-    return os << " ], build_command: " << o.build_command
-              << " }";
+    return out << YAML::EndSeq
+               << YAML::EndMap;
 }
 
 void Config::Launch() const {
     const auto cwd = std::filesystem::current_path().string();
 
     for (const auto &ship : ships) {
-        ship.Launch(cwd);
+        ship.Launch(cwd, build_command);
     }
+}
+
+YAML::Emitter &operator<<(YAML::Emitter &out, const Config &o) {
+    out << YAML::BeginMap
+        << YAML::Key << "build_command" << YAML::Value << o.build_command
+        << YAML::Key << "ships" << YAML::Value << YAML::BeginSeq;
+
+    for (const auto &ship : o.ships) {
+        out << ship;
+    }
+
+    return out << YAML::EndSeq
+               << YAML::EndMap;
 }
 
 Config Load() {
-    Config config;
-
     const YAML::Node node = YAML::LoadFile(ConfigFile);
-    const auto build_command_override = node["build_command"];
-
-    if (build_command_override) {
-        config.build_command = build_command_override.as<std::string>();
-
-        for (auto i = size_t(0); i < config.ships.size(); i++) {
-            config.ships[i].build_command = config.build_command;
-        }
-    }
-
-    const auto ship_overrides = node["ships"];
-
-    if (ship_overrides) {
-        std::vector<Ship> ships;
-
-        for (const auto &ship_override : ship_overrides) {
-            Ship ship;
-            ship.build_command = config.build_command;
-            const auto ship_build_command_override = ship_override["build_command"];
-
-            if (ship_build_command_override) {
-                ship.build_command = ship_build_command_override.as<std::string>();
-            }
-
-            const auto image_override = ship_override["image"];
-
-            if (image_override) {
-                ship.image = image_override.as<std::string>();
-            }
-
-            ship.targets = ship_override["targets"].as<std::vector<std::string>>();
-            ships.push_back(ship);
-        }
-
-        config.ships = ships;
-    }
+    auto config = node.as<Config>();
 
     if (config.build_command.empty()) {
-        throw "error: no build_command specified"s;
+        throw "error: blank build_command"s;
     }
 
     if (config.ships.empty()) {
-        throw "error: no ships specified"s;
+        throw "error: empty ships"s;
     }
 
     return config;
-}
-
-std::ostream &operator<<(std::ostream &os, const Config &o) {
-    os << "Config {"
-       << " build_command: " << o.build_command
-       << ", ships: [ ";
-
-    for (const auto &ship : o.ships) {
-        os << ship << ",";
-    }
-
-    return os << " ] }";
 }
 }

@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 
+#include "yaml-cpp/yaml.h"
+
 namespace snek {
 constexpr auto Version = "0.0.1";
 
@@ -20,12 +22,10 @@ struct Ship {
 
     std::vector<std::string> targets;
 
-    std::string build_command = "";
-
-    void Launch(const std::string &cwd) const;
+    void Launch(const std::string &cwd, const std::string &build_command) const;
 };
 
-std::ostream &operator<<(std::ostream &os, const Ship &o);
+YAML::Emitter &operator<<(YAML::Emitter &out, const Ship &o);
 
 struct Config {
     std::string build_command = "";
@@ -35,7 +35,7 @@ struct Config {
     void Launch() const;
 };
 
-std::ostream &operator<<(std::ostream &os, const Config &o);
+YAML::Emitter &operator<<(YAML::Emitter &out, const Config &o);
 
 Config Load();
 }
