@@ -8,6 +8,7 @@ ships:
 - image: "mcandre/snek:glibc-other"
   targets:
   - "aarch64-linux-gnu"
+  - "arm-linux-gnueabi"
   - "arm-linux-gnueabihf"
 - image: "mcandre/snek:musl"
   targets:
