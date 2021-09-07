@@ -80,6 +80,10 @@ endif()
 
 add_custom_target(doc COMMAND doxygen Doxyfile)
 
+add_custom_target(docker-build-darwin
+                  COMMAND docker build -t mcandre/snek:darwin .
+                  WORKING_DIRECTORY docker/darwin
+)
 add_custom_target(docker-build-musl-alpine
                   COMMAND docker build -t mcandre/snek:musl-alpine .
                   WORKING_DIRECTORY docker/musl-alpine
@@ -103,6 +107,7 @@ add_custom_target(docker-build-ubuntu-x86
 
 add_custom_target(docker-build
                   DEPENDS
+                  docker-build-darwin
                   docker-build-musl-alpine
                   docker-build-musl-void
                   docker-build-ubuntu-mingw
@@ -110,6 +115,7 @@ add_custom_target(docker-build
                   docker-build-ubuntu-x86
 )
 
+add_custom_target(publish-darwin DEPENDS docker-build-darwin)
 add_custom_target(publish-musl-alpine DEPENDS docker-build-musl-alpine)
 add_custom_target(publish-musl-void DEPENDS docker-build-musl-void)
 add_custom_target(publish-ubuntu-mingw DEPENDS docker-build-ubuntu-mingw)
@@ -118,6 +124,7 @@ add_custom_target(publish-ubuntu-x86 DEPENDS docker-build-ubuntu-x86)
 
 add_custom_target(publish
                   DEPENDS
+                  publish-darwin
                   publish-musl-alpine
                   publish-musl-void
                   publish-ubuntu-mingw

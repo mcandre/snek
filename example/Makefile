@@ -1,19 +1,27 @@
 ifdef TARGET
-ifneq (,$(findstring windows,$(TARGET)))
-ARTIFACT_EXT=.exe
-else
-ARTIFACT_EXT=
-endif
+	ifneq (,$(findstring windows,$(TARGET)))
+		ARTIFACT_EXT=.exe
+	else
+		ARTIFACT_EXT=
 
-ARTIFACT_DIR=bin/$(TARGET)
-TARGET_FLAG=-target $(TARGET)
-INCLUDE_FLAG=-I /usr/$(TARGET)/include
+		ifneq (,$(findstring darwin,$(TARGET)))
+			CC=$(TARGET)14-clang
+			CROSSBUILD=$(TARGET)
+			TARGET_FLAG=
+			INCLUDE_FLAG=
+		else
+			TARGET_FLAG=-target $(TARGET)
+			INCLUDE_FLAG=-I /usr/$(TARGET)/include
+		endif
+	endif
+
+	ARTIFACT_DIR=bin/$(TARGET)
 else
-ARTIFACT_DIR=bin
-ARTIFACT_EXT=
-TARGET_FLAG=
-SYSROOT_FLAG=
-INCLUDE_FLAG=
+	ARTIFACT_DIR=bin
+	ARTIFACT_EXT=
+	TARGET_FLAG=
+	SYSROOT_FLAG=
+	INCLUDE_FLAG=
 endif
 
 ARTIFACT=$(ARTIFACT_DIR)/hello$(ARTIFACT_EXT)
