@@ -88,27 +88,34 @@ add_custom_target(docker-build-glibc-other
                   COMMAND docker build -t mcandre/snek:glibc-other .
                   WORKING_DIRECTORY docker/glibc-other
 )
-add_custom_target(docker-build-musl
-                  COMMAND docker build -t mcandre/snek:musl .
-                  WORKING_DIRECTORY docker/musl
+add_custom_target(docker-build-musl-alpine
+                  COMMAND docker build -t mcandre/snek:musl-alpine .
+                  WORKING_DIRECTORY docker/musl-alpine
+)
+add_custom_target(docker-build-musl-void
+                  COMMAND docker build -t mcandre/snek:musl-void .
+                  WORKING_DIRECTORY docker/musl-void
 )
 
 add_custom_target(docker-build
                   DEPENDS
                   docker-build-glibc-x86
                   docker-build-glibc-other
-                  docker-build-musl
+                  docker-build-musl-alpine
+                  docker-build-musl-void
 )
 
 add_custom_target(publish-glibc-x86 DEPENDS docker-build-glibc-x86)
 add_custom_target(publish-glibc-other DEPENDS docker-build-glibc-other)
-add_custom_target(publish-musl DEPENDS docker-build-musl)
+add_custom_target(publish-musl-alpine DEPENDS docker-build-musl-alpine)
+add_custom_target(publish-musl-void DEPENDS docker-build-musl-void)
 
 add_custom_target(publish
                   DEPENDS
                   publish-glibc-x86
                   publish-glibc-other
-                  ublish-musl
+                  publish-musl-alpine
+                  publish-musl-void
 )
 
 add_custom_target(clean-cmake COMMAND sh clean-cmake.sh)
