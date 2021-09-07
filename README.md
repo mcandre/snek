@@ -1,4 +1,4 @@
-# snek: a cross-compiler system
+# snek: the toolchain armada
 
 ```text
                 ~.
@@ -16,7 +16,11 @@
 
 # SUMMARY
 
-snek streamlines the process of cross-platform software builds. Enjoy preconfigured toolchains for common targets.
+snek simplifies the process of porting software to multiple platforms.
+
+_VM's are slow. snek is fast._
+
+_Hardware is expensive. snek is free._
 
 # EXAMPLE
 
@@ -86,6 +90,10 @@ bin
 └── x86_64-unknown-linux-musl
     └── hello
 ```
+
+# CONFIGURATION
+
+snek offers several preconfigured toolchain ships, or you can specify your own custom ships. See [example/snek.yaml](example/snek.yaml) for more detail.
 
 # LICENSE
 
