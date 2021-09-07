@@ -51,6 +51,8 @@ bin
 │   └── hello
 ├── riscv64-linux-gnu
 │   └── hello
+├── s390x-linux-gnu
+│   └── hello
 ├── x86_64-alpine-linux-musl
 │   └── hello
 └── x86_64-pc-linux-gnu
