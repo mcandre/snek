@@ -29,6 +29,8 @@ $ tree bin
 bin
 ├── aarch64-linux-gnu
 │   └── hello
+├── arm-linux-gnueabihf
+│   └── hello
 ├── i686-pc-linux-gnu
 │   └── hello
 ├── x86_64-alpine-linux-musl
