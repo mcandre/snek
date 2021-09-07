@@ -25,6 +25,7 @@ $ cd example
 
 $ snek
 
+$ tree bin
 bin
 ├── aarch64-linux-gnu
 │   └── hello
@@ -41,6 +42,12 @@ bin
 ├── mips64el-linux-gnuabi64
 │   └── hello
 ├── mipsel-linux-gnu
+│   └── hello
+├── powerpc-linux-gnu
+│   └── hello
+├── powerpc64-linux-gnu
+│   └── hello
+├── powerpc64le-linux-gnu
 │   └── hello
 ├── x86_64-alpine-linux-musl
 │   └── hello
@@ -64,6 +71,7 @@ FreeBSD
 * [clang](https://clang.llvm.org/) (UNIX) or [MSVC](https://gist.github.com/mcandre/5ceb67ad44f6b974d33bcddedcb16e89) (Windows)
 * [clang-format](https://clang.llvm.org/docs/ClangFormat.html) (UNIX)
 * [clang-tidy](https://clang.llvm.org/extra/clang-tidy/) (UNIX)
+* [file](https://linux.die.net/man/1/file)
 * [llvm](https://llvm.org/) (UNIX)
 * [tree](https://linux.die.net/man/1/tree)
 

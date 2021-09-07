@@ -14,6 +14,9 @@ ships:
   - "mips64-linux-gnuabi64"
   - "mips64el-linux-gnuabi64"
   - "mipsel-linux-gnu"
+  - "powerpc-linux-gnu"
+  - "powerpc64-linux-gnu"
+  - "powerpc64le-linux-gnu"
 - image: "mcandre/snek:musl"
   targets:
   - "x86_64-alpine-linux-musl"
