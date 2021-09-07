@@ -43,6 +43,8 @@ bin
 │   └── hello
 ├── i686-pc-linux-gnu
 │   └── hello
+├── i686-pc-windows-gnu
+│   └── hello.exe
 ├── mips-linux-gnu
 │   └── hello
 ├── mips-linux-musl
@@ -79,6 +81,8 @@ bin
 │   └── hello
 ├── x86_64-pc-linux-gnu
 │   └── hello
+├── x86_64-pc-windows-gnu
+│   └── hello.exe
 └── x86_64-unknown-linux-musl
     └── hello
 ```
