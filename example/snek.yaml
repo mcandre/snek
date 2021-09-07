@@ -17,6 +17,7 @@ ships:
   - "powerpc-linux-gnu"
   - "powerpc64-linux-gnu"
   - "powerpc64le-linux-gnu"
+  - "riscv64-linux-gnu"
 - image: "mcandre/snek:musl"
   targets:
   - "x86_64-alpine-linux-musl"
