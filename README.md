@@ -124,4 +124,5 @@ For more information on developing snek itself, see [DEVELOPMENT.md](DEVELOPMENT
 * [multiarch/crossbuild](https://hub.docker.com/r/multiarch/crossbuild) hosts Darwin images
 * [tonixxx](https://github.com/mcandre/tonixxx) ports applications via Virtual Machines
 * [trust](https://github.com/japaric/trust) ports Rust applications
+* [WASM](https://webassembly.org/) provides a portable interface for C/C++ code.
 * [xgo](https://github.com/karalabe/xgo) ports cgo applications
