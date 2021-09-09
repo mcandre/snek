@@ -121,6 +121,7 @@ For more information on developing snek itself, see [DEVELOPMENT.md](DEVELOPMENT
 # SEE ALSO
 
 * [factorio](https://github.com/mcandre/factorio) ports Go applications
+* [LLVM](https://llvm.org/) bitcode offers an abstract assembler format for C/C++ code.
 * [multiarch/crossbuild](https://hub.docker.com/r/multiarch/crossbuild) hosts Darwin images
 * [tonixxx](https://github.com/mcandre/tonixxx) ports applications via Virtual Machines
 * [trust](https://github.com/japaric/trust) ports Rust applications
