@@ -5,7 +5,7 @@ ifdef TARGET
 		ARTIFACT_EXT=
 
 		ifneq (,$(findstring darwin,$(TARGET)))
-			CC=$(TARGET)14-clang
+			CC=$(TARGET)20.4-clang
 			CROSSBUILD=$(TARGET)
 			TARGET_FLAG=
 			INCLUDE_FLAG=
@@ -29,8 +29,8 @@ ARTIFACT=$(ARTIFACT_DIR)/hello$(ARTIFACT_EXT)
 all: $(ARTIFACT)
 
 $(ARTIFACT): hello.c
-	mkdir -p $(ARTIFACT_DIR)
-	$(CC) \
+	@mkdir -p $(ARTIFACT_DIR)
+	@$(CC) \
 		-o $(ARTIFACT) \
 		$(TARGET_FLAG) \
 		$(INCLUDE_FLAG) \

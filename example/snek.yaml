@@ -3,26 +3,13 @@ build_command: "make"
 ships:
 - image: "mcandre/snek:darwin"
   targets:
-  - "i386-apple-darwin"
   - "x86_64-apple-darwin"
   - "x86_64h-apple-darwin"
+  - "arm64-apple-darwin"
+  - "arm64e-apple-darwin"
 - image: "mcandre/snek:musl-alpine"
   targets:
   - "x86_64-alpine-linux-musl"
-- image: "mcandre/snek:musl-void"
-  targets:
-  - "aarch64-linux-musl"
-  - "arm-linux-musleabi"
-  - "arm-linux-musleabihf"
-  - "armv7l-linux-musleabihf"
-  - "i686-linux-musl"
-  - "mips-linux-musl"
-  - "mips-linux-muslhf"
-  - "powerpc-linux-musl"
-  - "powerpc64-linux-musl"
-  - "powerpc64le-linux-musl"
-  - "powerpcle-linux-musl"
-  - "x86_64-unknown-linux-musl"
 - image: "mcandre/snek:ubuntu-mingw"
   targets:
   - "i686-pc-windows-gnu"

@@ -31,51 +31,31 @@ $ tree bin
 bin
 ├── aarch64-linux-gnu
 │   └── hello
-├── aarch64-linux-musl
+├── arm64-apple-darwin
+│   └── hello
+├── arm64e-apple-darwin
 │   └── hello
 ├── arm-linux-gnueabi
 │   └── hello
 ├── arm-linux-gnueabihf
 │   └── hello
-├── arm-linux-musleabi
-│   └── hello
-├── arm-linux-musleabihf
-│   └── hello
-├── armv7l-linux-musleabihf
-│   └── hello
-├── i386-apple-darwin
-│   └── hello
-├── i686-linux-musl
-│   └── hello
 ├── i686-pc-linux-gnu
 │   └── hello
 ├── i686-pc-windows-gnu
 │   └── hello.exe
-├── mips-linux-gnu
-│   └── hello
-├── mips-linux-musl
-│   └── hello
-├── mips-linux-muslhf
+├── mips64el-linux-gnuabi64
 │   └── hello
 ├── mips64-linux-gnuabi64
 │   └── hello
-├── mips64el-linux-gnuabi64
-│   └── hello
 ├── mipsel-linux-gnu
 │   └── hello
-├── powerpc-linux-gnu
-│   └── hello
-├── powerpc-linux-musl
-│   └── hello
-├── powerpc64-linux-gnu
-│   └── hello
-├── powerpc64-linux-musl
+├── mips-linux-gnu
 │   └── hello
 ├── powerpc64le-linux-gnu
 │   └── hello
-├── powerpc64le-linux-musl
+├── powerpc64-linux-gnu
 │   └── hello
-├── powerpcle-linux-musl
+├── powerpc-linux-gnu
 │   └── hello
 ├── riscv64-linux-gnu
 │   └── hello
@@ -87,14 +67,12 @@ bin
 │   └── hello
 ├── x86_64-apple-darwin
 │   └── hello
+├── x86_64h-apple-darwin
+│   └── hello
 ├── x86_64-pc-linux-gnu
 │   └── hello
-├── x86_64-pc-windows-gnu
-│   └── hello.exe
-├── x86_64-unknown-linux-musl
-│   └── hello
-└── x86_64h-apple-darwin
-    └── hello
+└── x86_64-pc-windows-gnu
+    └── hello.exe
 ```
 
 # CONFIGURATION
