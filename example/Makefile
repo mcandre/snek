@@ -29,8 +29,8 @@ ARTIFACT=$(ARTIFACT_DIR)/hello$(ARTIFACT_EXT)
 all: $(ARTIFACT)
 
 $(ARTIFACT): hello.c
-	mkdir -p $(ARTIFACT_DIR)
-	$(CC) \
+	@mkdir -p $(ARTIFACT_DIR)
+	@$(CC) \
 		-o $(ARTIFACT) \
 		$(TARGET_FLAG) \
 		$(INCLUDE_FLAG) \
