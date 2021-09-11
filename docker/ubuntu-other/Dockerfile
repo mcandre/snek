@@ -4,6 +4,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         build-essential \
         clang \
+        cmake \
         g++-aarch64-linux-gnu \
         g++-alpha-linux-gnu \
         g++-arm-linux-gnueabi \
@@ -20,7 +21,8 @@ RUN apt-get update && \
         g++-s390x-linux-gnu \
         g++-sh4-linux-gnu \
         g++-sparc64-linux-gnu \
-        llvm && \
+        llvm \
+        make && \
     rm -rf \
         /var/lib/apt/lists/* \
         /var/cache/apt/pkgcache.bin \
