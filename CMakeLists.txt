@@ -88,10 +88,6 @@ add_custom_target(docker-build-musl-alpine
                   COMMAND docker build -t mcandre/snek:musl-alpine .
                   WORKING_DIRECTORY docker/musl-alpine
 )
-add_custom_target(docker-build-musl-void
-                  COMMAND docker build -t mcandre/snek:musl-void .
-                  WORKING_DIRECTORY docker/musl-void
-)
 add_custom_target(docker-build-ubuntu-mingw
                   COMMAND docker build -t mcandre/snek:ubuntu-mingw .
                   WORKING_DIRECTORY docker/ubuntu-mingw
@@ -109,24 +105,31 @@ add_custom_target(docker-build
                   DEPENDS
                   docker-build-darwin
                   docker-build-musl-alpine
-                  docker-build-musl-void
                   docker-build-ubuntu-mingw
                   docker-build-ubuntu-other
                   docker-build-ubuntu-x86
 )
 
-add_custom_target(publish-darwin DEPENDS docker-build-darwin)
-add_custom_target(publish-musl-alpine DEPENDS docker-build-musl-alpine)
-add_custom_target(publish-musl-void DEPENDS docker-build-musl-void)
-add_custom_target(publish-ubuntu-mingw DEPENDS docker-build-ubuntu-mingw)
-add_custom_target(publish-ubuntu-other DEPENDS docker-build-ubuntu-other)
-add_custom_target(publish-ubuntu-x86 DEPENDS docker-build-ubuntu-x86)
+add_custom_target(publish-darwin
+                  COMMAND docker push mcandre/snek:darwin
+)
+add_custom_target(publish-musl-alpine
+                  COMMAND docker push mcandre/snek:musl-alpine
+)
+add_custom_target(publish-ubuntu-mingw
+                  COMMAND docker push mcandre/snek:ubuntu-mingw
+)
+add_custom_target(publish-ubuntu-other
+                  COMMAND docker push mcandre/snek:ubuntu-other
+)
+add_custom_target(publish-ubuntu-x86
+                  COMMAND docker push mcandre/snek:ubuntu-x86
+)
 
 add_custom_target(publish
                   DEPENDS
                   publish-darwin
                   publish-musl-alpine
-                  publish-musl-void
                   publish-ubuntu-mingw
                   publish-ubuntu-other
                   publish-ubuntu-x86

@@ -5,7 +5,7 @@ ifdef TARGET
 		ARTIFACT_EXT=
 
 		ifneq (,$(findstring darwin,$(TARGET)))
-			CC=$(TARGET)14-clang
+			CC=$(TARGET)20.4-clang
 			CROSSBUILD=$(TARGET)
 			TARGET_FLAG=
 			INCLUDE_FLAG=

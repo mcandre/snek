@@ -1,4 +1,5 @@
 FROM ubuntu:20.04
+ENV PATH /usr/local/osxcross/target/bin:${PATH}
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -14,35 +15,43 @@ RUN apt-get update && \
         libssl-dev \
         libxml2-dev \
         lzma-dev \
+        ninja-build \
+        python \
         python3 \
         unzip \
         wget \
         zlib1g-dev && \
-
     update-alternatives --set c++ /usr/bin/clang++ && \
     update-alternatives --set cc /usr/bin/clang && \
-
     git clone https://github.com/apple/llvm-project.git && \
+    git clone https://github.com/tpoechtrager/osxcross.git /usr/local/osxcross && \
+    wget -O /usr/local/osxcross/tarballs/MacOSX11.3.sdk.tar.xz https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX11.3.sdk.tar.xz && \
+    echo 'cd4f08a75577145b8f05245a2975f7c81401d75e9535dcffbb879ee1deefcbf4  /usr/local/osxcross/tarballs/MacOSX11.3.sdk.tar.xz' | shasum -c && \
     cd /llvm-project && \
     cmake \
-        -S llvm \
+        -S ./llvm \
         -B build \
-        -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi;libunwind;compiler-rt;lld" \
-        -DCMAKE_INSTALL_PREFIX=/usr/local/apple-clang \
-        -DCMAKE_BUILD_TYPE=Release && \
+        -G Ninja \
+        -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi;lld" \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DLLVM_INCLUDE_EXAMPLES=OFF \
+        -DLLVM_INCLUDE_TESTS=OFF \
+        -DLLVM_INCLUDE_BENCHMARKS=OFF \
+        -DLLVM_ENABLE_LIBPFM=OFF \
+        -DLLVM_ENABLE_DIA_SDK=OFF && \
     cmake --build build && \
-
+    cmake --install build --prefix /usr/local/apple-clang && \
+    cd / && \
+    rm -rf /llvm-project && \
+    update-alternatives --install /usr/bin/c++ c++ /usr/local/apple-clang/bin/clang++ 100 && \
+    update-alternatives --install /usr/bin/cc cc /usr/local/apple-clang/bin/clang 100 && \
     update-alternatives --set c++ /usr/local/apple-clang/bin/clang++ && \
     update-alternatives --set cc /usr/local/apple-clang/bin/clang && \
-
-    wget https://github.com/tpoechtrager/osxcross/archive/refs/heads/master.zip && \
-	unzip master.zip && \
-	wget -O /osxcross-master/tarballs/MacOSX11.3.sdk.tar.xz https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX11.3.sdk.tar.xz && \
-    echo 'cd4f08a75577145b8f05245a2975f7c81401d75e9535dcffbb879ee1deefcbf4  osxcross-master/tarballs/MacOSX11.3.sdk.tar.xz' | shasum -c && \
-	UNATTENDED=1 osxcross-master/build_clang.sh && \
-    apt-get remove --autoremove -y \
+    cd /usr/local/osxcross && \
+	UNATTENDED=1 ./build.sh && \
+    cd / && \
+    apt-get remove --autoremove --purge -y \
         ca-certificates \
-        clang \
         cmake \
         file \
         git \
@@ -52,15 +61,13 @@ RUN apt-get update && \
         libssl-dev \
         libxml2-dev \
         lzma-dev \
+        ninja-build \
+        python \
         python3 \
         unzip \
         wget \
         zlib1g-dev && \
-	rm -rf \
-        /osxcross-master \
-        /master.zip \
-        /llvm-project \
-        /var/lib/apt/lists/* \
+    rm -rf /var/lib/apt/lists/* \
         /var/cache/apt/pkgcache.bin \
         /var/cache/apt/srcpkgcache.bin
 WORKDIR /src
