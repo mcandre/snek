@@ -100,9 +100,9 @@ snek offers several preconfigured toolchain Docker ships, or you can specify you
 
 snek curates a set of standard Docker image ships for easy porting of cmake/make projects to common POSIX-esque target environments. These are primarily [clang](https://clang.llvm.org/) / [gcc](https://gcc.gnu.org/) based, in order to support a wide variety of environments and C/C++ language features.
 
-The images are restricted in size (<4GB), in order to keep the snek system fairly lean and fast on mediumish hardware. For example, snek may be run on a cheap laptop, or a beefy workstation, or an expensive CI/CD instance, or on a Raspberry Pi with sufficient RAM and patience.
+The images are restricted in size (<4GB), in order to keep the snek system fairly lean and fast on mediumish hardware. For example, snek may be run on a cheap laptop, or a beefy workstation, or an expensive CI/CD instance, or on a RAM-appropraite Raspberry Pi with sufficient patience.
 
-The total size of the image collection is not bounded; as long as you have sufficient host disk space, you may consume the images.
+The total size of the image collection is only bounded by your build host's disk space.
 
 The Docker images for your ships are extensible and customizable. See [example/snek.yaml](example/snek.yaml) for more detail.
 
