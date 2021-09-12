@@ -110,7 +110,7 @@ The Docker images for your ships are extensible and customizable. See [example/s
 
 * [factorio](https://github.com/mcandre/factorio) ports Go applications
 * [LLVM](https://llvm.org/) bitcode offers an abstract assembler format for C/C++ code.
-* [multiarch/crossbuild](https://hub.docker.com/r/multiarch/crossbuild) hosts Darwin images
+* [osxcross](https://github.com/tpoechtrager/osxcross) provides patches to enable Darwin targets.
 * [tonixxx](https://github.com/mcandre/tonixxx) ports applications via Virtual Machines
 * [trust](https://github.com/japaric/trust) ports Rust applications
 * [WASM](https://webassembly.org/) provides a portable interface for C/C++ code.
