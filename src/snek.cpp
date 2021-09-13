@@ -61,6 +61,13 @@ struct convert<snek::Config> {
             return false;
         }
 
+        const auto debug_node = n["debug"];
+
+        if (debug_node) {
+            const auto debug_override = debug_node.as<bool>();
+            o.debug = debug_override;
+        }
+
         const auto build_command_node = n["build_command"];
 
         if (!build_command_node) {
@@ -94,32 +101,6 @@ struct convert<snek::Config> {
 }
 
 namespace snek {
-void Ship::Launch(const std::string &cwd, const std::string &build_command) const {
-    for (const auto &target : targets) {
-        std::cerr << "building " << target << std::endl;
-
-        std::stringstream command;
-        command << "docker "
-                << "run "
-                << "--rm "
-                << "-e TARGET=" << target << " "
-                << "-v " << cwd << ":/src "
-                << image << " "
-                << build_command;
-        std::string command_s = command.str();
-        const auto status = system(command_s.c_str());
-
-        if (status != EXIT_SUCCESS) {
-            std::stringstream err;
-            err << "error running toolchain command: "
-                << command_s
-                << " status: "
-                << status;
-            throw err.str();
-        }
-    }
-}
-
 YAML::Emitter &operator<<(YAML::Emitter &out, const Ship &o) {
     out << YAML::BeginMap
         << YAML::Key << "image" << YAML::Value << o.image
@@ -133,16 +114,53 @@ YAML::Emitter &operator<<(YAML::Emitter &out, const Ship &o) {
                << YAML::EndMap;
 }
 
+void Config::LaunchShip(const Ship &ship, const std::string &cwd) const {
+    for (const auto &target : ship.targets) {
+        std::cerr << "building " << target << std::endl;
+
+        std::stringstream command;
+        command << "docker "
+                << "run "
+                << "--rm "
+                << "-e TARGET=" << target << " "
+                << "-v " << cwd << ":/src "
+                << ship.image << " "
+                << "sh -c \"" << build_command << "\"";
+
+        const std::string command_s = command.str();
+
+        if (debug) {
+            std::cerr << "command: " << command_s << std::endl;
+        }
+
+        const auto status = system(command_s.c_str());
+
+        if (status != EXIT_SUCCESS) {
+            std::stringstream err;
+            err << "error running toolchain command: "
+                << command_s
+                << " status: "
+                << status;
+            throw err.str();
+        }
+    }
+}
+
 void Config::Launch() const {
     const auto cwd = std::filesystem::current_path().string();
 
+    if (debug) {
+        std::cerr << "cwd: " << cwd << std::endl;
+    }
+
     for (const auto &ship : ships) {
-        ship.Launch(cwd, build_command);
+        LaunchShip(ship, cwd);
     }
 }
 
 YAML::Emitter &operator<<(YAML::Emitter &out, const Config &o) {
     out << YAML::BeginMap
+        << YAML::Key << "debug" << YAML::Value << o.debug
         << YAML::Key << "build_command" << YAML::Value << o.build_command
         << YAML::Key << "ships" << YAML::Value << YAML::BeginSeq;
 

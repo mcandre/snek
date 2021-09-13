@@ -21,16 +21,18 @@ struct Ship {
     std::string image = "";
 
     std::vector<std::string> targets;
-
-    void Launch(const std::string &cwd, const std::string &build_command) const;
 };
 
 YAML::Emitter &operator<<(YAML::Emitter &out, const Ship &o);
 
 struct Config {
+    bool debug = false;
+
     std::string build_command = "";
 
     std::vector<Ship> ships;
+
+    void LaunchShip(const Ship &ship, const std::string &cwd) const;
 
     void Launch() const;
 };

@@ -46,15 +46,17 @@ int main(int argc, const char **argv) {
     }
 
     try {
-        const auto config = snek::Load();
+        auto config = snek::Load();
 
         if (debug) {
+            config.debug = debug;
+
             YAML::Emitter yy;
             yy << config;
             std::cerr << "config loaded" << std::endl
-                      << std::endl
-                      << yy.c_str() << std::endl
-                      << std::endl;
+                        << std::endl
+                        << yy.c_str() << std::endl
+                        << std::endl;
         }
 
         config.Launch();
