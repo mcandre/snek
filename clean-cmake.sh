@@ -6,7 +6,6 @@ rm -rf html || :
 rm -rf latex || :
 rm -f debug.log || :
 rm -f install_manifest.txt || :
-rm -rf bin || :
 rm -rf debug || :
 rm -rf Testing || :
 rm -f Makefile || :
