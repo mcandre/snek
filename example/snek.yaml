@@ -12,8 +12,8 @@ ships:
   - "x86_64-alpine-linux-musl"
 - image: "mcandre/snek:ubuntu-mingw"
   targets:
-  - "i686-pc-windows-gnu"
-  - "x86_64-pc-windows-gnu"
+  - "i686-w64-mingw32"
+  - "x86_64-w64-mingw32"
 - image: "mcandre/snek:ubuntu-other"
   targets:
   - "aarch64-linux-gnu"

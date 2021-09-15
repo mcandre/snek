@@ -4,9 +4,13 @@ ifdef TARGET
 		CROSSBUILD=$(TARGET)
 		TARGET_FLAG=
 		INCLUDE_FLAG=
-	else
-		TARGET_FLAG=-target $(TARGET)
-		INCLUDE_FLAG=-I /usr/$(TARGET)/include
+    else
+		ifneq (,$(findstring w64,$(TARGET)))
+			CC=$(TARGET)-gcc-9.3-posix
+		else
+			TARGET_FLAG=-target $(TARGET)
+			INCLUDE_FLAG=-I /usr/$(TARGET)/include
+		endif
 	endif
 
 	ifneq (,$(findstring windows,$(TARGET)))

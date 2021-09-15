@@ -31,31 +31,31 @@ $ tree bin
 bin
 ├── aarch64-linux-gnu
 │   └── hello
-├── arm64-apple-darwin
-│   └── hello
-├── arm64e-apple-darwin
-│   └── hello
 ├── arm-linux-gnueabi
 │   └── hello
 ├── arm-linux-gnueabihf
 │   └── hello
+├── arm64-apple-darwin
+│   └── hello
+├── arm64e-apple-darwin
+│   └── hello
 ├── i686-pc-linux-gnu
 │   └── hello
-├── i686-pc-windows-gnu
+├── i686-w64-mingw32
 │   └── hello.exe
-├── mips64el-linux-gnuabi64
+├── mips-linux-gnu
 │   └── hello
 ├── mips64-linux-gnuabi64
 │   └── hello
+├── mips64el-linux-gnuabi64
+│   └── hello
 ├── mipsel-linux-gnu
 │   └── hello
-├── mips-linux-gnu
-│   └── hello
-├── powerpc64le-linux-gnu
+├── powerpc-linux-gnu
 │   └── hello
 ├── powerpc64-linux-gnu
 │   └── hello
-├── powerpc-linux-gnu
+├── powerpc64le-linux-gnu
 │   └── hello
 ├── riscv64-linux-gnu
 │   └── hello
@@ -67,12 +67,12 @@ bin
 │   └── hello
 ├── x86_64-apple-darwin
 │   └── hello
-├── x86_64h-apple-darwin
-│   └── hello
 ├── x86_64-pc-linux-gnu
 │   └── hello
-└── x86_64-pc-windows-gnu
-    └── hello.exe
+├── x86_64-w64-mingw32
+│   └── hello.exe
+└── x86_64h-apple-darwin
+    └── hello
 ```
 
 # LICENSE
