@@ -69,6 +69,8 @@ bin
 │   └── hello
 ├── x86_64-pc-linux-gnu
 │   └── hello
+├── x86_64-unknown-freebsd
+│   └── hello
 ├── x86_64-w64-mingw32
 │   └── hello.exe
 └── x86_64h-apple-darwin

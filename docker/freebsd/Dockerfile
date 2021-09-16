@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
-ENV SYSROOT=/usr/local/x86_64-unknown-freebsd13
+ENV SYSROOT=/usr/local/x86_64-unknown-freebsd
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         ca-certificates \
@@ -8,22 +8,19 @@ RUN apt-get update && \
         cmake \
         llvm \
         make \
-        perl \
         wget \
         xz-utils && \
-    wget http://ftp.plusline.de/FreeBSD/releases/amd64/13.0-RELEASE/base.txz && \
-    echo 'be7ab3c21ca650b3763ad3605edd18c39d570abd40b0aad3058df64c3e38fb51  base.txz' | shasum -c && \
-    mkdir /usr/local/x86_64-unknown-freebsd13 && \
-    cd /usr/local/x86_64-unknown-freebsd13 && \
+    wget https://download.freebsd.org/ftp/releases/amd64/13.0-RELEASE/base.txz && \
+    mkdir /usr/local/x86_64-unknown-freebsd && \
+    cd /usr/local/x86_64-unknown-freebsd && \
     tar -xvf /base.txz ./lib/ ./usr/lib/ ./usr/include/ && \
     rm -f /base.txz && \
     cd usr/lib && \
     find . -xtype l | \
         xargs ls -l | \
-        awk '{ system("ln -sf /usr/local/x86_64-unknown-freebsd13" $11 " " $9) }' && \
+        awk '{ system("ln -sf /usr/local/x86_64-unknown-freebsd" $11 " " $9) }' && \
     apt-get remove --autoremove --purge -y \
         ca-certificates \
-        perl \
         wget \
         xz-utils && \
     rm -rf \
