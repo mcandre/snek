@@ -96,9 +96,13 @@ For more information on developing snek itself, see [DEVELOPMENT.md](DEVELOPMENT
 
 snek offers several preconfigured toolchain Docker ships, or you can specify your own custom ships.
 
+snek automatically mounts the host current working directory as a guest `/src` directory.
+
 ## Standard Ships
 
 snek curates a set of standard Docker image ships for easy porting of cmake/make projects to common POSIX-esque target environments. These are primarily [clang](https://clang.llvm.org/) / [gcc](https://gcc.gnu.org/) based, in order to support a wide variety of environments and C/C++ language features.
+
+The standard images automatically set the guest working directory to `/src`.
 
 The standard images are restricted in size (<4GB), in order to keep the snek system fairly lean and fast on mediumish hardware. For example, snek may be run on a cheap laptop, or a beefy workstation, or an expensive CI/CD instance, or on a RAM-appropraite Raspberry Pi with sufficient patience.
 
