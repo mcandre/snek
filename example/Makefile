@@ -27,6 +27,12 @@ else
 	INCLUDE_FLAG=
 endif
 
+ifdef SYSROOT
+	SYSROOT_FLAG=--sysroot $(SYSROOT)
+else
+	SYSROOT_FLAG=
+endif
+
 ARTIFACT=$(ARTIFACT_DIR)/hello$(ARTIFACT_EXT)
 
 all: $(ARTIFACT)
@@ -36,6 +42,7 @@ $(ARTIFACT): hello.c
 	@$(CC) \
 		-o $(ARTIFACT) \
 		$(TARGET_FLAG) \
+		$(SYSROOT_FLAG) \
 		$(INCLUDE_FLAG) \
 		hello.c
 

@@ -84,6 +84,10 @@ add_custom_target(docker-build-darwin
                   COMMAND docker build -t mcandre/snek:darwin .
                   WORKING_DIRECTORY docker/darwin
 )
+add_custom_target(docker-build-freebsd
+                  COMMAND docker build -t mcandre/snek:freebsd .
+                  WORKING_DIRECTORY docker/freebsd
+)
 add_custom_target(docker-build-musl-alpine
                   COMMAND docker build -t mcandre/snek:musl-alpine .
                   WORKING_DIRECTORY docker/musl-alpine
@@ -104,6 +108,7 @@ add_custom_target(docker-build-ubuntu-x86
 add_custom_target(docker-build
                   DEPENDS
                   docker-build-darwin
+                  docker-build-freebsd
                   docker-build-musl-alpine
                   docker-build-ubuntu-mingw
                   docker-build-ubuntu-other
@@ -112,6 +117,9 @@ add_custom_target(docker-build
 
 add_custom_target(publish-darwin
                   COMMAND docker push mcandre/snek:darwin
+)
+add_custom_target(publish-freebsd
+                  COMMAND docker push mcandre/snek:freebsd
 )
 add_custom_target(publish-musl-alpine
                   COMMAND docker push mcandre/snek:musl-alpine
@@ -129,6 +137,7 @@ add_custom_target(publish-ubuntu-x86
 add_custom_target(publish
                   DEPENDS
                   publish-darwin
+                  publish-freebsd
                   publish-musl-alpine
                   publish-ubuntu-mingw
                   publish-ubuntu-other
