@@ -12,12 +12,22 @@ RUN apt-get update && \
         xz-utils && \
     wget https://cdn.netbsd.org/pub/NetBSD/NetBSD-9.2/amd64/binary/sets/base.tar.xz && \
     wget https://cdn.netbsd.org/pub/NetBSD/NetBSD-9.2/amd64/binary/sets/comp.tar.xz && \
+    wget https://cdn.netbsd.org/pub/pkgsrc/packages/NetBSD/x86_64/9.0_current/All/libunwind-12.0.1.tgz && \
+    wget https://cdn.netbsd.org/pub/pkgsrc/packages/NetBSD/x86_64/9.0_current/All/libcxxabi-12.0.1.tgz && \
+    wget http://cdn.netbsd.org/pub/pkgsrc/packages/NetBSD/x86_64/9.0_current/All/libcxx-12.0.1.tgz && \
     mkdir /usr/local/x86_64-unknown-netbsd && \
     cd /usr/local/x86_64-unknown-netbsd && \
     tar -xvf /base.tar.xz ./lib/ ./usr/lib/ ./usr/include/ && \
     tar -xvf /comp.tar.xz ./usr/lib/ ./usr/include/ && \
-    rm -f /comp.tar.xz && \
-    rm -f /base.tar.xz && \
+    tar -xvf /libunwind-12.0.1.tgz include/ lib/ && \
+    tar -xvf /libcxxabi-12.0.1.tgz lib/ && \
+    tar -xvf /libcxx-12.0.1.tgz include/ lib/ && \
+    rm -f \
+        /libcxx-12.0.1.tgz \
+        /libcxxabi-12.0.1.tgz \
+        /libunwind-12.0.1.tgz \
+        /comp.tar.xz \
+        /base.tar.xz && \
     apt-get remove --autoremove --purge -y \
         ca-certificates \
         wget \
