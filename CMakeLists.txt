@@ -96,6 +96,10 @@ add_custom_target(docker-build-netbsd
                   COMMAND docker build -t mcandre/snek:netbsd .
                   WORKING_DIRECTORY docker/netbsd
 )
+add_custom_target(docker-build-openbsd
+                  COMMAND docker build -t mcandre/snek:openbsd .
+                  WORKING_DIRECTORY docker/openbsd
+)
 add_custom_target(docker-build-ubuntu-mingw
                   COMMAND docker build -t mcandre/snek:ubuntu-mingw .
                   WORKING_DIRECTORY docker/ubuntu-mingw
@@ -114,7 +118,8 @@ add_custom_target(docker-build
                   docker-build-darwin
                   docker-build-freebsd
                   docker-build-musl-alpine
-                  doker-build-netbsd
+                  docker-build-netbsd
+                  docker-build-openbsd
                   docker-build-ubuntu-mingw
                   docker-build-ubuntu-other
                   docker-build-ubuntu-x86
@@ -132,6 +137,9 @@ add_custom_target(publish-musl-alpine
 add_custom_target(publish-netbsd
                   COMMAND docker push mcandre/snek:netbsd
 )
+add_custom_target(publish-openbsd
+                  COMMAND docker push mcandre/snek:openbsd
+)
 add_custom_target(publish-ubuntu-mingw
                   COMMAND docker push mcandre/snek:ubuntu-mingw
 )
@@ -148,6 +156,7 @@ add_custom_target(publish
                   publish-freebsd
                   publish-musl-alpine
                   publish-netbsd
+                  publish-openbsd
                   publish-ubuntu-mingw
                   publish-ubuntu-other
                   publish-ubuntu-x86
