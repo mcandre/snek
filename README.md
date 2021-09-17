@@ -27,6 +27,8 @@ _Hardware is expensive. snek is free._
 ```console
 $ cd example
 
+$ snek
+
 $ tree bin
 bin
 ├── aarch64-linux-gnu
