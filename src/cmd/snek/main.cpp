@@ -65,7 +65,7 @@ int main(int argc, const char **argv) {
         std::cerr << "error: could not open config file for reading: " << snek::ConfigFile << std::endl;
     } catch (const YAML::ParserException &err) {
         std::cerr << err.what() << std::endl;
-    } catch (const YAML::TypedBadConversion<snek::Config> &err) {
+    } catch (const YAML::BadConversion &err) {
         std::cerr << err.what() << std::endl;
     } catch (const std::string &err) {
         std::cerr << err << std::endl;
