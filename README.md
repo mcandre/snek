@@ -75,6 +75,8 @@ bin
 │   └── hello
 ├── x86_64-unknown-netbsd
 │   └── hello
+├── x86_64-unknown-openbsd
+│   └── hello
 ├── x86_64-w64-mingw32
 │   └── hello.exe
 └── x86_64h-apple-darwin
