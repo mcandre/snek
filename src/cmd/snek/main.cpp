@@ -61,14 +61,11 @@ int main(int argc, const char **argv) {
 
         config.Launch();
         return EXIT_SUCCESS;
-    } catch (const YAML::BadFile &err) {
-        std::cerr << "error: could not open config file for reading: " << snek::ConfigFile << std::endl;
-    } catch (const YAML::ParserException &err) {
-        std::cerr << err.what() << std::endl;
-    } catch (const YAML::BadConversion &err) {
-        std::cerr << err.what() << std::endl;
     } catch (const std::string &err) {
         std::cerr << err << std::endl;
-        return EXIT_FAILURE;
+    } catch (const YAML::Exception &err) {
+        std::cerr << err.what() << std::endl;
     }
+
+    return EXIT_FAILURE;
 }
