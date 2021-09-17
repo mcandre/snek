@@ -13,7 +13,7 @@ ifdef TARGET
 			CC=$(TARGET)20.4-clang
 			CROSSBUILD=$(TARGET)
 		else
-			ifneq (,$(findstring freebsd,$(TARGET)))
+			ifneq (,$(findstring bsd,$(TARGET)))
 				SYSROOT_FLAG=--sysroot /usr/local/$(TARGET)
 			endif
 

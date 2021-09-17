@@ -13,6 +13,9 @@ ships:
 - image: "mcandre/snek:musl-alpine"
   targets:
   - "x86_64-alpine-linux-musl"
+- image: "mcandre/snek:netbsd"
+  targets:
+  - "x86_64-unknown-netbsd"
 - image: "mcandre/snek:ubuntu-mingw"
   targets:
   - "i686-w64-mingw32"
