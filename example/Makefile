@@ -2,6 +2,7 @@ ARTIFACT_DIR=bin
 ARTIFACT_EXT=
 TARGET_FLAG=
 INCLUDE_FLAG=
+LINK_FLAG=
 SYSROOT_FLAG=
 
 ifdef TARGET
@@ -18,7 +19,10 @@ ifdef TARGET
 			endif
 
 			TARGET_FLAG=-target $(TARGET)
-			INCLUDE_FLAG=-I /usr/$(TARGET)/include
+			INCLUDE_FLAG=\
+				-I /usr/$(TARGET)/include \
+				-I /usr/local/$(TARGET)/include
+			LINK_FLAG=-L /usr/local/$(TARGET)/lib
 		endif
 	endif
 
@@ -31,11 +35,12 @@ all: $(ARTIFACT)
 
 $(ARTIFACT): hello.c
 	@mkdir -p $(ARTIFACT_DIR)
-	@$(CC) \
+	$(CC) \
 		-o $(ARTIFACT) \
 		$(TARGET_FLAG) \
 		$(SYSROOT_FLAG) \
 		$(INCLUDE_FLAG) \
+		$(LINK_FLAG) \
 		hello.c
 
 clean:
