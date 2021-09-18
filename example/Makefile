@@ -20,18 +20,18 @@ ifdef TARGET
 
 				ifneq (,$(findstring dragonflybsd,$(TARGET)))
 					PREFIX_FLAG=\
-						-B /dfly-x86_64-6.0.0_REL/usr/lib \
-						-B /dfly-x86_64-6.0.0_REL/usr/lib/gcc80
+						-B /usr/local/$(TARGET)/usr/lib \
+						-B /usr/local/$(TARGET)/usr/lib/gcc80
+					LINK_FLAG=\
+						-L /usr/local/$(TARGET)/usr/lib \
+						-L /usr/local/$(TARGET)/usr/lib/gcc80
 				endif
 			endif
 
 			TARGET_FLAG=-target $(TARGET)
 			INCLUDE_FLAG=\
 				-I /usr/$(TARGET)/include \
-				-I /dfly-x86_64-6.0.0_REL/usr/include
-			LINK_FLAG=\
-				-L /dfly-x86_64-6.0.0_REL/usr/lib \
-				-L /dfly-x86_64-6.0.0_REL/usr/lib/gcc80
+				-I /usr/local/$(TARGET)/usr/include
 		endif
 	endif
 
