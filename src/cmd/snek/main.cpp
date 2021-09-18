@@ -62,9 +62,7 @@ int main(int argc, const char **argv) {
 
         config.Launch();
         return EXIT_SUCCESS;
-    } catch (const std::string &err) {
-        std::cerr << err << std::endl;
-    } catch (const std::runtime_error &err) {
+    } catch (const std::exception &err) {
         std::cerr << err.what() << std::endl;
     }
 

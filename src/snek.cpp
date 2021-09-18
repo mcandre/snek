@@ -13,8 +13,6 @@
 #include "snek/snek.hpp"
 #include "yaml-cpp/yaml.h"
 
-using std::string_literals::operator""s;
-
 namespace YAML {
 template<>
 struct convert<snek::Ship> {
@@ -141,7 +139,7 @@ void Config::LaunchShip(const Ship &ship, const std::string &cwd) const {
                 << command_s
                 << " status: "
                 << status;
-            throw err.str();
+            throw std::runtime_error(err.str());
         }
     }
 }
@@ -177,11 +175,11 @@ Config Load() {
     auto config = node.as<Config>();
 
     if (config.build_command.empty()) {
-        throw "error: blank build_command"s;
+        throw std::runtime_error("error: blank build_command");
     }
 
     if (config.ships.empty()) {
-        throw "error: empty ships"s;
+        throw std::runtime_error("error: empty ships");
     }
 
     return config;
