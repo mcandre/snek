@@ -2,7 +2,6 @@ ARTIFACT_DIR=bin
 ARTIFACT_EXT=
 TARGET_FLAG=
 INCLUDE_FLAG=
-LINK_FLAG=
 SYSROOT_FLAG=
 
 ifdef TARGET
@@ -15,14 +14,17 @@ ifdef TARGET
 			CROSSBUILD=$(TARGET)
 		else
 			ifneq (,$(findstring bsd,$(TARGET)))
-				SYSROOT_FLAG=--sysroot /usr/local/$(TARGET)
+				ifneq (,$(findstring dragonflybsd,$(TARGET)))
+					SYSROOT_FLAG=--sysroot /dfly-x86_64-6.0.0_REL
+				else
+					SYSROOT_FLAG=--sysroot /usr/local/$(TARGET)
+				endif
 			endif
 
 			TARGET_FLAG=-target $(TARGET)
 			INCLUDE_FLAG=\
 				-I /usr/$(TARGET)/include \
-				-I /usr/local/$(TARGET)/include
-			LINK_FLAG=-L /usr/local/$(TARGET)/lib
+				-I /dfly-x86_64-6.0.0_REL/usr/include
 		endif
 	endif
 
@@ -36,11 +38,13 @@ all: $(ARTIFACT)
 $(ARTIFACT): hello.c
 	@mkdir -p $(ARTIFACT_DIR)
 	$(CC) \
-		-o $(ARTIFACT) \
-		$(TARGET_FLAG) \
+		-I/dfly-x86_64-6.0.0_REL/usr/include \
+		-L/dfly-x86_64-6.0.0_REL/usr/lib \
+		-L/dfly-x86_64-6.0.0_REL/usr/lib/gcc47 \
+		-B/dfly-x86_64-6.0.0_REL/usr/lib \
+		-B/dfly-x86_64-6.0.0_REL/usr/lib/gcc47 \
+		-target x86_64-pc-dragonfly-elf \
 		$(SYSROOT_FLAG) \
-		$(INCLUDE_FLAG) \
-		$(LINK_FLAG) \
 		hello.c
 
 clean:
