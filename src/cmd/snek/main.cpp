@@ -5,6 +5,7 @@
 #include <cstdlib>
 
 #include <iostream>
+#include <stdexcept>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -63,7 +64,7 @@ int main(int argc, const char **argv) {
         return EXIT_SUCCESS;
     } catch (const std::string &err) {
         std::cerr << err << std::endl;
-    } catch (const YAML::Exception &err) {
+    } catch (const std::runtime_error &err) {
         std::cerr << err.what() << std::endl;
     }
 
