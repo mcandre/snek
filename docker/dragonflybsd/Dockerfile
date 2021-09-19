@@ -72,12 +72,14 @@ RUN apt-get update && \
 
 RUN wget https://avalon.dragonflybsd.org/dports/dragonfly:6.2:x86:64/LATEST/All/llvm10-10.0.1_5.txz
 
-# RUN wget https://avalon.dragonflybsd.org/dports/dragonfly:6.2:x86:64/LATEST/All/libc++-10.0.1.txz
+RUN wget https://avalon.dragonflybsd.org/dports/dragonfly:6.2:x86:64/LATEST/All/libc++-10.0.1.txz
 
-# RUN wget https://avalon.dragonflybsd.org/dports/dragonfly:6.2:x86:64/LATEST/All/libcxxrt-20180311.txz
+RUN wget https://avalon.dragonflybsd.org/dports/dragonfly:6.2:x86:64/LATEST/All/libcxxrt-20180311.txz
 
 RUN cd /usr/local/x86_64-unknown-dragonflybsd && \
-    tar -xvf /llvm10-10.0.1_5.txz /usr/local/lib/ /usr/local/libdata/ /usr/local/llvm10/include/ /usr/local/llvm10/lib/ /usr/local/llvm10/libexec/
+    tar -xvf /llvm10-10.0.1_5.txz /usr/local/lib/ /usr/local/libdata/ /usr/local/llvm10/include/ /usr/local/llvm10/lib/ /usr/local/llvm10/libexec/ && \
+    tar -xvf /libc++-10.0.1.txz /usr/local/include/ /usr/local/lib/ && \
+    tar -xvf /libcxxrt-20180311.txz /usr/local/include/ /usr/local/lib/
 
 # RUN cd /usr/local/x86_64-unknown-dragonflybsd && \
 #     tar -xvf /libc++-10.0.1.txz /usr/local/include/ /usr/local/lib/ && \
