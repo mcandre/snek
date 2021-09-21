@@ -22,7 +22,7 @@ ifdef TARGET
 					PREFIX_FLAG=\
                         -B /usr/local/$(TARGET)/lib \
                         -B /usr/local/$(TARGET)/usr/lib \
-                        -B /usr/local/$(TARGET)/usr/lib/gcc80 \
+                        -B /usr/local/$(TARGET)/usr/lib/gcc80
 					LINK_FLAG=\
                         -L /usr/local/$(TARGET)/lib \
                         -L /usr/local/$(TARGET)/usr/lib \
