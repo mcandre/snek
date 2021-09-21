@@ -26,26 +26,11 @@ RUN apt-get update && \
         dfly-x86_64-6.0.0_REL/lib \
         /usr/local/x86_64-unknown-dragonflybsd/ && \
     cp -r \
-        dfly-x86_64-6.0.0_REL/libexec \
-        /usr/local/x86_64-unknown-dragonflybsd/ && \
-    cp -r \
         dfly-x86_64-6.0.0_REL/usr/include \
         /usr/local/x86_64-unknown-dragonflybsd/usr/ && \
     cp -r \
         dfly-x86_64-6.0.0_REL/usr/lib \
         /usr/local/x86_64-unknown-dragonflybsd/usr/ && \
-    cp -r \
-        dfly-x86_64-6.0.0_REL/usr/libdata \
-        /usr/local/x86_64-unknown-dragonflybsd/usr/ && \
-    cp -r \
-        dfly-x86_64-6.0.0_REL/usr/libexec \
-        /usr/local/x86_64-unknown-dragonflybsd/usr/ && \
-    cp -r \
-        dfly-x86_64-6.0.0_REL/usr/local/libdata \
-        /usr/local/x86_64-unknown-dragonflybsd/usr/local/ && \
-    cp -r \
-        dfly-x86_64-6.0.0_REL/usr/local/libexec \
-        /usr/local/x86_64-unknown-dragonflybsd/usr/local/ && \
     cd /usr/local/x86_64-unknown-dragonflybsd && \
     tar -xvf /cxxfs_gcc8-8.0.txz /usr/local/cxxfs_gcc8/ && \
     apt-get remove --autoremove --purge -y \
