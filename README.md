@@ -71,6 +71,8 @@ bin
 │   └── hello
 ├── x86_64-pc-linux-gnu
 │   └── hello
+├── x86_64-unknown-dragonflybsd
+│   └── hello
 ├── x86_64-unknown-freebsd
 │   └── hello
 ├── x86_64-unknown-netbsd
