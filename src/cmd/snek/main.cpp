@@ -54,10 +54,7 @@ int main(int argc, const char **argv) {
 
             YAML::Emitter yy;
             yy << config;
-            std::cerr << "config loaded" << std::endl
-                        << std::endl
-                        << yy.c_str() << std::endl
-                        << std::endl;
+            std::cerr << yy.c_str() << std::endl << std::endl;
         }
 
         config.Launch();
