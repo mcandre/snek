@@ -122,6 +122,7 @@ The Docker images for your ships are extensible and customizable. See [example/s
 
 # SEE ALSO
 
+* [chroot](https://en.wikipedia.org/wiki/Chroot) can assist with isolating compiler toolchains on UNIX hosts
 * [factorio](https://github.com/mcandre/factorio) ports Go applications
 * [LLVM](https://llvm.org/) bitcode offers an abstract assembler format for C/C++ code.
 * [osxcross](https://github.com/tpoechtrager/osxcross) provides patches to enable Darwin targets.
