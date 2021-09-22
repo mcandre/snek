@@ -2,9 +2,10 @@ ARTIFACT_DIR=bin
 ARTIFACT_EXT=
 TARGET_FLAG=
 INCLUDE_FLAG=
-PREFIX_FLAG=
-LINK_FLAG=
+PREFIXES_WITH_LIBRARY_PATHS=
 SYSROOT_FLAG=
+STATIC_FLAG=-static
+LINK_FLAG=
 
 ifdef TARGET
 	ifneq (,$(findstring w64,$(TARGET)))
@@ -14,19 +15,23 @@ ifdef TARGET
 		ifneq (,$(findstring darwin,$(TARGET)))
 			CC=$(TARGET)20.4-clang
 			CROSSBUILD=$(TARGET)
+			STATIC_FLAG=
 		else
 			ifneq (,$(findstring bsd,$(TARGET)))
 				SYSROOT_FLAG=--sysroot /usr/local/$(TARGET)
 
-				ifneq (,$(findstring dragonflybsd,$(TARGET)))
-					PREFIX_FLAG=\
-                        -B /usr/local/$(TARGET)/lib \
-                        -B /usr/local/$(TARGET)/usr/lib \
-                        -B /usr/local/$(TARGET)/usr/lib/gcc80
-					LINK_FLAG=\
-                        -L /usr/local/$(TARGET)/lib \
-                        -L /usr/local/$(TARGET)/usr/lib \
-                        -L /usr/local/$(TARGET)/usr/lib/gcc80
+				ifneq (,$(findstring openbsd,$(TARGET)))
+					STATIC_FLAG=
+				else
+					ifneq (,$(findstring dragonflybsd,$(TARGET)))
+						PREFIXES_WITH_LIBRARY_PATHS=\
+							-B /usr/local/$(TARGET)/lib \
+							-B /usr/local/$(TARGET)/usr/lib \
+							-B /usr/local/$(TARGET)/usr/lib/gcc80 \
+							-L /usr/local/$(TARGET)/lib \
+							-L /usr/local/$(TARGET)/usr/lib \
+							-L /usr/local/$(TARGET)/usr/lib/gcc80
+					endif
 				endif
 			endif
 
@@ -51,8 +56,8 @@ $(ARTIFACT): hello.c
 		$(TARGET_FLAG) \
 		$(SYSROOT_FLAG) \
 		$(INCLUDE_FLAG) \
-		$(PREFIX_FLAG) \
-		$(LINK_FLAG) \
+		$(STATIC_FLAG) \
+		$(PREFIXES_WITH_LIBRARY_PATHS) \
 		hello.c
 
 clean:
