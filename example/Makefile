@@ -1,12 +1,15 @@
+EMPTY:=
+SPACE:=$(EMPTY) $(EMPTY)
+
 ARTIFACT_DIR=bin
 ARTIFACT_EXT=
 TARGET_FLAG=
 PREFIXES=
-LIBRARY_PATHS=
 SYSROOT_FLAG=
-STATIC_FLAG=-static
 
 ifdef TARGET
+	STATIC_FLAG=-static
+
 	ifneq (,$(findstring w64,$(TARGET)))
 		CC=$(TARGET)-gcc-9.3-posix
 		ARTIFACT_EXT=.exe
@@ -26,9 +29,8 @@ ifdef TARGET
 						DFLY_PATHS=/usr/local/$(TARGET)/lib \
 							/usr/local/$(TARGET)/usr/lib \
 							/usr/local/$(TARGET)/usr/lib/gcc80
-
-						PREFIXES=$(foreach DFLY_PATH, $(DFLY_PATHS), -B $(DFLY_PATH))
-						LIBRARY_PATHS=$(foreach DFLY_PATH, $(DFLY_PATHS), -L $(DFLY_PATH))
+						PREFIXES=$(foreach DFLY_PATH,$(DFLY_PATHS),-B$(DFLY_PATH))
+						export LIBRARY_PATH:=$(subst $(SPACE),:,$(DFLY_PATHS))
 					endif
 				endif
 			endif
@@ -39,6 +41,7 @@ ifdef TARGET
 	endif
 
 	ARTIFACT_DIR=bin/$(TARGET)
+	export CFLAGS=$(STATIC_FLAG)
 endif
 
 ARTIFACT=$(ARTIFACT_DIR)/hello$(ARTIFACT_EXT)
@@ -51,9 +54,7 @@ $(ARTIFACT): hello.c
 		-o $(ARTIFACT) \
 		$(TARGET_FLAG) \
 		$(SYSROOT_FLAG) \
-		$(STATIC_FLAG) \
 		$(PREFIXES) \
-		$(LIBRARY_PATHS) \
 		hello.c
 
 clean:
