@@ -2,10 +2,10 @@ ARTIFACT_DIR=bin
 ARTIFACT_EXT=
 TARGET_FLAG=
 INCLUDE_FLAG=
-PREFIXES_WITH_LIBRARY_PATHS=
+PREFIXES=
+LIBRARY_PATHS=
 SYSROOT_FLAG=
 STATIC_FLAG=-static
-LINK_FLAG=
 
 ifdef TARGET
 	ifneq (,$(findstring w64,$(TARGET)))
@@ -24,13 +24,12 @@ ifdef TARGET
 					STATIC_FLAG=
 				else
 					ifneq (,$(findstring dragonflybsd,$(TARGET)))
-						PREFIXES_WITH_LIBRARY_PATHS=\
-							-B /usr/local/$(TARGET)/lib \
-							-B /usr/local/$(TARGET)/usr/lib \
-							-B /usr/local/$(TARGET)/usr/lib/gcc80 \
-							-L /usr/local/$(TARGET)/lib \
-							-L /usr/local/$(TARGET)/usr/lib \
-							-L /usr/local/$(TARGET)/usr/lib/gcc80
+						DFLY_PATHS=/usr/local/$(TARGET)/lib \
+							/usr/local/$(TARGET)/usr/lib \
+							/usr/local/$(TARGET)/usr/lib/gcc80
+
+						PREFIXES=$(foreach DFLY_PATH, $(DFLY_PATHS), -B $(DFLY_PATH))
+						LIBRARY_PATHS=$(foreach DFLY_PATH, $(DFLY_PATHS), -L $(DFLY_PATH))
 					endif
 				endif
 			endif
@@ -57,7 +56,8 @@ $(ARTIFACT): hello.c
 		$(SYSROOT_FLAG) \
 		$(INCLUDE_FLAG) \
 		$(STATIC_FLAG) \
-		$(PREFIXES_WITH_LIBRARY_PATHS) \
+		$(PREFIXES) \
+		$(LIBRARY_PATHS) \
 		hello.c
 
 clean:
