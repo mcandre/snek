@@ -1,6 +1,6 @@
 # BUILDTIME REQUIREMENTS
 
-* a [C++](https://www.cplusplus.com/) compiler with C++17 support
+* a [C++](https://www.cplusplus.com/) compiler with C++17 support (e.g. clang 9+, g++ 9+, MSVC 19+)
 * [cmake](https://cmake.org/) 3.4+
 * [conan](https://conan.io/) 1.40+
 * [Docker](https://www.docker.com/) 19+
@@ -23,25 +23,25 @@ macOS users may need additional patches:
 ## macOS
 
 ```console
-$ conan install -s compiler.cppstd=17 -s compiler=apple-clang -s compiler.version=12.0 --build missing .
+$ conan install -s compiler.cppstd=17 -s compiler=apple-clang -s compiler.version=<version> --build missing .
 ```
 
 ## UNIX (clang)
 
 ```console
-$ conan install -s compiler.cppstd=17 -s compiler=clang -s compiler.version=10 --build missing .
+$ conan install -s compiler.cppstd=17 -s compiler=clang -s compiler.version=<version> --build missing .
 ```
 
 ## UNIX (gcc)
 
 ```console
-$ conan install -s compiler.cppstd=17 -s compiler=gcc -s compiler.version=9 --build missing .
+$ conan install -s compiler.cppstd=17 -s compiler=gcc -s compiler.version=<version> --build missing .
 ```
 
 ## Windows
 
 ```console
-$ conan install -s compiler.cppstd=17 -s compiler=msvc -s compiler.version=19.28 -s compiler.runtime=dynamic --build missing .
+$ conan install -s compiler.cppstd=17 -s compiler=msvc -s compiler.version=<version> -s compiler.runtime=dynamic --build missing .
 ```
 
 # BUILD
