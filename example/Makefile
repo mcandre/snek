@@ -1,7 +1,6 @@
 ARTIFACT_DIR=bin
 ARTIFACT_EXT=
 TARGET_FLAG=
-INCLUDE_FLAG=
 PREFIXES=
 LIBRARY_PATHS=
 SYSROOT_FLAG=
@@ -35,9 +34,7 @@ ifdef TARGET
 			endif
 
 			TARGET_FLAG=-target $(TARGET)
-			INCLUDE_FLAG=\
-				-I /usr/$(TARGET)/include \
-				-I /usr/local/$(TARGET)/usr/include
+			export CPATH=/usr/$(TARGET)/include:/usr/local/$(TARGET)/usr/include
 		endif
 	endif
 
@@ -54,7 +51,6 @@ $(ARTIFACT): hello.c
 		-o $(ARTIFACT) \
 		$(TARGET_FLAG) \
 		$(SYSROOT_FLAG) \
-		$(INCLUDE_FLAG) \
 		$(STATIC_FLAG) \
 		$(PREFIXES) \
 		$(LIBRARY_PATHS) \
