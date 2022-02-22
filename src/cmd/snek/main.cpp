@@ -13,7 +13,12 @@
 #include "snek/snek.hpp"
 #include "yaml-cpp/yaml.h"
 
-void Usage(const char *program) {
+/**
+ * @brief Usage emits operational documentation.
+ *
+ * @param program the invoked name of this program
+ */
+void Usage(const std::string_view &program) {
     std::cerr << "Usage: " << program << " [options]" << std::endl
               << std::endl;
 
@@ -22,11 +27,22 @@ void Usage(const char *program) {
               << "-h\tShow usage information" << std::endl;
 }
 
+/**
+ * @brief main is the entrypoint.
+ *
+ * @param argc argument count
+ * @param argv CLI arguments
+ * @returns CLI exit code
+ */
 int main(int argc, const char **argv) {
-    bool debug = false;
+    const std::vector<std::string_view> args{ argv, argv + argc };
 
-    const auto *program = argv[0];
-    const auto args = std::vector<std::string_view>{ argv, argv + argc };
+    if (args.empty()) {
+        std::cerr << "error: missing program name" << std::endl;
+        return EXIT_FAILURE;
+    }
+
+    bool debug = false;
 
     size_t i(1);
     for (; i < args.size(); i++) {
@@ -38,11 +54,11 @@ int main(int argc, const char **argv) {
         }
 
         if (arg == "-h") {
-            Usage(program);
+            Usage(args[0]);
             return EXIT_SUCCESS;
         }
 
-        Usage(program);
+        Usage(args[0]);
         return EXIT_FAILURE;
     }
 
