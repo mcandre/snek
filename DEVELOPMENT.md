@@ -66,11 +66,11 @@ $ rez uninstall
 # LINT
 
 ```console
-$ cmake --build . --target lint
+$ rez lint
 ```
 
 # CLEAN
 
 ```console
-$ ./clean.sh
+$ rez clean
 ```
