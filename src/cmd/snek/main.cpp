@@ -48,14 +48,19 @@ int main(int argc, const char **argv) {
     for (; i < args.size(); i++) {
         const auto arg = args[i];
 
-        if (arg == "-d") {
-            debug = true;
-            continue;
-        }
-
         if (arg == "-h") {
             Usage(args[0]);
             return EXIT_SUCCESS;
+        }
+
+        if (arg == "-v") {
+            std::cout << "snek " << snek::Version << std::endl;
+            return EXIT_SUCCESS;
+        }
+
+        if (arg == "-d") {
+            debug = true;
+            continue;
         }
 
         Usage(args[0]);
@@ -70,7 +75,8 @@ int main(int argc, const char **argv) {
 
             YAML::Emitter yy;
             yy << config;
-            std::cerr << yy.c_str() << std::endl << std::endl;
+            std::cerr << yy.c_str() << std::endl
+                      << std::endl;
         }
 
         config.Launch();

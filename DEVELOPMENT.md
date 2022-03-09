@@ -12,6 +12,7 @@
 * [clang-tidy](https://clang.llvm.org/extra/clang-tidy/) (UNIX)
 * [file](https://linux.die.net/man/1/file)
 * [llvm](https://llvm.org/) (UNIX)
+* [rez](https://github.com/mcandre/rez)
 * [tree](https://linux.die.net/man/1/tree)
 
 macOS users may need additional patches:
@@ -47,20 +48,19 @@ $ conan install -s compiler.cppstd=17 -s compiler=msvc -s compiler.version=<vers
 # BUILD
 
 ```console
-$ cmake .
-$ cmake --build . --config Release
+$ rez
 ```
 
 # INSTALL
 
 ```console
-$ cmake --build . --target install
+$ rez install
 ```
 
 # UNINSTALL
 
 ```console
-$ cmake --build . --target uninstall
+$ rez uninstall
 ```
 
 # LINT

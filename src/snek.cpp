@@ -14,7 +14,7 @@
 #include "yaml-cpp/yaml.h"
 
 namespace YAML {
-template<>
+template <>
 struct convert<snek::Ship> {
     static bool decode(const Node &n, snek::Ship &o) {
         if (!n.IsMap()) {
@@ -52,7 +52,7 @@ struct convert<snek::Ship> {
     }
 };
 
-template<>
+template <>
 struct convert<snek::Config> {
     static bool decode(const Node &n, snek::Config &o) {
         if (!n.IsMap()) {
