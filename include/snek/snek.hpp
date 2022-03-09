@@ -11,7 +11,7 @@
 #include "yaml-cpp/yaml.h"
 
 namespace snek {
-constexpr auto Version = "0.0.1";
+constexpr auto Version = "0.0.2";
 
 constexpr auto ConfigFile = "snek.yaml";
 
