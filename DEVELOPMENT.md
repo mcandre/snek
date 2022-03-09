@@ -12,7 +12,7 @@
 * [clang-tidy](https://clang.llvm.org/extra/clang-tidy/) (UNIX)
 * [file](https://linux.die.net/man/1/file)
 * [llvm](https://llvm.org/) (UNIX)
-* [rez](https://github.com/mcandre/rez)
+* [rez](https://github.com/mcandre/rez) v0.0.9
 * [tree](https://linux.die.net/man/1/tree)
 
 macOS users may need additional patches:
