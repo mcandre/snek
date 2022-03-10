@@ -170,5 +170,3 @@ add_custom_target(publish
                   publish-ubuntu-other
                   publish-ubuntu-x86
 )
-
-add_custom_target(clean-cmake COMMAND sh clean-cmake.sh)
