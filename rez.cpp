@@ -89,6 +89,7 @@ static int clean_cmake() {
     std::filesystem::remove_all("CMakeCache.txt");
     std::filesystem::remove_all("cmake_install.cmake");
     std::filesystem::remove_all("CTestTestfile.cmake");
+    std::filesystem::remove_all("Testing");
     return EXIT_SUCCESS;
 }
 
