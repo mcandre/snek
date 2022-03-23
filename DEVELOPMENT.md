@@ -48,13 +48,13 @@ $ conan install -s compiler.cppstd=17 -s compiler=msvc -s compiler.version=<vers
 # BUILD
 
 ```console
-$ rez
+$ rez build
 ```
 
 # INSTALL
 
 ```console
-$ rez install
+$ rez [install]
 ```
 
 # UNINSTALL
