@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM debian:bookworm
 ENV DEBIAN_FRONTEND=noninteractive
 ENV SYSROOT=/usr/local/x86_64-unknown-openbsd
 RUN apt-get update && \

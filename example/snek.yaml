@@ -7,9 +7,6 @@ ships:
   - "x86_64h-apple-darwin"
   - "arm64-apple-darwin"
   - "arm64e-apple-darwin"
-- image: "mcandre/snek:dragonflybsd"
-  targets:
-  - "x86_64-unknown-dragonflybsd"
 - image: "mcandre/snek:freebsd"
   targets:
   - "x86_64-unknown-freebsd"

@@ -1,8 +1,10 @@
-FROM mcandre/apple-clang
+FROM debian:bookworm
 ENV PATH /usr/local/osxcross/bin:${PATH}
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         ca-certificates \
+        clang \
         cmake \
         file \
         git \
@@ -15,6 +17,7 @@ RUN apt-get update && \
         make \
         ninja-build \
         patch \
+        python3 \
         wget \
         xz-utils \
         zlib1g-dev && \

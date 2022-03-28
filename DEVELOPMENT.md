@@ -3,7 +3,8 @@
 * a [C++](https://www.cplusplus.com/) compiler with C++17 support (e.g. clang 9+, g++ 9+, MSVC 19+)
 * [cmake](https://cmake.org/) 3.4+
 * [conan](https://conan.io/) 1.40+
-* [Docker](https://www.docker.com/) 19+
+* [Docker](https://www.docker.com/) 20.10.12+
+* [tug](https://github.com/mcandre/tug) 0.0.2
 
 ## Recommended
 
@@ -45,10 +46,22 @@ $ conan install -s compiler.cppstd=17 -s compiler=gcc -s compiler.version=<versi
 $ conan install -s compiler.cppstd=17 -s compiler=msvc -s compiler.version=<version> -s compiler.runtime=dynamic --build missing .
 ```
 
-# BUILD
+# BUILD SNEK
 
 ```console
 $ rez build
+```
+
+# BUILD SNEK DOCKER IMAGES
+
+```console
+$ cmake . && cmake --build . --target docker-build
+```
+
+# PUBLISH SNEK DOCKER IMAGES
+
+```console
+$ cmake . && cmake --build . --target publish
 ```
 
 # INSTALL

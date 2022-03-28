@@ -37,52 +37,7 @@ bin
 │   └── hello
 ├── arm-linux-gnueabihf
 │   └── hello
-├── arm64-apple-darwin
-│   └── hello
-├── arm64e-apple-darwin
-│   └── hello
-├── i686-pc-linux-gnu
-│   └── hello
-├── i686-w64-mingw32
-│   └── hello.exe
-├── mips-linux-gnu
-│   └── hello
-├── mips64-linux-gnuabi64
-│   └── hello
-├── mips64el-linux-gnuabi64
-│   └── hello
-├── mipsel-linux-gnu
-│   └── hello
-├── powerpc-linux-gnu
-│   └── hello
-├── powerpc64-linux-gnu
-│   └── hello
-├── powerpc64le-linux-gnu
-│   └── hello
-├── riscv64-linux-gnu
-│   └── hello
-├── s390x-linux-gnu
-│   └── hello
-├── sparc64-linux-gnu
-│   └── hello
-├── x86_64-alpine-linux-musl
-│   └── hello
-├── x86_64-apple-darwin
-│   └── hello
-├── x86_64-pc-linux-gnu
-│   └── hello
-├── x86_64-unknown-dragonflybsd
-│   └── hello
-├── x86_64-unknown-freebsd
-│   └── hello
-├── x86_64-unknown-netbsd
-│   └── hello
-├── x86_64-unknown-openbsd
-│   └── hello
-├── x86_64-w64-mingw32
-│   └── hello.exe
-└── x86_64h-apple-darwin
-    └── hello
+...
 ```
 
 # LICENSE
@@ -91,12 +46,16 @@ FreeBSD
 
 # RUNTIME REQUIREMENTS
 
-* [Docker](https://www.docker.com/) 19+
+* [Docker](https://www.docker.com/) 20.10.12+
 
 ## Recommended
 
 * [file](https://linux.die.net/man/1/file)
 * [tree](https://linux.die.net/man/1/tree)
+* [tug](https://github.com/mcandre/tug) 0.0.2
+* Apply `DOCKER_DEFAULT_PLATFORM` = `linux/amd64` environment variable
+
+Regardless of target environment, prefer an amd64 compatible build environment. This improves the practical reliability of the entire build workflow. In time, we may revisit this recommendation. For now, an amd64 compatible host affords better chances for successful cross-compilation than trying, for example, to build `mips64` targets from `s390x` hosts.
 
 # CONTRIBUTING
 
@@ -120,7 +79,7 @@ The total size of the image collection is only bounded by your build host's disk
 
 The Docker images for your ships are extensible and customizable. See [example/snek.yaml](example/snek.yaml) for more detail.
 
-# SEE ALSO
+# CREDITS
 
 * [chroot](https://en.wikipedia.org/wiki/Chroot) can assist with isolating compiler toolchains on UNIX hosts
 * [distcc](https://distcc.github.io/) can distribute compilations to remote servers

@@ -11,7 +11,7 @@ ifdef TARGET
 	STATIC_FLAG=-static
 
 	ifneq (,$(findstring w64,$(TARGET)))
-		CC=$(TARGET)-gcc-9.3-posix
+		CC=$(TARGET)-gcc-10-posix
 		ARTIFACT_EXT=.exe
 	else
 		ifneq (,$(findstring darwin,$(TARGET)))
@@ -24,14 +24,6 @@ ifdef TARGET
 
 				ifneq (,$(findstring openbsd,$(TARGET)))
 					STATIC_FLAG=
-				else
-					ifneq (,$(findstring dragonflybsd,$(TARGET)))
-						DFLY_PATHS=/usr/local/$(TARGET)/lib \
-							/usr/local/$(TARGET)/usr/lib \
-							/usr/local/$(TARGET)/usr/lib/gcc80
-						PREFIXES=$(foreach DFLY_PATH,$(DFLY_PATHS),-B$(DFLY_PATH))
-						export LIBRARY_PATH:=$(subst $(SPACE),:,$(DFLY_PATHS))
-					endif
 				endif
 			endif
 
