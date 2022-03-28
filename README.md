@@ -55,7 +55,9 @@ FreeBSD
 * [tug](https://github.com/mcandre/tug) 0.0.2
 * Apply `DOCKER_DEFAULT_PLATFORM` = `linux/amd64` environment variable
 
-Regardless of target environment, prefer an amd64 compatible build environment. This improves the practical reliability of the entire build workflow. In time, we may revisit this recommendation. For now, an amd64 compatible host affords better chances for successful cross-compilation than trying, for example, to build `mips64` targets from `s390x` hosts.
+Regardless of target application environment, we encourage an amd64 compatible build environment. This tends to improve build reliability.
+
+In time, we may revisit this recommendation. For now, an amd64 compatible host affords better chances for successful cross-compilation than trying, for example, to build `mips64` targets from `s390x` hosts.
 
 # CONTRIBUTING
 
