@@ -17,6 +17,7 @@ ifdef TARGET
 		ifneq (,$(findstring darwin,$(TARGET)))
 			CC=$(TARGET)20.4-clang
 			CROSSBUILD=$(TARGET)
+            CPPFLAGS=-mmacosx-version-min=10.15
 			STATIC_FLAG=
 		else
 			ifneq (,$(findstring bsd,$(TARGET)))
@@ -33,7 +34,7 @@ ifdef TARGET
 	endif
 
 	ARTIFACT_DIR=bin/$(TARGET)
-	export CFLAGS=$(STATIC_FLAG)
+	export CFLAGS=$(CPPFLAGS) $(STATIC_FLAG)
 endif
 
 ARTIFACT=$(ARTIFACT_DIR)/hello$(ARTIFACT_EXT)
