@@ -4,11 +4,45 @@
 #include <functional>
 #include <iostream>
 #include <string_view>
+#include <sstream>
 #include <map>
 #include <unordered_set>
 #include <vector>
 
 using std::literals::string_view_literals::operator""sv;
+
+std::optional<std::string> GetEnvironmentVariable(const std::string &key) {
+    char *transient{ nullptr };
+
+#if defined(_WIN32)
+    size_t len{ 0 };
+    errno = 0;
+    _dupenv_s(&transient, &len, key.c_str());
+
+    if (errno != 0) {
+        std::cerr << "error querying environment variable " << key << " errno: " << errno << std::endl;
+        free(transient);
+        return std::nullopt;
+    }
+
+    if (transient != nullptr) {
+        const std::string s{ transient };
+        free(transient);
+        return std::optional(s);
+    }
+
+    free(transient);
+#else
+    transient = getenv(key.c_str());
+
+    if (transient != nullptr) {
+        const std::string s{ transient };
+        return std::optional(s);
+    }
+#endif
+
+    return std::nullopt;
+}
 
 static int cmake_init() {
     return system("cmake .");
@@ -32,6 +66,37 @@ static int build() {
     }
 
     return system("cmake --build . --config Release");
+}
+
+static int audit() {
+#if defined(_WIN32)
+    const std::string home_env_var_name{"USERPROFILE"};
+#else
+    const std::string home_env_var_name{"HOME"};
+#endif
+
+    const std::optional<std::string> home_opt{GetEnvironmentVariable(home_env_var_name)};
+
+    if (!home_opt.has_value()) {
+        std::cerr << "error missing environment variable: ";
+        std::cerr << home_env_var_name;
+        return EXIT_FAILURE;
+    }
+
+    const std::filesystem::path home{*home_opt};
+    const std::filesystem::path conan_data_dir{home / ".conan" / "data"};
+    std::stringstream command;
+    command << "snyk test --unmanaged --trust-policies"
+        << " "
+        << conan_data_dir;
+
+    const int status{system(command.str().c_str())};
+
+    if (status) {
+        return EXIT_FAILURE;
+    }
+
+    return EXIT_SUCCESS;
 }
 
 static int install() {
@@ -99,7 +164,7 @@ static int clean_conan() {
     std::filesystem::remove_all("conan.lock");
     std::filesystem::remove_all("conanbuildinfo.txt");
     std::filesystem::remove_all("conaninfo.txt");
-    return EXIT_SUCCESS;
+    return system("conan remove -f \"*\"");
 }
 
 static int clean() {
@@ -129,6 +194,7 @@ int main(int argc, const char **argv) {
         { "clean_conan"sv, clean_conan },
         { "clean_msvc"sv, clean_msvc },
         { "cmake_init"sv, cmake_init },
+        { "audit"sv, audit },
         { "build"sv, build },
         { "lint"sv, lint},
         { "install"sv, install },

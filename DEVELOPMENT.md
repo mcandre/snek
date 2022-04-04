@@ -4,7 +4,6 @@
 * [cmake](https://cmake.org/) 3.4+
 * [conan](https://conan.io/) 1.40+
 * [Docker](https://www.docker.com/) 20.10.12+
-* [tug](https://github.com/mcandre/tug) 0.0.2
 
 ## Recommended
 
@@ -13,8 +12,10 @@
 * [clang-tidy](https://clang.llvm.org/extra/clang-tidy/) (UNIX)
 * [file](https://linux.die.net/man/1/file)
 * [llvm](https://llvm.org/) (UNIX)
-* [rez](https://github.com/mcandre/rez) v0.0.9
+* [rez](https://github.com/mcandre/rez) 0.0.11
+* [snyk](https://www.npmjs.com/package/snyk) 1.893.0 (`npm install -g snyk@1.893.0`)
 * [tree](https://linux.die.net/man/1/tree)
+* [tug](https://github.com/mcandre/tug) 0.0.2
 
 macOS users may need additional patches:
 
@@ -44,6 +45,12 @@ $ conan install -s compiler.cppstd=17 -s compiler=gcc -s compiler.version=<versi
 
 ```console
 $ conan install -s compiler.cppstd=17 -s compiler=msvc -s compiler.version=<version> -s compiler.runtime=dynamic --build missing .
+```
+
+# SECURITY AUDIT
+
+```console
+$ rez audit
 ```
 
 # BUILD SNEK

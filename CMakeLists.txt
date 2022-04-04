@@ -38,7 +38,7 @@ endif()
 include_directories(include ${CONAN_INCLUDE_DIRS})
 
 add_executable(snek src/cmd/snek/main.cpp src/snek.cpp)
-target_link_libraries(snek CONAN_PKG::yaml-cpp)
+target_link_libraries(snek CONAN_PKG::rapidyaml)
 
 if(MSVC)
     set(HOME "$ENV{HOMEDRIVE}$ENV{HOMEPATH}")

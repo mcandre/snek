@@ -5,13 +5,13 @@
 #include <cstdlib>
 
 #include <iostream>
+#include <sstream>
 #include <stdexcept>
 #include <string>
 #include <string_view>
 #include <vector>
 
 #include "snek/snek.hpp"
-#include "yaml-cpp/yaml.h"
 
 /**
  * @brief Usage emits operational documentation.
@@ -42,11 +42,11 @@ int main(int argc, const char **argv) {
         return EXIT_FAILURE;
     }
 
-    bool debug = false;
+    bool debug{false};
 
     size_t i(1);
     for (; i < args.size(); i++) {
-        const auto arg = args[i];
+        const std::string_view arg{args[i]};
 
         if (arg == "-h") {
             Usage(args[0]);
@@ -68,14 +68,14 @@ int main(int argc, const char **argv) {
     }
 
     try {
-        auto config = snek::Load();
+        snek::Config config{snek::Load()};
 
         if (debug) {
             config.debug = debug;
 
-            YAML::Emitter yy;
-            yy << config;
-            std::cerr << yy.c_str() << std::endl
+            std::stringstream ss;
+            ss << config;
+            std::cerr << ss.str() << std::endl
                       << std::endl;
         }
 
@@ -83,7 +83,6 @@ int main(int argc, const char **argv) {
         return EXIT_SUCCESS;
     } catch (const std::exception &err) {
         std::cerr << err.what() << std::endl;
+        return EXIT_FAILURE;
     }
-
-    return EXIT_FAILURE;
 }
