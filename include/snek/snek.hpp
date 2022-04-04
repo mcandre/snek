@@ -12,7 +12,7 @@
 #include "ryml.hpp"
 
 namespace snek {
-constexpr auto Version{"0.0.2"};
+constexpr auto Version{"0.0.3"};
 
 constexpr auto ConfigFile{"snek.yaml"};
 
