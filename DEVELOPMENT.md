@@ -7,9 +7,11 @@
 
 ## Recommended
 
+* [ASDF](https://asdf-vm.com/) 0.10
 * [clang](https://clang.llvm.org/) (UNIX) or [MSVC](https://gist.github.com/mcandre/5ceb67ad44f6b974d33bcddedcb16e89) (Windows)
 * [clang-format](https://clang.llvm.org/docs/ClangFormat.html) (UNIX)
 * [clang-tidy](https://clang.llvm.org/extra/clang-tidy/) (UNIX)
+* [direnv](https://direnv.net/) 2
 * [file](https://linux.die.net/man/1/file)
 * [llvm](https://llvm.org/) (UNIX)
 * [rez](https://github.com/mcandre/rez) 0.0.11
