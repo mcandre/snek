@@ -15,7 +15,7 @@
 * [file](https://linux.die.net/man/1/file)
 * [llvm](https://llvm.org/) (UNIX)
 * [rez](https://github.com/mcandre/rez) 0.0.11
-* [snyk](https://www.npmjs.com/package/snyk) 1.893.0 (`npm install -g snyk@1.893.0`)
+* [snyk](https://www.npmjs.com/package/snyk) 1.996.0 (`npm install -g snyk@1.996.0`)
 * [tree](https://linux.die.net/man/1/tree)
 * [tug](https://github.com/mcandre/tug) 0.0.2
 
