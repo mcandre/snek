@@ -1,5 +1,4 @@
-EMPTY:=
-SPACE:=$(EMPTY) $(EMPTY)
+.PHONY: all lint test clean
 
 ARTIFACT_DIR=bin
 ARTIFACT_EXT=
@@ -41,6 +40,20 @@ ARTIFACT=$(ARTIFACT_DIR)/hello$(ARTIFACT_EXT)
 
 all: $(ARTIFACT)
 
+checkmake:
+	@find . \
+		-type f \
+		\( \
+			-iname Makefile -o \
+			-iname GNUmakefile -o \
+			-iname '*.mk' -o \
+			-iname '*.make' \
+		\) \
+		-print0 | \
+		xargs -0 -n 1 checkmake
+
+lint: checkmake
+
 $(ARTIFACT): hello.c
 	@mkdir -p $(ARTIFACT_DIR)
 	@$(CC) \
@@ -49,6 +62,9 @@ $(ARTIFACT): hello.c
 		$(SYSROOT_FLAG) \
 		$(PREFIXES) \
 		hello.c
+
+test:
+	ls $(ARTIFACT_DIR)
 
 clean:
 	-rm -rf bin

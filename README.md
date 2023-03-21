@@ -50,6 +50,9 @@ FreeBSD
 
 ## Recommended
 
+* [checkmake](https://github.com/mrtazz/checkmake)
+* [GNU findutils](https://www.gnu.org/software/findutils/)
+* [GNU make](https://www.gnu.org/software/make/)
 * [file](https://linux.die.net/man/1/file)
 * [tree](https://linux.die.net/man/1/tree)
 * [tug](https://github.com/mcandre/tug) 0.0.2
