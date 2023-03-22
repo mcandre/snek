@@ -95,4 +95,4 @@ The Docker images for your ships are extensible and customizable. See [example/s
 * [trust](https://github.com/japaric/trust) ports Rust applications
 * [tug](https://github.com/mcandre/tug) automates multi-platform Docker image builds.
 * [WASM](https://webassembly.org/) provides a portable interface for C/C++ code.
-* [xgo](https://github.com/karalabe/xgo) ports cgo applications
+* [xgo](https://github.com/crazy-max/xgo) ports cgo applications
