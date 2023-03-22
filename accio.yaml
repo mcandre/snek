@@ -1,0 +1,4 @@
+---
+packages:
+- name: "github.com/mcandre/tug/cmd/tug"
+  version: "v0.0.2"

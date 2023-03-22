@@ -68,7 +68,7 @@ static int build() {
     return system("cmake --build . --config Release");
 }
 
-static int audit() {
+static int snyk() {
 #if defined(_WIN32)
     const std::string home_env_var_name{"USERPROFILE"};
 #else
@@ -97,6 +97,20 @@ static int audit() {
     }
 
     return EXIT_SUCCESS;
+}
+
+static int safety() {
+    return system("safety check");
+}
+
+static int audit() {
+    const int status{ snyk() };
+
+    if (status != EXIT_SUCCESS) {
+        return status;
+    }
+
+    return safety();
 }
 
 static int install() {
@@ -194,6 +208,8 @@ int main(int argc, const char **argv) {
         { "clean_conan"sv, clean_conan },
         { "clean_msvc"sv, clean_msvc },
         { "cmake_init"sv, cmake_init },
+        { "snyk"sv, snyk },
+        { "safety"sv, safety },
         { "audit"sv, audit },
         { "build"sv, build },
         { "lint"sv, lint},
