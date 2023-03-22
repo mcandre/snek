@@ -1,6 +1,6 @@
 # BUILDTIME REQUIREMENTS
 
-* [Go](https://go.dev/) 1.19+ with `go install github.com/mcandre/accio@v0.0.3` and `accio -install`
+* [Go](https://go.dev/) 1.19+ with `go install github.com/mcandre/accio/cmd/accio@v0.0.3` and `accio -install`
 * a [C++](https://www.cplusplus.com/) compiler with C++17 support (e.g. clang 9+, g++ 9+, MSVC 19+)
 * [cmake](https://cmake.org/) 3.4+
 * [Docker](https://www.docker.com/) 20.10.12+
