@@ -1,9 +1,9 @@
 # BUILDTIME REQUIREMENTS
 
-* [Go](https://go.dev/) 1.19+ with `go install github.com/mcandre/accio/cmd/accio@v0.0.3` and `accio -install`
 * a [C++](https://www.cplusplus.com/) compiler with C++17 support (e.g. clang 9+, g++ 9+, MSVC 19+)
 * [cmake](https://cmake.org/) 3.4+
 * [Docker](https://www.docker.com/) 20.10.12+
+* [Go](https://go.dev/) 1.20.2+ with `go install github.com/mcandre/accio/cmd/accio@v0.0.4` and `accio -install`
 * [Node.js](https://www.npmjs.com/) 16.14.2+ with `npm install -g snyk@1.996.0`
 * [Python](https://www.python.org/) 3.11.2+ with `pip[3] install --upgrade pip setuptools` and `pip[3] install -r requirements-dev.txt`
 
