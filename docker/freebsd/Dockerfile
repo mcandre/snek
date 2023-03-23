@@ -3,6 +3,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV SYSROOT=/usr/local/x86_64-unknown-freebsd
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
+        awk \
         ca-certificates \
         clang \
         cmake \

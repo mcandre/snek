@@ -40,20 +40,6 @@ ARTIFACT=$(ARTIFACT_DIR)/hello$(ARTIFACT_EXT)
 
 all: $(ARTIFACT)
 
-checkmake:
-	@find . \
-		-type f \
-		\( \
-			-iname Makefile -o \
-			-iname GNUmakefile -o \
-			-iname '*.mk' -o \
-			-iname '*.make' \
-		\) \
-		-print0 | \
-		xargs -0 -n 1 checkmake
-
-lint: checkmake
-
 $(ARTIFACT): hello.c
 	@mkdir -p $(ARTIFACT_DIR)
 	@$(CC) \
