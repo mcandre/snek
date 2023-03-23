@@ -12,11 +12,10 @@
 * [ASDF](https://asdf-vm.com/) 0.10
 * [direnv](https://direnv.net/) 2
 * [clang](https://clang.llvm.org/) (UNIX) or [MSVC](https://gist.github.com/mcandre/5ceb67ad44f6b974d33bcddedcb16e89) (Windows)
-* [clang-format](https://clang.llvm.org/docs/ClangFormat.html) (UNIX)
-* [clang-tidy](https://clang.llvm.org/extra/clang-tidy/) (UNIX)
-* [file](https://linux.die.net/man/1/file)
-* [llvm](https://llvm.org/) (UNIX)
+* [clang-format](https://clang.llvm.org/docs/ClangFormat.html)
+* [clang-tidy](https://clang.llvm.org/extra/clang-tidy/)
 * [rez](https://github.com/mcandre/rez) 0.0.11
+* [file](https://linux.die.net/man/1/file)
 * [tree](https://linux.die.net/man/1/tree)
 
 macOS users may need additional patches:

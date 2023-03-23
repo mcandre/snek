@@ -42,11 +42,11 @@ int main(int argc, const char **argv) {
         return EXIT_FAILURE;
     }
 
-    bool debug{false};
+    bool debug{ false };
 
     size_t i(1);
     for (; i < args.size(); i++) {
-        const std::string_view arg{args[i]};
+        const std::string_view arg{ args[i] };
 
         if (arg == "-h") {
             Usage(args[0]);
@@ -68,7 +68,7 @@ int main(int argc, const char **argv) {
     }
 
     try {
-        snek::Config config{snek::Load()};
+        snek::Config config{ snek::Load() };
 
         if (debug) {
             config.debug = debug;

@@ -8,38 +8,38 @@
 #include <string>
 #include <vector>
 
-#include "ryml_std.hpp"
 #include "ryml.hpp"
+#include "ryml_std.hpp"
 
 namespace snek {
-constexpr auto Version{"0.0.3"};
+constexpr auto Version{ "0.0.3" };
 
-constexpr auto ConfigFile{"snek.yaml"};
+constexpr auto ConfigFile{ "snek.yaml" };
 
-constexpr auto BinaryCacheDir{"bin"};
+constexpr auto BinaryCacheDir{ "bin" };
 
 struct Ship {
-    std::string image{""};
+    std::string image{ "" };
 
     std::vector<std::string> targets;
 
     bool Parse(const ryml::NodeRef &root);
 
-    void Format(ryml::NodeRef& root) const;
+    void Format(ryml::NodeRef &root) const; // NOLINT(runtime/references)
 };
 
 std::ostream &operator<<(std::ostream &out, const Ship &o);
 
 struct Config {
-    bool debug{false};
+    bool debug{ false };
 
-    std::string build_command{""};
+    std::string build_command{ "" };
 
     std::vector<Ship> ships;
 
     bool Parse(const ryml::NodeRef &root);
 
-    void Format(ryml::NodeRef& root) const;
+    void Format(ryml::NodeRef &root) const; // NOLINT(runtime/references)
 
     void LaunchShip(const Ship &ship, const std::string &cwd) const;
 
