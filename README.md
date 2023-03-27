@@ -84,12 +84,12 @@ The Docker images for your ships are extensible and customizable. See [example/s
 # CREDITS
 
 * [chroot](https://en.wikipedia.org/wiki/Chroot) can assist with isolating compiler toolchains on UNIX hosts
+* [cross](https://github.com/cross-rs/cross) ports Rust applications
 * [distcc](https://distcc.github.io/) can distribute compilations to remote servers
 * [factorio](https://github.com/mcandre/factorio) ports Go applications
 * [LLVM](https://llvm.org/) bitcode offers an abstract assembler format for C/C++ code.
 * [osxcross](https://github.com/tpoechtrager/osxcross) provides patches to enable Darwin targets.
 * [tonixxx](https://github.com/mcandre/tonixxx) ports applications via Virtual Machines
-* [trust](https://github.com/japaric/trust) ports Rust applications
 * [tug](https://github.com/mcandre/tug) automates multi-platform Docker image builds.
 * [WASM](https://webassembly.org/) provides a portable interface for C/C++ code.
 * [xgo](https://github.com/crazy-max/xgo) ports cgo applications
