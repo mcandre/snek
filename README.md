@@ -84,7 +84,7 @@ The Docker images for your ships are extensible and customizable. See [example/s
 # CREDITS
 
 * [chroot](https://en.wikipedia.org/wiki/Chroot) can assist with isolating compiler toolchains on UNIX hosts
-* [cross](https://github.com/cross-rs/cross) ports Rust applications
+* [crit](https://github.com/mcandre/crit) ports Rust applications
 * [distcc](https://distcc.github.io/) can distribute compilations to remote servers
 * [factorio](https://github.com/mcandre/factorio) ports Go applications
 * [LLVM](https://llvm.org/) bitcode offers an abstract assembler format for C/C++ code.
