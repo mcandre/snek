@@ -62,14 +62,13 @@ endif()
 add_custom_target(cppcheck COMMAND cppcheck -q --force --enable=all --inline-suppr --suppressions-list=suppressions.cfg --error-exitcode=1 -U__SANITIZE_ADDRESS__ -I include src)
 add_custom_target(cpplint COMMAND sail include src | xargs -n 1 cpplint)
 add_custom_target(clang-format COMMAND sail include src | xargs -n 1 clang-format -i)
-add_custom_target(checkmake COMMAND checkmake example/Makefile)
 add_custom_target(yamllint COMMAND yamllint -s .yamllint .)
 
 # Missing linter ports
 if(MSVC)
-    add_custom_target(lint DEPENDS cppcheck checkmake yamllint)
+    add_custom_target(lint DEPENDS cppcheck yamllint)
 else()
-    add_custom_target(lint DEPENDS cppcheck cpplint clang-format checkmake yamllint)
+    add_custom_target(lint DEPENDS cppcheck cpplint clang-format yamllint)
 endif()
 
 add_custom_target(doc COMMAND doxygen Doxyfile)

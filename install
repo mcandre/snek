@@ -3,7 +3,6 @@ unset IFS
 set -euf
 
 go install github.com/mcandre/tug/cmd/tug@v0.0.4
-go install github.com/mrtazz/checkmake/...@0.2.1
 go mod tidy
 
 npm install -g snyk@1.1140.0
