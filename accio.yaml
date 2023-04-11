@@ -1,6 +1,0 @@
----
-packages:
-- name: "github.com/mcandre/tug/cmd/tug"
-  version: "v0.0.4"
-- name: "github.com/mrtazz/checkmake/..."
-  version: "0.2.1"
