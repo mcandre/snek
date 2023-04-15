@@ -6,6 +6,13 @@ project(snek)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(TARGETS)
 
+set_property(
+    DIRECTORY .
+    APPEND PROPERTY
+    ADDITIONAL_CLEAN_FILES
+    "${EXECUTABLE_OUTPUT_PATH};Makefile;build.ninja;.ninja_deps;CMakeCache.txt;cmake_install.cmake;conanbuildinfo.cmake;conanbuildinfo.txt;conaninfo.txt;graph_info.json;conan.lock"
+)
+
 if(MSVC)
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${EXECUTABLE_OUTPUT_PATH}")
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG "${EXECUTABLE_OUTPUT_PATH}")
@@ -36,7 +43,6 @@ else()
 endif()
 
 include_directories(include ${CONAN_INCLUDE_DIRS})
-
 add_executable(snek src/cmd/snek/main.cpp src/snek.cpp)
 target_link_libraries(snek CONAN_PKG::rapidyaml)
 
@@ -58,6 +64,8 @@ if(MSVC)
 else()
     add_custom_target(uninstall COMMAND rm -f "${INSTALL_FILE}")
 endif()
+
+add_custom_target(audit COMMAND snyk test)
 
 add_custom_target(cppcheck COMMAND cppcheck -q --force --enable=all --inline-suppr --suppressions-list=suppressions.cfg --error-exitcode=1 -U__SANITIZE_ADDRESS__ -I include src)
 add_custom_target(cpplint COMMAND cpplint --recursive include src)

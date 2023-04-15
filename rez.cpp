@@ -104,13 +104,7 @@ static int safety() {
 }
 
 static int audit() {
-    const int status{ snyk() };
-
-    if (status != EXIT_SUCCESS) {
-        return status;
-    }
-
-    return safety();
+    return system("cmake --build . --target audit");
 }
 
 static int install() {
@@ -164,6 +158,9 @@ static int clean_msvc() {
 static int clean_cmake() {
     std::filesystem::remove_all("install_manifest.txt");
     std::filesystem::remove_all("Makefile");
+    std::filesystem::remove_all("build.ninja");
+    std::filesystem::remove_all(".ninja_deps");
+    std::filesystem::remove_all(".ninja_log");
     std::filesystem::remove_all("CMakeFiles");
     std::filesystem::remove_all("CMakeCache.txt");
     std::filesystem::remove_all("cmake_install.cmake");
