@@ -50,6 +50,8 @@ FreeBSD
 
 ## Recommended
 
+* [cmake](https://cmake.org/) 3.4+
+* [make](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/make.html) or [ninja](https://ninja-build.org/)
 * [file](https://linux.die.net/man/1/file)
 * [tree](https://linux.die.net/man/1/tree)
 * [tug](https://github.com/mcandre/tug)
