@@ -63,12 +63,13 @@ add_custom_target(cppcheck COMMAND cppcheck -q --force --enable=all --inline-sup
 add_custom_target(cpplint COMMAND cpplint --recursive include src)
 add_custom_target(clang-format COMMAND sail include src | xargs -n 1 clang-format -i)
 add_custom_target(yamllint COMMAND yamllint -s .yamllint .)
+add_custom_target(unmake COMMAND unmake install.mk)
 
 # Missing linter ports
 if(MSVC)
-    add_custom_target(lint DEPENDS cppcheck yamllint)
+    add_custom_target(lint DEPENDS cppcheck yamllint unmake)
 else()
-    add_custom_target(lint DEPENDS cppcheck cpplint clang-format yamllint)
+    add_custom_target(lint DEPENDS cppcheck cpplint clang-format yamllint unmake)
 endif()
 
 add_custom_target(doc COMMAND doxygen Doxyfile)
