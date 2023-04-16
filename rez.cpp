@@ -157,6 +157,12 @@ static int clean_msvc() {
     return EXIT_SUCCESS;
 }
 
+static int clean_doc() {
+    std::filesystem::remove_all("html");
+    std::filesystem::remove_all("latex");
+    return EXIT_SUCCESS;
+}
+
 static int clean_cmake() {
     std::filesystem::remove_all("install_manifest.txt");
     std::filesystem::remove_all("Makefile");
@@ -183,6 +189,7 @@ static int clean_conan() {
 }
 
 static int clean() {
+    clean_doc();
     clean_bin();
     clean_msvc();
     clean_cmake();
@@ -204,6 +211,7 @@ int main(int argc, const char **argv) {
 
     const std::map<std::string_view, std::function<int()>> tasks{
         { "clean"sv, clean },
+        { "clean_doc"sv, clean_doc },
         { "clean_bin"sv, clean_bin },
         { "clean_cmake"sv, clean_cmake },
         { "clean_conan"sv, clean_conan },
