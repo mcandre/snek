@@ -2,7 +2,6 @@
 bin/
 html/
 latex/
-build.ninja
 debug/
 debug.log
 CTestTestfile.cmake
@@ -15,6 +14,9 @@ leak-*
 *.vcxproj.filters
 *.sln
 *.dir
+build.ninja
+.ninja_deps
+.ninja_log
 # Created by https://www.toptal.com/developers/gitignore/api/c,c++,cmake,VisualStudio,conan,ninja
 # Edit at https://www.toptal.com/developers/gitignore?templates=c,c++,cmake,VisualStudio,conan,ninja
 
