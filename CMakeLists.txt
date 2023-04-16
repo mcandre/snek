@@ -10,7 +10,7 @@ set_property(
     DIRECTORY .
     APPEND PROPERTY
     ADDITIONAL_CLEAN_FILES
-    "${EXECUTABLE_OUTPUT_PATH};Makefile;build.ninja;.ninja_deps;CMakeCache.txt;cmake_install.cmake;conanbuildinfo.cmake;conanbuildinfo.txt;conaninfo.txt;graph_info.json;conan.lock"
+    "${EXECUTABLE_OUTPUT_PATH};debug;debug.log;Makefile;build.ninja;.ninja_deps;Testing;CTestTestfile.cmake;CMakeFiles;CMakeCache.txt;cmake_install.cmake;conanbuildinfo.cmake;conanbuildinfo.txt;conaninfo.txt;graph_info.json;conan.lock"
 )
 
 if(MSVC)

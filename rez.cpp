@@ -129,6 +129,8 @@ static int uninstall() {
 
 static int clean_bin() {
     std::filesystem::remove_all("bin");
+    std::filesystem::remove_all("debug");
+    std::filesystem::remove_all("debug.log");
     return EXIT_SUCCESS;
 }
 
@@ -161,6 +163,8 @@ static int clean_cmake() {
     std::filesystem::remove_all("build.ninja");
     std::filesystem::remove_all(".ninja_deps");
     std::filesystem::remove_all(".ninja_log");
+    std::filesystem::remove_all("Testing");
+    std::filesystem::remove_all("CTestTestfile.cmake");
     std::filesystem::remove_all("CMakeFiles");
     std::filesystem::remove_all("CMakeCache.txt");
     std::filesystem::remove_all("cmake_install.cmake");
