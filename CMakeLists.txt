@@ -72,8 +72,6 @@ else()
     add_custom_target(lint DEPENDS cppcheck cpplint clang-format yamllint unmake)
 endif()
 
-add_custom_target(doc COMMAND doxygen Doxyfile)
-
 # Some toolchains (esp. non-Linux targets) break on non-x86 family Docker platforms.
 set(EXCLUDE_ARCH "arm64,arm/v6,arm/v7,mips64le,ppc64le,riscv64,s390x")
 

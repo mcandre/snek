@@ -2,6 +2,7 @@
 
 * a [C++](https://www.cplusplus.com/) compiler with C++17 support (e.g. clang 9+, g++ 9+, MSVC 19+)
 * [cmake](https://cmake.org/) 3.4+
+* [rez](https://github.com/mcandre/rez) 0.0.11
 * a POSIX compliant [make](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/make.html) implementation (e.g. GNU make, BSD make, etc.)
 * [Docker](https://www.docker.com/) 20.10.12+
 * [Go](https://go.dev/) 1.20.2+
@@ -19,7 +20,7 @@
 * [clang](https://clang.llvm.org/) (UNIX) or [MSVC](https://gist.github.com/mcandre/5ceb67ad44f6b974d33bcddedcb16e89) (Windows)
 * [clang-format](https://clang.llvm.org/docs/ClangFormat.html)
 * [clang-tidy](https://clang.llvm.org/extra/clang-tidy/)
-* [rez](https://github.com/mcandre/rez) 0.0.11
+* [ninja](https://ninja-build.org/) 1.11.1+
 * [file](https://linux.die.net/man/1/file)
 * [tree](https://linux.die.net/man/1/tree)
 

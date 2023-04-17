@@ -1,6 +1,4 @@
 .rez
-html
-latex
 crash-*
 leak-*
 build

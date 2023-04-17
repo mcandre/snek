@@ -128,12 +128,6 @@ static int uninstall() {
     return system("cmake --build build --target uninstall");
 }
 
-static int clean_doc() {
-    std::filesystem::remove_all("html");
-    std::filesystem::remove_all("latex");
-    return EXIT_SUCCESS;
-}
-
 static int clean_cmake() {
     std::filesystem::remove_all("build");
     return EXIT_SUCCESS;
@@ -149,7 +143,6 @@ static int clean_rez() {
 }
 
 static int clean() {
-    clean_doc();
     clean_cmake();
     clean_conan();
     clean_rez();
@@ -170,7 +163,6 @@ int main(int argc, const char **argv) {
 
     const std::map<std::string_view, std::function<int()>> tasks{
         { "clean"sv, clean },
-        { "clean_doc"sv, clean_doc },
         { "clean_cmake"sv, clean_cmake },
         { "clean_conan"sv, clean_conan },
         { "cmake_init"sv, cmake_init },
