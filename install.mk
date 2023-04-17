@@ -8,5 +8,5 @@ all:
 
 	@npm install -g snyk@1.1140.0
 
-	@pip3 install --upgrade pip setuptools
-	@pip3 install -r requirements-dev.txt
+	@python -m pip install --user --upgrade pip setuptools
+	@pip install --user -r requirements-dev.txt

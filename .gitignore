@@ -1,24 +1,13 @@
-.rez/
-bin/
-html/
-latex/
-debug/
-debug.log
-CTestTestfile.cmake
-Testing/
+.rez
+html
+latex
 crash-*
 leak-*
-*.data
-*.data.old
-*.vcxproj
-*.vcxproj.filters
-*.sln
-*.dir
-build.ninja
-.ninja_deps
-.ninja_log
-# Created by https://www.toptal.com/developers/gitignore/api/c,c++,cmake,VisualStudio,conan,ninja
-# Edit at https://www.toptal.com/developers/gitignore?templates=c,c++,cmake,VisualStudio,conan,ninja
+build
+.envrc
+.psenvrc
+# Created by https://www.toptal.com/developers/gitignore/api/c,c++,cmake,ninja,visualstudio,conan
+# Edit at https://www.toptal.com/developers/gitignore?templates=c,c++,cmake,ninja,visualstudio,conan
 
 ### C ###
 # Prerequisites
@@ -533,4 +522,4 @@ FodyWeavers.xsd
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
 
-# End of https://www.toptal.com/developers/gitignore/api/c,c++,cmake,VisualStudio,conan,ninja
+# End of https://www.toptal.com/developers/gitignore/api/c,c++,cmake,ninja,visualstudio,conan

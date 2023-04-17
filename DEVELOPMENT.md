@@ -32,25 +32,25 @@ macOS users may need additional patches:
 ## macOS
 
 ```console
-$ conan install -s compiler.cppstd=17 -s compiler=apple-clang -s compiler.version=<version> --build missing .
+$ conan install -s compiler.cppstd=17 -s compiler=apple-clang -s compiler.version=<version> --build missing . --install-folder build
 ```
 
 ## UNIX (clang)
 
 ```console
-$ conan install -s compiler.cppstd=17 -s compiler=clang -s compiler.version=<version> --build missing .
+$ conan install -s compiler.cppstd=17 -s compiler=clang -s compiler.version=<version> --build missing . --install-folder build
 ```
 
 ## UNIX (gcc)
 
 ```console
-$ conan install -s compiler.cppstd=17 -s compiler=gcc -s compiler.version=<version> --build missing .
+$ conan install -s compiler.cppstd=17 -s compiler=gcc -s compiler.version=<version> --build missing . --install-folder build
 ```
 
 ## Windows
 
 ```console
-$ conan install -s compiler.cppstd=17 -s compiler=msvc -s compiler.version=<version> -s compiler.runtime=dynamic --build missing .
+$ conan install -s compiler.cppstd=17 -s compiler=msvc -s compiler.version=<version> -s compiler.runtime=dynamic --build missing . --install-folder build
 ```
 
 # AUDIT
@@ -98,5 +98,5 @@ $ rez lint
 # CLEAN
 
 ```console
-$ rez clean; rez -c
+$ rez clean
 ```
