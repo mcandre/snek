@@ -63,7 +63,7 @@ add_custom_target(cppcheck COMMAND cppcheck -q --force --enable=all --inline-sup
 add_custom_target(cpplint COMMAND cpplint --recursive include src)
 add_custom_target(clang-format COMMAND sail include src | xargs -n 1 clang-format -i)
 add_custom_target(yamllint COMMAND yamllint -s .yamllint .)
-add_custom_target(unmake COMMAND unmake install.mk)
+add_custom_target(unmake COMMAND unmake .)
 
 # Missing linter ports
 if(MSVC)
