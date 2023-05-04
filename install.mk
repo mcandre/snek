@@ -3,7 +3,7 @@
 .PHONY: all
 
 all:
-	cargo install --force unmake@0.0.10
+	cargo install --force unmake@0.0.11
 
 	go install github.com/mcandre/tug/cmd/tug@v0.0.4
 	go mod tidy
