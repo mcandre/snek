@@ -42,7 +42,7 @@ bin
 
 # LICENSE
 
-FreeBSD
+BSD-2-Clause
 
 # RUNTIME REQUIREMENTS
 
