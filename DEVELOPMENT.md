@@ -69,13 +69,19 @@ $ rez build
 # BUILD SNEK DOCKER IMAGES
 
 ```console
-$ cmake . && cmake --build . --target docker-build
+$ rez docker-build
+```
+
+# LOAD SNEK DOCKER IMAGES
+
+```console
+$ rez load
 ```
 
 # PUBLISH SNEK DOCKER IMAGES
 
 ```console
-$ cmake . && cmake --build . --target publish
+$ rez publish
 ```
 
 # INSTALL

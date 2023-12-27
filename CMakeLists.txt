@@ -57,8 +57,6 @@ else()
     add_custom_target(uninstall COMMAND rm -f "${INSTALL_FILE}")
 endif()
 
-add_custom_target(snyk-test COMMAND snyk test)
-
 add_custom_target(cppcheck COMMAND cppcheck -q --force --enable=all --inline-suppr --suppressions-list=suppressions.cfg --error-exitcode=1 -U__SANITIZE_ADDRESS__ -I include src)
 add_custom_target(cpplint COMMAND cpplint --recursive include src)
 add_custom_target(clang-format COMMAND sail include src | xargs -n 1 clang-format -i)
@@ -77,35 +75,35 @@ set(EXCLUDE_ARCH "arm64,arm/v6,arm/v7,mips64le,ppc64le,riscv64,s390x")
 
 add_custom_target(docker-build-darwin
                   COMMAND tug -t mcandre/snek:darwin -exclude-arch "${EXCLUDE_ARCH}"
-                  WORKING_DIRECTORY docker/darwin
+                  WORKING_DIRECTORY ../docker/darwin
 )
 add_custom_target(docker-build-freebsd
                   COMMAND tug -t mcandre/snek:freebsd -exclude-arch "${EXCLUDE_ARCH}"
-                  WORKING_DIRECTORY docker/freebsd
+                  WORKING_DIRECTORY ../docker/freebsd
 )
 add_custom_target(docker-build-musl-alpine
                   COMMAND tug -t mcandre/snek:musl-alpine -exclude-arch "${EXCLUDE_ARCH}"
-                  WORKING_DIRECTORY docker/musl-alpine
+                  WORKING_DIRECTORY ../docker/musl-alpine
 )
 add_custom_target(docker-build-netbsd
                   COMMAND tug -t mcandre/snek:netbsd -exclude-arch "${EXCLUDE_ARCH}"
-                  WORKING_DIRECTORY docker/netbsd
+                  WORKING_DIRECTORY ../docker/netbsd
 )
 add_custom_target(docker-build-openbsd
                   COMMAND tug -t mcandre/snek:openbsd -exclude-arch "${EXCLUDE_ARCH}"
-                  WORKING_DIRECTORY docker/openbsd
+                  WORKING_DIRECTORY ../docker/openbsd
 )
 add_custom_target(docker-build-ubuntu-mingw
                   COMMAND tug -t mcandre/snek:ubuntu-mingw -exclude-arch "${EXCLUDE_ARCH}"
-                  WORKING_DIRECTORY docker/ubuntu-mingw
+                  WORKING_DIRECTORY ../docker/ubuntu-mingw
 )
 add_custom_target(docker-build-ubuntu-other
                   COMMAND tug -t mcandre/snek:ubuntu-other -exclude-arch "${EXCLUDE_ARCH}"
-                  WORKING_DIRECTORY docker/ubuntu-other
+                  WORKING_DIRECTORY ../docker/ubuntu-other
 )
 add_custom_target(docker-build-ubuntu-x86
                   COMMAND tug -t mcandre/snek:ubuntu-x86 -exclude-arch "${EXCLUDE_ARCH}"
-                  WORKING_DIRECTORY docker/ubuntu-x86
+                  WORKING_DIRECTORY ../docker/ubuntu-x86
 )
 
 add_custom_target(docker-build
@@ -120,37 +118,82 @@ add_custom_target(docker-build
                   docker-build-ubuntu-x86
 )
 
+add_custom_target(load-darwin
+                  COMMAND tug -t mcandre/snek:darwin -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64
+                  WORKING_DIRECTORY ../docker/darwin
+)
+add_custom_target(load-freebsd
+                  COMMAND tug -t mcandre/snek:freebsd -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64
+                  WORKING_DIRECTORY ../docker/freebsd
+)
+add_custom_target(load-musl-alpine
+                  COMMAND tug -t mcandre/snek:musl-alpine -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64
+                  WORKING_DIRECTORY ../docker/musl-alpine
+)
+add_custom_target(load-netbsd
+                  COMMAND tug -t mcandre/snek:netbsd -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64
+                  WORKING_DIRECTORY ../docker/netbsd
+)
+add_custom_target(load-openbsd
+                  COMMAND tug -t mcandre/snek:openbsd -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64
+                  WORKING_DIRECTORY ../docker/openbsd
+)
+add_custom_target(load-ubuntu-mingw
+                  COMMAND tug -t mcandre/snek:ubuntu-mingw -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64
+                  WORKING_DIRECTORY ../docker/ubuntu-mingw
+)
+add_custom_target(load-ubuntu-other
+                  COMMAND tug -t mcandre/snek:ubuntu-other -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64
+                  WORKING_DIRECTORY ../docker/ubuntu-other
+)
+add_custom_target(load-ubuntu-x86
+                  COMMAND tug -t mcandre/snek:ubuntu-x86 -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64
+                  WORKING_DIRECTORY ../docker/ubuntu-x86
+)
+
+add_custom_target(load
+                  DEPENDS
+                  load-darwin
+                  load-freebsd
+                  load-musl-alpine
+                  load-netbsd
+                  load-openbsd
+                  load-ubuntu-mingw
+                  load-ubuntu-other
+                  load-ubuntu-x86
+)
+
 add_custom_target(publish-darwin
                   COMMAND tug -t mcandre/snek:darwin -exclude-arch "${EXCLUDE_ARCH}" -push
-                  WORKING_DIRECTORY docker/darwin
+                  WORKING_DIRECTORY ../docker/darwin
 )
 add_custom_target(publish-freebsd
                   COMMAND tug -t mcandre/snek:freebsd -exclude-arch "${EXCLUDE_ARCH}" -push
-                  WORKING_DIRECTORY docker/freebsd
+                  WORKING_DIRECTORY ../docker/freebsd
 )
 add_custom_target(publish-musl-alpine
                   COMMAND tug -t mcandre/snek:musl-alpine -exclude-arch "${EXCLUDE_ARCH}" -push
-                  WORKING_DIRECTORY docker/musl-alpine
+                  WORKING_DIRECTORY ../docker/musl-alpine
 )
 add_custom_target(publish-netbsd
                   COMMAND tug -t mcandre/snek:netbsd -exclude-arch "${EXCLUDE_ARCH}" -push
-                  WORKING_DIRECTORY docker/netbsd
+                  WORKING_DIRECTORY ../docker/netbsd
 )
 add_custom_target(publish-openbsd
                   COMMAND tug -t mcandre/snek:openbsd -exclude-arch "${EXCLUDE_ARCH}" -push
-                  WORKING_DIRECTORY docker/openbsd
+                  WORKING_DIRECTORY ../docker/openbsd
 )
 add_custom_target(publish-ubuntu-mingw
                   COMMAND tug -t mcandre/snek:ubuntu-mingw -exclude-arch "${EXCLUDE_ARCH}" -push
-                  WORKING_DIRECTORY docker/ubuntu-mingw
+                  WORKING_DIRECTORY ../docker/ubuntu-mingw
 )
 add_custom_target(publish-ubuntu-other
                   COMMAND tug -t mcandre/snek:ubuntu-other -exclude-arch "${EXCLUDE_ARCH}" -push
-                  WORKING_DIRECTORY docker/ubuntu-other
+                  WORKING_DIRECTORY ../docker/ubuntu-other
 )
 add_custom_target(publish-ubuntu-x86
                   COMMAND tug -t mcandre/snek:ubuntu-x86 -exclude-arch "${EXCLUDE_ARCH}" -push
-                  WORKING_DIRECTORY docker/ubuntu-x86
+                  WORKING_DIRECTORY ../docker/ubuntu-x86
 )
 
 add_custom_target(publish

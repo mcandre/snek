@@ -56,7 +56,7 @@ static int lint() {
         return status;
     }
 
-    return system("cmake --build build --target lint");
+    return system("cmake -B build --target lint");
 }
 
 static int build() {
@@ -66,7 +66,7 @@ static int build() {
         return status;
     }
 
-    return system("cmake --build build --config Release");
+    return system("cmake -B build --config Release");
 }
 
 static int snyk() {
@@ -104,8 +104,78 @@ static int safety() {
     return system("safety check");
 }
 
+static int docker_scout() {
+    const std::vector<std::string> tags{
+        "darwin",
+        "freebsd",
+        "musl-alpine",
+        "netbsd",
+        "openbsd",
+        "ubuntu-mingw",
+        "ubuntu-other",
+        "ubuntu-x86"
+    };
+
+    for (std::string tag:tags) {
+        std::stringstream command_stream;
+
+        command_stream << "docker scout cves -e mcandre/snek:" << tag << " "
+            "--platform linux/amd64";
+
+        int status{ system(command_stream.str().c_str()) };
+
+        if (status != EXIT_SUCCESS) {
+            return status;
+        }
+    }
+
+    return EXIT_SUCCESS;;
+}
+
 static int audit() {
-    return system("cmake --build build --target audit");
+    int status{ snyk() };
+
+    if (status != EXIT_SUCCESS) {
+        return status;
+    }
+
+    status = safety();
+
+    if (status != EXIT_SUCCESS) {
+        return status;
+    }
+
+    return docker_scout();
+}
+
+static int docker_build() {
+    const int status{ cmake_init() };
+
+    if (status != EXIT_SUCCESS) {
+        return status;
+    }
+
+    return system("cmake --build build --target docker-build");
+}
+
+static int load() {
+    const int status{ cmake_init() };
+
+    if (status != EXIT_SUCCESS) {
+        return status;
+    }
+
+    return system("cmake --build build --target load");
+}
+
+static int publish() {
+    const int status{ cmake_init() };
+
+    if (status != EXIT_SUCCESS) {
+        return status;
+    }
+
+    return system("cmake --build build --target publish");
 }
 
 static int install() {
@@ -166,6 +236,10 @@ int main(int argc, const char **argv) {
         { "clean_cmake"sv, clean_cmake },
         { "clean_conan"sv, clean_conan },
         { "cmake_init"sv, cmake_init },
+        { "docker_build"sv, docker_build },
+        { "docker_scout"sv, docker_scout },
+        { "load"sv, load },
+        { "publish"sv, publish },
         { "snyk"sv, snyk },
         { "safety"sv, safety },
         { "audit"sv, audit },
