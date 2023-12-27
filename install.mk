@@ -5,7 +5,7 @@
 all:
 	cargo install --force unmake@0.0.12
 
-	go install github.com/mcandre/tug/cmd/tug@v0.0.4
+	go install github.com/mcandre/tug/cmd/tug@v0.0.6
 	go mod tidy
 
 	npm install -g snyk
