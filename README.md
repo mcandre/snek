@@ -50,12 +50,14 @@ BSD-2-Clause
 
 ## Recommended
 
+* a host capable of running musl/Linux containers (e.g. a GNU/Linux, musl/Linux, macOS, or Windows host)
+* [Docker First Aid Kit](https://github.com/mcandre/docker-first-aid-kit)
+* Apply `DOCKER_DEFAULT_PLATFORM` = `linux/amd64` environment variable
 * [cmake](https://cmake.org/) 3.4+
 * [make](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/make.html) or [ninja](https://ninja-build.org/)
 * [file](https://linux.die.net/man/1/file)
 * [tree](https://linux.die.net/man/1/tree)
 * [tug](https://github.com/mcandre/tug)
-* Apply `DOCKER_DEFAULT_PLATFORM` = `linux/amd64` environment variable
 
 Regardless of target application environment, we encourage an amd64 compatible build environment. This tends to improve build reliability.
 
