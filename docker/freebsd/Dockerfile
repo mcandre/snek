@@ -17,8 +17,8 @@ RUN apt-get update && \
     tar -xvf /base.txz ./lib/ ./usr/lib/ ./usr/include/ && \
     rm -f /base.txz && \
     cd usr/lib && \
-    find . -xtype l | \
-        xargs ls -l | \
+    find . -xtype l -print0 | \
+        xargs -0 ls -l | \
         awk '{ system("ln -sf /usr/local/x86_64-unknown-freebsd" $11 " " $9) }' && \
     apt-get remove --autoremove --purge -y \
         ca-certificates \

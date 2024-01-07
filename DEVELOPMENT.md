@@ -2,15 +2,16 @@
 
 * a [C++](https://www.cplusplus.com/) compiler with C++17 support (e.g. clang 9+, g++ 9+, MSVC 19+)
 * [cmake](https://cmake.org/) 3.4+
-* [rez](https://github.com/mcandre/rez) 0.0.11
-* a POSIX compliant [make](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/make.html) implementation (e.g. GNU make, BSD make, etc.)
 * [Docker](https://www.docker.com/) 20.10.12+
+* GNU or BSD [findutils](https://en.wikipedia.org/wiki/Find_(Unix))
 * [Go](https://go.dev/) 1.21.5+
+* POSIX compatible [make](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/make.html)
 * [Node.js](https://www.npmjs.com/) 20.10.0+
 * [Python](https://www.python.org/) 3.12.1+
+* [rez](https://github.com/mcandre/rez) 0.0.11
 * [Rust](https://www.rust-lang.org/en-US/) 1.68.2+
-* a POSIX compliant [sh](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/sh.html) implementation (e.g. bash, ksh, zsh)
-* [sail](https://github.com/mcandre/sail) 0.0.1
+* [sail](https://github.com/mcandre/sail) 0.0.2
+* POSIX compatible [sh](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/sh.html)
 * Provision additional dev tools with `make -f install.mk`
 
 ## Recommended
