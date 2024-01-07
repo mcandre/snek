@@ -1,4 +1,4 @@
-FROM debian:bookworm
+FROM debian:12.4
 ENV DEBIAN_FRONTEND=noninteractive
 ENV SYSROOT=/usr/local/x86_64-unknown-netbsd
 RUN apt-get update && \

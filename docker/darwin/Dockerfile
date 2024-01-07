@@ -1,4 +1,4 @@
-FROM debian:bookworm
+FROM debian:12.4
 ENV PATH /usr/local/osxcross/bin:${PATH}
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
