@@ -3,9 +3,9 @@
 .PHONY: all
 
 all:
-	cargo install --force unmake@0.0.16
+	cargo install --force unmake@0.0.17
 
-	go install github.com/mcandre/tug/cmd/tug@v0.0.6
+	go install github.com/mcandre/tug/cmd/tug@v0.0.7
 	go mod tidy
 
 	npm install -g snyk
