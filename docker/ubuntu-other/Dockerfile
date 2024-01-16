@@ -4,6 +4,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         clang \
         cmake \
+        cppcheck \
         g++-aarch64-linux-gnu \
         g++-alpha-linux-gnu \
         g++-arm-linux-gnueabi \

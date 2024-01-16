@@ -3,6 +3,7 @@ RUN apk add -U \
         build-base \
         clang \
         cmake \
+        cppcheck \
         llvm \
         make && \
     ln -sf /usr/bin/clang++ /usr/bin/c++ && \

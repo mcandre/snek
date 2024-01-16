@@ -79,7 +79,7 @@ snek curates a set of standard Docker image ships for easy porting of cmake/make
 
 The standard images automatically set the guest working directory to `/src`.
 
-The standard images are restricted in size (<4GB), in order to keep the snek system fairly lean and fast on mediumish hardware. For example, snek may be run on a cheap laptop, or a beefy workstation, or an expensive CI/CD instance, or on a RAM-appropraite Raspberry Pi with sufficient patience.
+The standard images aim to reduce their footprint, in order to keep the snek system fairly lean and fast on mediumish hardware. For example, snek may be run on a cheap laptop, or a beefy workstation, or an expensive CI/CD instance, or on a RAM-appropraite Raspberry Pi with sufficient patience.
 
 The total size of the image collection is only bounded by your build host's disk space.
 

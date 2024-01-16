@@ -1,4 +1,12 @@
-.PHONY: all lint test clean
+.SILENT:
+
+.IGNORE: clean
+
+.PHONY: \
+	all \
+	clean \
+	lint \
+	test
 
 ARTIFACT_DIR=bin
 ARTIFACT_EXT=
@@ -10,7 +18,7 @@ ifdef TARGET
 	STATIC_FLAG=-static
 
 	ifneq (,$(findstring w64,$(TARGET)))
-		CC=$(TARGET)-gcc-10-posix
+		CC=$(TARGET)-gcc-posix
 		ARTIFACT_EXT=.exe
 	else
 		ifneq (,$(findstring darwin,$(TARGET)))
@@ -41,8 +49,8 @@ ARTIFACT=$(ARTIFACT_DIR)/hello$(ARTIFACT_EXT)
 all: $(ARTIFACT)
 
 $(ARTIFACT): hello.c
-	@mkdir -p $(ARTIFACT_DIR)
-	@$(CC) \
+	mkdir -p $(ARTIFACT_DIR)
+	$(CC) \
 		-o $(ARTIFACT) \
 		$(TARGET_FLAG) \
 		$(SYSROOT_FLAG) \
@@ -53,4 +61,4 @@ test:
 	ls $(ARTIFACT_DIR)
 
 clean:
-	-rm -rf bin
+	rm -rf bin

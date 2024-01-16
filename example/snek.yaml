@@ -1,7 +1,34 @@
 ---
+# Sss-snek!
+#
+# Start with the project build_command entrypoint.
+#
+# The build_command runs your project's shell command to build the application.
+#
+# For example, simple make projects with no intermediate artifact files.
 build_command: "make"
+#
+# If you do have intermediate artifact files,
+# recommend removing them as an early step within the build_command.
+# That helps to prevent conflicts between different target compilations.
+#
+# For example, make projects with some intermediate object artifact files.
+# build_command: "rm -rf *.o; make"
+#
+# For example, cmake projects initialized like `cmake -B build`.
+# build_command: "rm -rf build; cmake -B build && cmake --build build . --config Release"
+
+# The ships section collects a list of one or more ships to port your application.
 ships:
+# A ship is responsible for generating application ports.
+# A ship launches from a named Docker image, which provides a development environment appropriate for the ship's ports.
 - image: "mcandre/snek:darwin"
+  #
+  # A ship has a list of one or more target platforms.
+  # Each platform will populate a TARGET environment variable,
+  # useful for configuring target relative logic
+  # in your build system.
+  #
   targets:
   - "x86_64-apple-darwin"
   - "x86_64h-apple-darwin"

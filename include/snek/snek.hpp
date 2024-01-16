@@ -23,9 +23,9 @@ struct Ship {
 
     std::vector<std::string> targets;
 
-    bool Parse(const ryml::NodeRef &root);
+    bool Parse(const c4::yml::ConstNodeRef &root);
 
-    void Format(ryml::NodeRef &root) const; // NOLINT(runtime/references)
+    void Format(c4::yml::NodeRef &root) const; // NOLINT(runtime/references)
 };
 
 std::ostream &operator<<(std::ostream &out, const Ship &o);
@@ -37,9 +37,9 @@ struct Config {
 
     std::vector<Ship> ships;
 
-    bool Parse(const ryml::NodeRef &root);
+    bool Parse(const c4::yml::ConstNodeRef &root);
 
-    void Format(ryml::NodeRef &root) const; // NOLINT(runtime/references)
+    void Format(c4::yml::NodeRef &root) const; // NOLINT(runtime/references)
 
     void LaunchShip(const Ship &ship, const std::string &cwd) const;
 

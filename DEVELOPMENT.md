@@ -1,7 +1,10 @@
 # BUILDTIME REQUIREMENTS
 
 * a [C++](https://www.cplusplus.com/) compiler with C++17 support (e.g. clang 9+, g++ 9+, MSVC 19+)
-* [cmake](https://cmake.org/) 3.4+
+* [clang-format](https://clang.llvm.org/docs/ClangFormat.html)
+* [clang-tidy](https://clang.llvm.org/extra/clang-tidy/)
+* [cmake](https://cmake.org/) 3.5+
+* [cppcheck](https://cppcheck.sourceforge.io/) 2.13.0+
 * [Docker](https://www.docker.com/) 20.10.12+
 * GNU or BSD [findutils](https://en.wikipedia.org/wiki/Find_(Unix))
 * [Go](https://go.dev/) 1.21.5+
@@ -79,13 +82,13 @@ $ rez docker-build
 # LOAD SNEK DOCKER IMAGES
 
 ```console
-$ rez load
+$ rez docker-load
 ```
 
 # PUBLISH SNEK DOCKER IMAGES
 
 ```console
-$ rez publish
+$ rez docker-publish
 ```
 
 # INSTALL

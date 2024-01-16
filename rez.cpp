@@ -56,7 +56,7 @@ static int lint() {
         return status;
     }
 
-    return system("cmake -B build --target lint");
+    return system("cmake --build build --target lint");
 }
 
 static int build() {
@@ -66,7 +66,7 @@ static int build() {
         return status;
     }
 
-    return system("cmake -B build --config Release");
+    return system("cmake --build build --config Release");
 }
 
 static int snyk() {
@@ -158,24 +158,24 @@ static int docker_build() {
     return system("cmake --build build --target docker-build");
 }
 
-static int load() {
+static int docker_load() {
     const int status{ cmake_init() };
 
     if (status != EXIT_SUCCESS) {
         return status;
     }
 
-    return system("cmake --build build --target load");
+    return system("cmake --build build --target docker-load");
 }
 
-static int publish() {
+static int docker_publish() {
     const int status{ cmake_init() };
 
     if (status != EXIT_SUCCESS) {
         return status;
     }
 
-    return system("cmake --build build --target publish");
+    return system("cmake --build build --target docker-publish");
 }
 
 static int install() {
@@ -198,6 +198,11 @@ static int uninstall() {
     return system("cmake --build build --target uninstall");
 }
 
+static int clean_bin() {
+    std::filesystem::remove_all("bin");
+    return EXIT_SUCCESS;
+}
+
 static int clean_cmake() {
     std::filesystem::remove_all("build");
     return EXIT_SUCCESS;
@@ -213,6 +218,7 @@ static int clean_rez() {
 }
 
 static int clean() {
+    clean_bin();
     clean_cmake();
     clean_conan();
     clean_rez();
@@ -233,13 +239,14 @@ int main(int argc, const char **argv) {
 
     const std::map<std::string_view, std::function<int()>> tasks{
         { "clean"sv, clean },
+        { "clean_bin"sv, clean_bin },
         { "clean_cmake"sv, clean_cmake },
         { "clean_conan"sv, clean_conan },
         { "cmake_init"sv, cmake_init },
         { "docker_build"sv, docker_build },
+        { "docker_load"sv, docker_load },
+        { "docker_publish"sv, docker_publish },
         { "docker_scout"sv, docker_scout },
-        { "load"sv, load },
-        { "publish"sv, publish },
         { "snyk"sv, snyk },
         { "safety"sv, safety },
         { "audit"sv, audit },

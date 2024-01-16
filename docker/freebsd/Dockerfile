@@ -3,15 +3,15 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV SYSROOT=/usr/local/x86_64-unknown-freebsd
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        awk \
         ca-certificates \
         clang \
         cmake \
+        cppcheck \
         llvm \
         make \
         wget \
         xz-utils && \
-    wget https://download.freebsd.org/ftp/releases/amd64/13.0-RELEASE/base.txz && \
+    wget https://download.freebsd.org/ftp/releases/amd64/14.0-RELEASE/base.txz && \
     mkdir /usr/local/x86_64-unknown-freebsd && \
     cd /usr/local/x86_64-unknown-freebsd && \
     tar -xvf /base.txz ./lib/ ./usr/lib/ ./usr/include/ && \

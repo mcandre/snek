@@ -6,19 +6,20 @@ RUN apt-get update && \
         ca-certificates \
         clang \
         cmake \
+        cppcheck \
         llvm \
         make \
         wget \
         xz-utils && \
-    wget https://cloudflare.cdn.openbsd.org/pub/OpenBSD/6.9/amd64/base69.tgz && \
-    wget https://cloudflare.cdn.openbsd.org/pub/OpenBSD/6.9/amd64/comp69.tgz && \
+    wget https://cloudflare.cdn.openbsd.org/pub/OpenBSD/7.4/amd64/base74.tgz && \
+    wget https://cloudflare.cdn.openbsd.org/pub/OpenBSD/7.4/amd64/comp74.tgz && \
     mkdir /usr/local/x86_64-unknown-openbsd && \
     cd /usr/local/x86_64-unknown-openbsd && \
-    tar -xzvf /base69.tgz ./usr/include/ ./usr/lib/ && \
-    tar -xzvf /comp69.tgz ./usr/include/ ./usr/lib/ && \
+    tar -xzvf /base74.tgz ./usr/include/ ./usr/lib/ && \
+    tar -xzvf /comp74.tgz ./usr/include/ ./usr/lib/ && \
     rm -f \
-        /comp69.tgz \
-        /base69.tgz && \
+        /comp74.tgz \
+        /base74.tgz && \
     apt-get remove --autoremove --purge -y \
         ca-certificates \
         wget \

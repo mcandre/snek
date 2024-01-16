@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.4)
+cmake_minimum_required(VERSION 3.5)
 set(CMAKE_MESSAGE_LOG_LEVEL "WARNING")
 set(EXECUTABLE_OUTPUT_PATH "bin")
 set(CMAKE_C_STANDARD 17)
@@ -7,6 +7,34 @@ project(snek)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(TARGETS)
+
+if(
+    NOT DEFINED ENV{TARGET} OR
+    (
+        (NOT "$ENV{TARGET}" MATCHES "netbsd") AND
+        (NOT "$ENV{TARGET}" MATCHES "openbsd")
+    )
+)
+    find_program(CPPCHECK_PATH "cppcheck")
+
+    if ("${CPPCHECK_PATH}" STREQUAL "CPPCHECK_PATH-NOTFOUND")
+        message(FATAL_ERROR "cppcheck not found")
+    endif()
+
+    set(
+        CPPCHECK
+        "cppcheck"
+        "-q"
+        "--force"
+        "--enable=all"
+        "--inline-suppr"
+        "--suppressions-list=../suppressions.cfg"
+        "--error-exitcode=1"
+        "-U__SANITIZE_ADDRESS__"
+    )
+    set(CMAKE_C_CPPCHECK "${CPPCHECK}")
+    set(CMAKE_CXX_CPPCHECK "${CPPCHECK}")
+endif()
 
 if(MSVC)
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${EXECUTABLE_OUTPUT_PATH}")
@@ -57,17 +85,17 @@ else()
     add_custom_target(uninstall COMMAND rm -f "${INSTALL_FILE}")
 endif()
 
-add_custom_target(cppcheck COMMAND cppcheck -q --force --enable=all --inline-suppr --suppressions-list=suppressions.cfg --error-exitcode=1 -U__SANITIZE_ADDRESS__ -I include src)
-add_custom_target(cpplint COMMAND cpplint --recursive include src)
-add_custom_target(clang-format COMMAND sail -print0 include src | xargs -0 -n 1 clang-format -i)
-add_custom_target(yamllint COMMAND yamllint -s .yamllint .)
-add_custom_target(unmake COMMAND unmake .)
+add_custom_target(cpplint COMMAND cpplint --recursive ../include ../src)
+add_custom_target(clang-format COMMAND sail -print0 ../include ../src | xargs -0 -n 1 clang-format -i)
+add_custom_target(yamllint COMMAND yamllint -s ../.yamllint ..)
+add_custom_target(unmake COMMAND unmake ..)
+add_custom_target(unmake_dry_run COMMAND unmake -n ..)
 
 # Missing linter ports
 if(MSVC)
-    add_custom_target(lint DEPENDS cppcheck yamllint unmake)
+    add_custom_target(lint DEPENDS yamllint unmake)
 else()
-    add_custom_target(lint DEPENDS cppcheck cpplint clang-format yamllint unmake)
+    add_custom_target(lint DEPENDS cpplint clang-format yamllint unmake unmake_dry_run)
 endif()
 
 # Some toolchains (esp. non-Linux targets) break on non-x86 family Docker platforms.
@@ -118,92 +146,92 @@ add_custom_target(docker-build
                   docker-build-ubuntu-x86
 )
 
-add_custom_target(load-darwin
+add_custom_target(docker-load-darwin
                   COMMAND tug -t mcandre/snek:darwin -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64
                   WORKING_DIRECTORY ../docker/darwin
 )
-add_custom_target(load-freebsd
+add_custom_target(docker-load-freebsd
                   COMMAND tug -t mcandre/snek:freebsd -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64
                   WORKING_DIRECTORY ../docker/freebsd
 )
-add_custom_target(load-musl-alpine
+add_custom_target(docker-load-musl-alpine
                   COMMAND tug -t mcandre/snek:musl-alpine -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64
                   WORKING_DIRECTORY ../docker/musl-alpine
 )
-add_custom_target(load-netbsd
+add_custom_target(docker-load-netbsd
                   COMMAND tug -t mcandre/snek:netbsd -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64
                   WORKING_DIRECTORY ../docker/netbsd
 )
-add_custom_target(load-openbsd
+add_custom_target(docker-load-openbsd
                   COMMAND tug -t mcandre/snek:openbsd -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64
                   WORKING_DIRECTORY ../docker/openbsd
 )
-add_custom_target(load-ubuntu-mingw
+add_custom_target(docker-load-ubuntu-mingw
                   COMMAND tug -t mcandre/snek:ubuntu-mingw -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64
                   WORKING_DIRECTORY ../docker/ubuntu-mingw
 )
-add_custom_target(load-ubuntu-other
+add_custom_target(docker-load-ubuntu-other
                   COMMAND tug -t mcandre/snek:ubuntu-other -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64
                   WORKING_DIRECTORY ../docker/ubuntu-other
 )
-add_custom_target(load-ubuntu-x86
+add_custom_target(docker-load-ubuntu-x86
                   COMMAND tug -t mcandre/snek:ubuntu-x86 -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64
                   WORKING_DIRECTORY ../docker/ubuntu-x86
 )
 
-add_custom_target(load
+add_custom_target(docker-load
                   DEPENDS
-                  load-darwin
-                  load-freebsd
-                  load-musl-alpine
-                  load-netbsd
-                  load-openbsd
-                  load-ubuntu-mingw
-                  load-ubuntu-other
-                  load-ubuntu-x86
+                  docker-load-darwin
+                  docker-load-freebsd
+                  docker-load-musl-alpine
+                  docker-load-netbsd
+                  docker-load-openbsd
+                  docker-load-ubuntu-mingw
+                  docker-load-ubuntu-other
+                  docker-load-ubuntu-x86
 )
 
-add_custom_target(publish-darwin
+add_custom_target(docker-publish-darwin
                   COMMAND tug -t mcandre/snek:darwin -exclude-arch "${EXCLUDE_ARCH}" -push
                   WORKING_DIRECTORY ../docker/darwin
 )
-add_custom_target(publish-freebsd
+add_custom_target(docker-publish-freebsd
                   COMMAND tug -t mcandre/snek:freebsd -exclude-arch "${EXCLUDE_ARCH}" -push
                   WORKING_DIRECTORY ../docker/freebsd
 )
-add_custom_target(publish-musl-alpine
+add_custom_target(docker-publish-musl-alpine
                   COMMAND tug -t mcandre/snek:musl-alpine -exclude-arch "${EXCLUDE_ARCH}" -push
                   WORKING_DIRECTORY ../docker/musl-alpine
 )
-add_custom_target(publish-netbsd
+add_custom_target(docker-publish-netbsd
                   COMMAND tug -t mcandre/snek:netbsd -exclude-arch "${EXCLUDE_ARCH}" -push
                   WORKING_DIRECTORY ../docker/netbsd
 )
-add_custom_target(publish-openbsd
+add_custom_target(docker-publish-openbsd
                   COMMAND tug -t mcandre/snek:openbsd -exclude-arch "${EXCLUDE_ARCH}" -push
                   WORKING_DIRECTORY ../docker/openbsd
 )
-add_custom_target(publish-ubuntu-mingw
+add_custom_target(docker-publish-ubuntu-mingw
                   COMMAND tug -t mcandre/snek:ubuntu-mingw -exclude-arch "${EXCLUDE_ARCH}" -push
                   WORKING_DIRECTORY ../docker/ubuntu-mingw
 )
-add_custom_target(publish-ubuntu-other
+add_custom_target(docker-publish-ubuntu-other
                   COMMAND tug -t mcandre/snek:ubuntu-other -exclude-arch "${EXCLUDE_ARCH}" -push
                   WORKING_DIRECTORY ../docker/ubuntu-other
 )
-add_custom_target(publish-ubuntu-x86
+add_custom_target(docker-publish-ubuntu-x86
                   COMMAND tug -t mcandre/snek:ubuntu-x86 -exclude-arch "${EXCLUDE_ARCH}" -push
                   WORKING_DIRECTORY ../docker/ubuntu-x86
 )
 
-add_custom_target(publish
+add_custom_target(docker-publish
                   DEPENDS
-                  publish-darwin
-                  publish-freebsd
-                  publish-musl-alpine
-                  publish-netbsd
-                  publish-openbsd
-                  publish-ubuntu-mingw
-                  publish-ubuntu-other
-                  publish-ubuntu-x86
+                  docker-publish-darwin
+                  docker-publish-freebsd
+                  docker-publish-musl-alpine
+                  docker-publish-netbsd
+                  docker-publish-openbsd
+                  docker-publish-ubuntu-mingw
+                  docker-publish-ubuntu-other
+                  docker-publish-ubuntu-x86
 )

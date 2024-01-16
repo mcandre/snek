@@ -72,7 +72,6 @@ int main(int argc, const char **argv) {
 
         if (debug) {
             config.debug = debug;
-
             std::stringstream ss;
             ss << config;
             std::cerr << ss.str() << std::endl

@@ -17,7 +17,7 @@
 #include "snek/snek.hpp"
 
 namespace snek {
-bool Ship::Parse(const ryml::NodeRef &root) {
+bool Ship::Parse(const c4::yml::ConstNodeRef &root) {
     if (!root.is_map()) {
         std::cerr << "ship is not a map" << std::endl;
         return false;
@@ -28,8 +28,7 @@ bool Ship::Parse(const ryml::NodeRef &root) {
         return false;
     }
 
-    const auto image_node{ root["image"] };
-
+    const c4::yml::ConstNodeRef image_node{ root["image"] };
     std::string im;
     image_node >> im;
 
@@ -46,10 +45,9 @@ bool Ship::Parse(const ryml::NodeRef &root) {
     }
 
     const auto targets_node{ root["targets"] };
-
     std::vector<std::string> ts;
 
-    for (const ryml::NodeRef &&target_node : targets_node) {
+    for (const auto &&target_node : targets_node) {
         std::string t;
         target_node >> t;
         ts.push_back(t);
@@ -64,12 +62,16 @@ bool Ship::Parse(const ryml::NodeRef &root) {
     return true;
 }
 
-void Ship::Format(ryml::NodeRef &root) const {
-    root["image"] = c4::to_csubstr(this->image.c_str());
-    root["targets"] |= ryml::SEQ;
+void Ship::Format(c4::yml::NodeRef &root) const {
+    root.append_child() << c4::yml::key("image") << c4::to_csubstr(this->image.c_str());
 
-    for (size_t i{ 0 }; i < this->targets.size(); i++) {
-        root["targets"][i] = c4::to_csubstr(targets[i].c_str());
+    root.append_child() << c4::yml::key("targets");
+
+    auto targets_node = root["targets"];
+    targets_node |= c4::yml::SEQ;
+
+    for (const auto &target : targets) {
+        targets_node.append_child() = c4::to_csubstr(target.c_str());
     }
 }
 
@@ -77,34 +79,33 @@ std::ostream &operator<<(std::ostream &out, const Ship &o) {
     ryml::Tree tree;
     ryml::NodeRef root{ tree.rootref() };
     o.Format(root);
-    return out << ryml::emitrs<std::string>(root);
+    return out << tree;
 }
 
 void Config::LaunchShip(const Ship &ship, const std::string &cwd) const {
     for (const auto &target : ship.targets) {
         std::cerr << "building " << target << std::endl;
 
-        std::stringstream command;
-        command << "docker "
-                << "run "
-                << "--rm "
-                << "-e TARGET=" << target << " "
-                << "-v " << cwd << ":/src "
-                << ship.image << " "
-                << "sh -c \"" << build_command << "\"";
-
-        const std::string command_s{ command.str() };
+        std::stringstream command_stream;
+        command_stream << "docker "
+                       << "run "
+                       << "--rm "
+                       << "-e TARGET=" << target << " "
+                       << "-v " << cwd << ":/src "
+                       << ship.image << " "
+                       << "sh -c \"" << build_command << "\"";
+        const std::string command{ command_stream.str() };
 
         if (debug) {
-            std::cerr << "command: " << command_s << std::endl;
+            std::cerr << "command: " << command << std::endl;
         }
 
-        const int status{ system(command_s.c_str()) };
+        const int status{ system(command.c_str()) };
 
         if (status != EXIT_SUCCESS) {
             std::stringstream err;
             err << "error running toolchain command: "
-                << command_s
+                << command
                 << " status: "
                 << status;
             throw std::runtime_error(err.str());
@@ -124,14 +125,14 @@ void Config::Launch() const {
     }
 }
 
-bool Config::Parse(const ryml::NodeRef &root) {
+bool Config::Parse(const c4::yml::ConstNodeRef &root) {
     if (!root.is_map()) {
         std::cerr << "invalid map" << std::endl;
         return false;
     }
 
     if (root.has_child("debug")) {
-        const ryml::NodeRef debug_node{ root["debug"] };
+        const c4::yml::ConstNodeRef debug_node{ root["debug"] };
         bool debug_override;
         debug_node >> debug_override;
         this->debug = debug_override;
@@ -142,28 +143,28 @@ bool Config::Parse(const ryml::NodeRef &root) {
         return false;
     }
 
-    const ryml::NodeRef build_command_node{ root["build_command"] };
+    const c4::yml::ConstNodeRef build_command_node{ root["build_command"] };
 
-    std::string c;
-    build_command_node >> c;
+    std::string cmd;
+    build_command_node >> cmd;
 
-    if (c.empty()) {
+    if (cmd.empty()) {
         std::cerr << "blank build_command" << std::endl;
         return false;
     }
 
-    this->build_command = c;
+    this->build_command = cmd;
 
     if (!root.has_child("ships")) {
         std::cerr << "missing ships" << std::endl;
         return false;
     }
 
-    const ryml::NodeRef ships_node{ root["ships"] };
+    const c4::yml::ConstNodeRef ships_node{ root["ships"] };
 
     std::vector<Ship> ss;
 
-    for (const ryml::NodeRef &&ship_node : ships_node) {
+    for (const auto &&ship_node : ships_node) {
         Ship ship;
         ship.Parse(ship_node);
         ss.push_back(ship);
@@ -178,21 +179,24 @@ bool Config::Parse(const ryml::NodeRef &root) {
     return true;
 }
 
-void Config::Format(ryml::NodeRef &root) const {
+void Config::Format(c4::yml::NodeRef &root) const {
     if (this->debug) {
-        root["debug"] = ryml::to_csubstr("true");
+        root["debug"] << ryml::to_csubstr("true");
     } else {
-        root["debug"] = ryml::to_csubstr("false");
+        root["debug"] << ryml::to_csubstr("false");
     }
 
-    root["build_command"] = ryml::to_csubstr(this->build_command);
-    root["ships"] |= ryml::SEQ;
+    root["build_command"] << ryml::to_csubstr(this->build_command);
 
-    for (size_t i{ 0 }; i < this->ships.size(); i++) {
-        root["ships"][i] |= ryml::MAP;
-        ryml::NodeRef shipRoot{ root["ships"][i] };
-        this->ships[i].Format(shipRoot);
-        root["ships"][i] = shipRoot;
+    auto ships_node = root["ships"];
+    ships_node |= ryml::SEQ;
+
+    for (const auto &ship : this->ships) {
+        auto ship_node = ships_node.append_child();
+        ship_node |= ryml::MAP;
+        ryml::NodeRef shipRoot{ ship_node };
+        ship.Format(shipRoot);
+        ship_node = shipRoot;
     }
 }
 
@@ -201,7 +205,7 @@ std::ostream &operator<<(std::ostream &out, const Config &o) {
     ryml::NodeRef root{ tree.rootref() };
     root |= ryml::MAP;
     o.Format(root);
-    return out << ryml::emitrs<std::string>(root);
+    return out << tree;
 }
 
 Config Load() {

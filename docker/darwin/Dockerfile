@@ -6,6 +6,7 @@ RUN apt-get update && \
         ca-certificates \
         clang \
         cmake \
+        cppcheck \
         file \
         git \
         libgmp-dev \
