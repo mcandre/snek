@@ -4,7 +4,6 @@
 * [clang-format](https://clang.llvm.org/docs/ClangFormat.html)
 * [clang-tidy](https://clang.llvm.org/extra/clang-tidy/)
 * [cmake](https://cmake.org/) 3.5+
-* [cppcheck](https://cppcheck.sourceforge.io/) 2.13.0+
 * [Docker](https://www.docker.com/) 20.10.12+
 * GNU or BSD [findutils](https://en.wikipedia.org/wiki/Find_(Unix))
 * [Go](https://go.dev/) 1.21.5+

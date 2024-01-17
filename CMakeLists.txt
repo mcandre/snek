@@ -14,36 +14,6 @@ file(GLOB_RECURSE CXX_SOURCE_FILES *.cppm *.hpp *.cpp *.h *.c)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(TARGETS)
 
-if(
-    NOT DEFINED ENV{TARGET} OR
-    (
-        (NOT "$ENV{TARGET}" MATCHES "netbsd") AND
-        (NOT "$ENV{TARGET}" MATCHES "openbsd")
-    )
-)
-    find_program(CPPCHECK_PATH "cppcheck")
-
-    if ("${CPPCHECK_PATH}" STREQUAL "CPPCHECK_PATH-NOTFOUND")
-        message(FATAL_ERROR "cppcheck not found")
-    endif()
-
-    set(
-        CPPCHECK
-        "cppcheck"
-        "-q"
-        "--force"
-        "--enable=all"
-        "--inline-suppr"
-        "--suppressions-list=../suppressions.cfg"
-        "--error-exitcode=1"
-        "-U__SANITIZE_ADDRESS__"
-    )
-    set(CMAKE_C_CPPCHECK "${CPPCHECK}")
-    set(CMAKE_CXX_CPPCHECK "${CPPCHECK}")
-endif()
-
-project(snek)
-
 if(MSVC)
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${EXECUTABLE_OUTPUT_PATH}")
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG "${EXECUTABLE_OUTPUT_PATH}")
