@@ -11,7 +11,7 @@
 * POSIX compatible [make](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/make.html)
 * [Node.js](https://www.npmjs.com/) 20.10.0+
 * [Python](https://www.python.org/) 3.12.1+
-* [rez](https://github.com/mcandre/rez) 0.0.11
+* [rez](https://github.com/mcandre/rez) 0.0.15
 * [Rust](https://www.rust-lang.org/en-US/) 1.68.2+
 * [sail](https://github.com/mcandre/sail) 0.0.2
 * POSIX compatible [sh](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/sh.html)
