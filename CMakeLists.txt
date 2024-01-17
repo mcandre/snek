@@ -1,17 +1,15 @@
 cmake_minimum_required(VERSION 3.5)
 
 set(CMAKE_MESSAGE_LOG_LEVEL "WARNING")
-set(EXECUTABLE_OUTPUT_PATH "bin")
+set(EXECUTABLE_OUTPUT_PATH "../bin")
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_CXX_STANDARD 17)
 
 project(snek)
 
-file(
-    GLOB_RECURSE
-    CXX_SOURCE_FILES
-    *.[CcHhIi]pp *.[CcHhIi]xx *.[CcHhIi]++ *.[Cc][Cc] *.[Hh][Hh] *.[Ii][Ii] *.[CcHhIi]
-)
+file(GLOB_RECURSE C_SOURCE_FILES *.h *.c)
+file(GLOB_RECURSE CPP_SOURCE_FILES *.cppm *.hpp *.cpp)
+file(GLOB_RECURSE CXX_SOURCE_FILES *.cppm *.hpp *.cpp *.h *.c)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(TARGETS)
