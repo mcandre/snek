@@ -30,10 +30,10 @@
 * [ninja](https://ninja-build.org/) 1.11.1+
 * [file](https://linux.die.net/man/1/file)
 * [tree](https://linux.die.net/man/1/tree)
+* POSIX compatible [tar](https://pubs.opengroup.org/onlinepubs/7908799/xcu/tar.html)
+* a UNIX environment, such as macOS, Linux, BSD, [WSL](https://learn.microsoft.com/en-us/windows/wsl/), etc.
 
-macOS users may need additional patches:
-
-* [Grow](https://github.com/mcandre/dotfiles/blob/master/.profile.d/xcode.sh) Xcode PATH
+Non-UNIX environments may produce subtle adverse effects when linting or generating application ports.
 
 # INSTALL DEPENDENCIES
 

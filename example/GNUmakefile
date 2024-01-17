@@ -8,6 +8,8 @@
 	lint \
 	test
 
+BANNER=hello-0.0.1
+
 ARTIFACT_DIR=bin
 ARTIFACT_EXT=
 TARGET_FLAG=
@@ -40,7 +42,7 @@ ifdef TARGET
 		endif
 	endif
 
-	ARTIFACT_DIR=bin/$(TARGET)
+	ARTIFACT_DIR=bin/$(BANNER)/$(TARGET)
 	export CFLAGS=$(CPPFLAGS) $(STATIC_FLAG)
 endif
 
