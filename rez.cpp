@@ -3,10 +3,10 @@
 #include <filesystem>
 #include <functional>
 #include <iostream>
-#include <optional>
-#include <string_view>
-#include <sstream>
 #include <map>
+#include <optional>
+#include <sstream>
+#include <string_view>
 #include <unordered_set>
 #include <vector>
 
@@ -71,12 +71,12 @@ static int build() {
 
 static int snyk() {
 #if defined(_WIN32)
-    const std::string home_env_var_name{"USERPROFILE"};
+    const std::string home_env_var_name{ "USERPROFILE" };
 #else
-    const std::string home_env_var_name{"HOME"};
+    const std::string home_env_var_name{ "HOME" };
 #endif
 
-    const std::optional<std::string> home_opt{GetEnvironmentVariable(home_env_var_name)};
+    const std::optional<std::string> home_opt{ GetEnvironmentVariable(home_env_var_name) };
 
     if (!home_opt.has_value()) {
         std::cerr << "error missing environment variable: ";
@@ -84,14 +84,14 @@ static int snyk() {
         return EXIT_FAILURE;
     }
 
-    const std::filesystem::path home{*home_opt};
-    const std::filesystem::path conan_data_dir{home / ".conan" / "data"};
+    const std::filesystem::path home{ *home_opt };
+    const std::filesystem::path conan_data_dir{ home / ".conan" / "data" };
     std::stringstream command;
     command << "snyk test --unmanaged --trust-policies"
-        << " "
-        << conan_data_dir;
+            << " "
+            << conan_data_dir;
 
-    const int status{system(command.str().c_str())};
+    const int status{ system(command.str().c_str()) };
 
     if (status) {
         return EXIT_FAILURE;
@@ -116,11 +116,11 @@ static int docker_scout() {
         "ubuntu-x86"
     };
 
-    for (std::string tag:tags) {
+    for (std::string tag : tags) {
         std::stringstream command_stream;
 
         command_stream << "docker scout cves -e mcandre/snek:" << tag << " "
-            "--platform linux/amd64";
+                                                                         "--platform linux/amd64";
 
         int status{ system(command_stream.str().c_str()) };
 
@@ -129,7 +129,8 @@ static int docker_scout() {
         }
     }
 
-    return EXIT_SUCCESS;;
+    return EXIT_SUCCESS;
+    ;
 }
 
 static int audit() {
@@ -251,7 +252,7 @@ int main(int argc, const char **argv) {
         { "safety"sv, safety },
         { "audit"sv, audit },
         { "build"sv, build },
-        { "lint"sv, lint},
+        { "lint"sv, lint },
         { "install"sv, install },
         { "uninstall"sv, uninstall }
     };

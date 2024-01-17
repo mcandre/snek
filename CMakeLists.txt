@@ -1,9 +1,17 @@
 cmake_minimum_required(VERSION 3.5)
+
 set(CMAKE_MESSAGE_LOG_LEVEL "WARNING")
 set(EXECUTABLE_OUTPUT_PATH "bin")
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_CXX_STANDARD 17)
+
 project(snek)
+
+file(
+    GLOB_RECURSE
+    CXX_SOURCE_FILES
+    *.[CcHhIi]pp *.[CcHhIi]xx *.[CcHhIi]++ *.[Cc][Cc] *.[Hh][Hh] *.[Ii][Ii] *.[CcHhIi]
+)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(TARGETS)
@@ -35,6 +43,8 @@ if(
     set(CMAKE_C_CPPCHECK "${CPPCHECK}")
     set(CMAKE_CXX_CPPCHECK "${CPPCHECK}")
 endif()
+
+project(snek)
 
 if(MSVC)
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${EXECUTABLE_OUTPUT_PATH}")
@@ -86,7 +96,7 @@ else()
 endif()
 
 add_custom_target(cpplint COMMAND cpplint --recursive ../include ../src)
-add_custom_target(clang-format COMMAND sail -print0 ../include ../src | xargs -0 -n 1 clang-format -i)
+add_custom_target(clang-format COMMAND clang-format -i ${CXX_SOURCE_FILES})
 add_custom_target(yamllint COMMAND yamllint -s ../.yamllint ..)
 add_custom_target(unmake COMMAND unmake ..)
 add_custom_target(unmake_dry_run COMMAND unmake -n ..)
