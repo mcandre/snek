@@ -6,6 +6,7 @@
 
 #include <optional>
 #include <string>
+#include <variant>
 #include <vector>
 
 #include "ryml.hpp"
@@ -19,34 +20,34 @@ constexpr auto ConfigFile{ "snek.yaml" };
 constexpr auto BinaryCacheDir{ "bin" };
 
 struct Ship {
-    std::string image{ "" };
+    std::string image;
 
     std::vector<std::string> targets;
 
-    bool Parse(const c4::yml::ConstNodeRef &root);
+    [[nodiscard]] std::optional<std::string> Parse(const c4::yml::ConstNodeRef &root);
 
     void Format(c4::yml::NodeRef &root) const; // NOLINT(runtime/references)
-};
+} __attribute__((aligned(64)));
 
 std::ostream &operator<<(std::ostream &out, const Ship &o);
 
 struct Config {
     bool debug{ false };
 
-    std::string build_command{ "" };
+    std::string build_command;
 
     std::vector<Ship> ships;
 
-    bool Parse(const c4::yml::ConstNodeRef &root);
+    [[nodiscard]] std::optional<std::string> Parse(const c4::yml::ConstNodeRef &root);
 
     void Format(c4::yml::NodeRef &root) const; // NOLINT(runtime/references)
 
-    void LaunchShip(const Ship &ship, const std::string &cwd) const;
+    [[nodiscard]] std::optional<std::string> LaunchShip(const Ship &ship, const std::string &cwd) const;
 
-    void Launch() const;
-};
+    [[nodiscard]] std::optional<std::string> Launch() const;
+} __attribute__((aligned(64)));
 
 std::ostream &operator<<(std::ostream &out, const Config &o);
 
-Config Load();
+std::variant<Config, std::string> Load();
 }

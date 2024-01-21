@@ -1,0 +1,44 @@
+---
+build_command: "make clean-cmake; make"
+ships:
+- image: "mcandre/snek:darwin"
+  targets:
+  - "x86_64-apple-darwin"
+  # - "x86_64h-apple-darwin"
+  # - "arm64-apple-darwin"
+  # - "arm64e-apple-darwin"
+# - image: "mcandre/snek:freebsd"
+#   targets:
+#   - "x86_64-unknown-freebsd"
+# - image: "mcandre/snek:musl-alpine"
+#   targets:
+#   - "x86_64-alpine-linux-musl"
+# - image: "mcandre/snek:netbsd"
+#   targets:
+#   - "x86_64-unknown-netbsd"
+# - image: "mcandre/snek:openbsd"
+#   targets:
+#   - "x86_64-unknown-openbsd"
+# - image: "mcandre/snek:mingw"
+#   targets:
+#   - "i686-w64-mingw32"
+#   - "x86_64-w64-mingw32"
+# - image: "mcandre/snek:other"
+#   targets:
+#   - "aarch64-linux-gnu"
+#   - "arm-linux-gnueabi"
+#   - "arm-linux-gnueabihf"
+#   - "mips-linux-gnu"
+#   - "mips64-linux-gnuabi64"
+#   - "mips64el-linux-gnuabi64"
+#   - "mipsel-linux-gnu"
+#   - "powerpc-linux-gnu"
+#   - "powerpc64-linux-gnu"
+#   - "powerpc64le-linux-gnu"
+#   - "riscv64-linux-gnu"
+#   - "s390x-linux-gnu"
+#   - "sparc64-linux-gnu"
+# - image: "mcandre/snek:x86"
+#   targets:
+#   - "i686-pc-linux-gnu"
+#   - "x86_64-pc-linux-gnu"

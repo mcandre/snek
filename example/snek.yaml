@@ -46,11 +46,11 @@ ships:
 - image: "mcandre/snek:openbsd"
   targets:
   - "x86_64-unknown-openbsd"
-- image: "mcandre/snek:ubuntu-mingw"
+- image: "mcandre/snek:mingw"
   targets:
   - "i686-w64-mingw32"
   - "x86_64-w64-mingw32"
-- image: "mcandre/snek:ubuntu-other"
+- image: "mcandre/snek:other"
   targets:
   - "aarch64-linux-gnu"
   - "arm-linux-gnueabi"
@@ -65,7 +65,7 @@ ships:
   - "riscv64-linux-gnu"
   - "s390x-linux-gnu"
   - "sparc64-linux-gnu"
-- image: "mcandre/snek:ubuntu-x86"
+- image: "mcandre/snek:x86"
   targets:
   - "i686-pc-linux-gnu"
   - "x86_64-pc-linux-gnu"

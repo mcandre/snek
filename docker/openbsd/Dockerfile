@@ -5,12 +5,16 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         ca-certificates \
         clang \
+        clang-tidy \
         cmake \
-        cppcheck \
+        gawk \
+        git \
         llvm \
         make \
+        python3-pip \
         wget \
         xz-utils && \
+    pip3 install --break-system-packages conan==1.62.0 && \
     wget https://cloudflare.cdn.openbsd.org/pub/OpenBSD/7.4/amd64/base74.tgz && \
     wget https://cloudflare.cdn.openbsd.org/pub/OpenBSD/7.4/amd64/comp74.tgz && \
     mkdir /usr/local/x86_64-unknown-openbsd && \

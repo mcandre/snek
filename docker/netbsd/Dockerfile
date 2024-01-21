@@ -5,12 +5,16 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         ca-certificates \
         clang \
+        clang-tidy \
         cmake \
-        cppcheck \
+        gawk \
+        git \
         llvm \
         make \
+        python3-pip \
         wget \
         xz-utils && \
+    pip3 install --break-system-packages conan==1.62.0 && \
     wget https://cdn.netbsd.org/pub/NetBSD/NetBSD-9.3/amd64/binary/sets/base.tar.xz && \
     wget https://cdn.netbsd.org/pub/NetBSD/NetBSD-9.3/amd64/binary/sets/comp.tar.xz && \
     wget https://cdn.netbsd.org/pub/pkgsrc/packages/NetBSD/x86_64/9.3/All/libunwind-16.0.6.tgz && \

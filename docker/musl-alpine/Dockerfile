@@ -1,11 +1,15 @@
-FROM alpine:3.15
+FROM alpine:3.19
 RUN apk add -U \
         build-base \
         clang \
+        clang-extra-tools \
         cmake \
-        cppcheck \
+        gawk \
+        git \
         llvm \
-        make && \
+        make \
+        py3-pip && \
     ln -sf /usr/bin/clang++ /usr/bin/c++ && \
-    ln -sf /usr/bin/clang /usr/bin/cc
+    ln -sf /usr/bin/clang /usr/bin/cc && \
+    pip3 install --break-system-packages conan==1.62.0
 WORKDIR /src

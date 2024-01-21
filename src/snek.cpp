@@ -7,8 +7,10 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <optional>
 #include <sstream>
 #include <string>
+#include <variant>
 #include <vector>
 
 #include "ryml.hpp"
@@ -17,15 +19,13 @@
 #include "snek/snek.hpp"
 
 namespace snek {
-bool Ship::Parse(const c4::yml::ConstNodeRef &root) {
+[[nodiscard]] std::optional<std::string> Ship::Parse(const c4::yml::ConstNodeRef &root) {
     if (!root.is_map()) {
-        std::cerr << "ship is not a map" << std::endl;
-        return false;
+        return "ship is not a map";
     }
 
     if (!root.has_child("image")) {
-        std::cerr << "missing image" << std::endl;
-        return false;
+        return "missing image";
     }
 
     const c4::yml::ConstNodeRef image_node{ root["image"] };
@@ -33,15 +33,13 @@ bool Ship::Parse(const c4::yml::ConstNodeRef &root) {
     image_node >> im;
 
     if (im.empty()) {
-        std::cerr << "blank image" << std::endl;
-        return false;
+        return "blank image";
     }
 
     this->image = im;
 
     if (!root.has_child("targets")) {
-        std::cerr << "missing targets" << std::endl;
-        return false;
+        return "missing targets";
     }
 
     const auto targets_node{ root["targets"] };
@@ -54,12 +52,11 @@ bool Ship::Parse(const c4::yml::ConstNodeRef &root) {
     }
 
     if (ts.empty()) {
-        std::cerr << "empty targets" << std::endl;
-        return false;
+        return "empty targets";
     }
 
     this->targets = ts;
-    return true;
+    return std::nullopt;
 }
 
 void Ship::Format(c4::yml::NodeRef &root) const {
@@ -82,9 +79,9 @@ std::ostream &operator<<(std::ostream &out, const Ship &o) {
     return out << tree;
 }
 
-void Config::LaunchShip(const Ship &ship, const std::string &cwd) const {
+[[nodiscard]] std::optional<std::string> Config::LaunchShip(const Ship &ship, const std::string &cwd) const {
     for (const auto &target : ship.targets) {
-        std::cerr << "building " << target << std::endl;
+        std::cerr << "building " << target << "\n";
 
         std::stringstream command_stream;
         command_stream << "docker "
@@ -97,7 +94,7 @@ void Config::LaunchShip(const Ship &ship, const std::string &cwd) const {
         const std::string command{ command_stream.str() };
 
         if (debug) {
-            std::cerr << "command: " << command << std::endl;
+            std::cerr << "command: " << command << "\n";
         }
 
         const int status{ system(command.c_str()) };
@@ -108,75 +105,78 @@ void Config::LaunchShip(const Ship &ship, const std::string &cwd) const {
                 << command
                 << " status: "
                 << status;
-            throw std::runtime_error(err.str());
+            return err.str();
         }
     }
+
+    return std::nullopt;
 }
 
-void Config::Launch() const {
+[[nodiscard]] std::optional<std::string> Config::Launch() const {
     const std::string cwd{ std::filesystem::current_path().string() };
 
     if (debug) {
-        std::cerr << "cwd: " << cwd << std::endl;
+        std::cerr << "cwd: " << cwd << "\n";
     }
 
     for (const Ship &ship : ships) {
-        LaunchShip(ship, cwd);
+        if (const auto err_opt = LaunchShip(ship, cwd)) {
+            return *err_opt;
+        }
     }
+
+    return std::nullopt;
 }
 
-bool Config::Parse(const c4::yml::ConstNodeRef &root) {
+[[nodiscard]] std::optional<std::string> Config::Parse(const c4::yml::ConstNodeRef &root) {
     if (!root.is_map()) {
-        std::cerr << "invalid map" << std::endl;
-        return false;
+        return "invalid map";
     }
 
     if (root.has_child("debug")) {
         const c4::yml::ConstNodeRef debug_node{ root["debug"] };
-        bool debug_override;
+        bool debug_override{ false };
         debug_node >> debug_override;
         this->debug = debug_override;
     }
 
     if (!root.has_child("build_command")) {
-        std::cerr << "missing build_command" << std::endl;
-        return false;
+        return "missing build_command";
     }
 
     const c4::yml::ConstNodeRef build_command_node{ root["build_command"] };
-
     std::string cmd;
     build_command_node >> cmd;
 
     if (cmd.empty()) {
-        std::cerr << "blank build_command" << std::endl;
-        return false;
+        return "blank build_command";
     }
 
     this->build_command = cmd;
 
     if (!root.has_child("ships")) {
-        std::cerr << "missing ships" << std::endl;
-        return false;
+        return "missing ships";
     }
 
     const c4::yml::ConstNodeRef ships_node{ root["ships"] };
-
     std::vector<Ship> ss;
 
     for (const auto &&ship_node : ships_node) {
         Ship ship;
-        ship.Parse(ship_node);
+
+        if (const auto err_opt = ship.Parse(ship_node)) {
+            return *err_opt;
+        }
+
         ss.push_back(ship);
     }
 
     if (ss.empty()) {
-        std::cerr << "empty ships" << std::endl;
-        return false;
+        return "empty ships";
     }
 
     this->ships = ss;
-    return true;
+    return std::nullopt;
 }
 
 void Config::Format(c4::yml::NodeRef &root) const {
@@ -208,8 +208,9 @@ std::ostream &operator<<(std::ostream &out, const Config &o) {
     return out << tree;
 }
 
-Config Load() {
-    std::ifstream is{ ConfigFile };
+std::variant<Config, std::string> Load() {
+    std::variant<Config, std::string> result;
+    const std::ifstream is{ ConfigFile };
     std::stringstream buf;
     buf << is.rdbuf();
     ryml::Tree tree{ ryml::parse_in_arena(ryml::to_csubstr(buf.str())) };
@@ -217,7 +218,8 @@ Config Load() {
 
     if (root.is_stream()) {
         if (root.num_children() < 1) {
-            throw std::runtime_error("error: invalid yaml");
+            result = "invalid yaml";
+            return result;
         }
 
         root = root[0];
@@ -225,18 +227,22 @@ Config Load() {
 
     Config config;
 
-    if (!config.Parse(root)) {
-        throw std::runtime_error("error: invalid yaml");
+    if (const auto err_opt = config.Parse(root)) {
+        result = *err_opt;
+        return result;
     }
 
     if (config.build_command.empty()) {
-        throw std::runtime_error("error: blank build_command");
+        result = "blank build_command";
+        return result;
     }
 
     if (config.ships.empty()) {
-        throw std::runtime_error("error: empty ships");
+        result = "empty ships";
+        return result;
     }
 
-    return config;
+    result = config;
+    return result;
 }
 }

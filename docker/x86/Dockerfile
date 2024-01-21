@@ -3,11 +3,15 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         clang \
+        clang-tidy \
         cmake \
-        cppcheck \
         g++-multilib \
+        gawk \
+        git \
         llvm \
-        make && \
+        make \
+        python3-pip && \
+    pip3 install --break-system-packages conan==1.62.0 && \
     rm -rf \
         /var/lib/apt/lists/* \
         /var/cache/apt/pkgcache.bin \

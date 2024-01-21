@@ -5,12 +5,16 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         ca-certificates \
         clang \
+        clang-tidy \
         cmake \
-        cppcheck \
+        gawk \
+        git \
         llvm \
         make \
+        python3-pip \
         wget \
         xz-utils && \
+    pip3 install --break-system-packages conan==1.62.0 && \
     wget https://download.freebsd.org/ftp/releases/amd64/14.0-RELEASE/base.txz && \
     mkdir /usr/local/x86_64-unknown-freebsd && \
     cd /usr/local/x86_64-unknown-freebsd && \

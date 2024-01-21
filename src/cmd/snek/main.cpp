@@ -6,9 +6,9 @@
 
 #include <iostream>
 #include <sstream>
-#include <stdexcept>
 #include <string>
 #include <string_view>
+#include <variant>
 #include <vector>
 
 #include "snek/snek.hpp"
@@ -19,12 +19,11 @@
  * @param program the invoked name of this program
  */
 void Usage(const std::string_view &program) {
-    std::cerr << "Usage: " << program << " [options]" << std::endl
-              << std::endl;
-
-    std::cerr << "-d\tEnable debugging information" << std::endl
-              << "-v\tShow version information" << std::endl
-              << "-h\tShow usage information" << std::endl;
+    std::cerr << "Usage: " << program << " [options]\n"
+              << "\n"
+              << "-d\tEnable debugging information\n"
+              << "-v\tShow version information\n"
+              << "-h\tShow usage information\n";
 }
 
 /**
@@ -35,26 +34,26 @@ void Usage(const std::string_view &program) {
  * @returns CLI exit code
  */
 int main(int argc, const char **argv) {
-    const std::vector<std::string_view> args{ argv, argv + argc };
+    std::vector<std::string_view> args{ argv, argv + argc };
 
     if (args.empty()) {
-        std::cerr << "error: missing program name" << std::endl;
+        std::cerr << "error: missing program name\n";
         return EXIT_FAILURE;
     }
 
+    const std::string_view program{ args[0] };
     bool debug{ false };
 
-    size_t i(1);
-    for (; i < args.size(); i++) {
-        const std::string_view arg{ args[i] };
+    for (size_t i{ 1 }; i < args.size(); i++) {
+        const auto arg = args[i];
 
         if (arg == "-h") {
-            Usage(args[0]);
+            Usage(program);
             return EXIT_SUCCESS;
         }
 
         if (arg == "-v") {
-            std::cout << "snek " << snek::Version << std::endl;
+            std::cout << "snek " << snek::Version << "\n";
             return EXIT_SUCCESS;
         }
 
@@ -63,25 +62,31 @@ int main(int argc, const char **argv) {
             continue;
         }
 
-        Usage(args[0]);
+        Usage(program);
         return EXIT_FAILURE;
     }
 
-    try {
-        snek::Config config{ snek::Load() };
+    const auto config_variant{ snek::Load() };
 
-        if (debug) {
-            config.debug = debug;
-            std::stringstream ss;
-            ss << config;
-            std::cerr << ss.str() << std::endl
-                      << std::endl;
-        }
-
-        config.Launch();
-        return EXIT_SUCCESS;
-    } catch (const std::exception &err) {
-        std::cerr << err.what() << std::endl;
+    if (std::holds_alternative<std::string>(config_variant)) {
+        auto err{ *std::get_if<std::string>(&config_variant) };
+        std::cerr << "error: " << err << "\n";
         return EXIT_FAILURE;
     }
+
+    auto config{ *std::get_if<snek::Config>(&config_variant) };
+
+    if (debug) {
+        config.debug = debug;
+        std::stringstream ss;
+        ss << config;
+        std::cerr << ss.str() << "\n\n";
+    }
+
+    if (const auto err_opt = config.Launch()) {
+        std::cerr << *err_opt << "\n";
+        return EXIT_FAILURE;
+    }
+
+    return EXIT_SUCCESS;
 }

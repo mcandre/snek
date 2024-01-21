@@ -5,23 +5,26 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         ca-certificates \
         clang \
+        clang-tidy \
         cmake \
-        cppcheck \
         file \
+        gawk \
         git \
         libgmp-dev \
         libmpc-dev \
         libmpfr-dev \
         libssl-dev \
         libxml2-dev \
+        llvm \
         lzma-dev \
         make \
         ninja-build \
         patch \
-        python3 \
+        python3-pip \
         wget \
         xz-utils \
         zlib1g-dev && \
+    pip3 install --break-system-packages conan==1.62.0 && \
     git clone https://github.com/tpoechtrager/osxcross.git && \
     wget -O osxcross/tarballs/MacOSX11.3.sdk.tar.xz https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX11.3.sdk.tar.xz && \
     cd osxcross && \
@@ -33,7 +36,6 @@ RUN apt-get update && \
     apt-get remove --autoremove --purge -y \
         ca-certificates \
         file \
-        git \
         libgmp-dev \
         libmpc-dev \
         libmpfr-dev \
