@@ -1,7 +1,7 @@
 # BUILDTIME REQUIREMENTS
 
 * GNU [awk](https://www.gnu.org/software/gawk/manual/gawk.html) 5+
-* [clang](https://clang.llvm.org/) 14+
+* [clang](https://clang.llvm.org/) 14+ or [g++](https://gcc.gnu.org/) 12+
 * [clang-format](https://clang.llvm.org/docs/ClangFormat.html)
 * [clang-tidy](https://clang.llvm.org/extra/clang-tidy/)
 * [cmake](https://cmake.org/) 3.5+
@@ -41,12 +41,6 @@ $ make audit
 
 ```console
 $ make [build]
-```
-
-# BUILD DOCKER IMAGES
-
-```console
-$ make docker-build
 ```
 
 # LOAD DOCKER IMAGES

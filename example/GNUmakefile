@@ -1,7 +1,5 @@
 .SILENT:
-
 .IGNORE: clean
-
 .PHONY: \
 	all \
 	clean \
@@ -11,42 +9,17 @@
 BANNER=hello-0.0.1
 
 ARTIFACT_DIR=bin
-ARTIFACT_EXT=
 TARGET_FLAG=
-PREFIXES=
-SYSROOT_FLAG=
 
 ifdef TARGET
-	STATIC_FLAG=-static
-
-	ifneq (,$(findstring w64,$(TARGET)))
-		CC=$(TARGET)-gcc-posix
-		ARTIFACT_EXT=.exe
-	else
-		ifneq (,$(findstring darwin,$(TARGET)))
-			CC=$(TARGET)20.4-clang
-			CROSSBUILD=$(TARGET)
-            CPPFLAGS=-mmacosx-version-min=10.15
-			STATIC_FLAG=
-		else
-			ifneq (,$(findstring bsd,$(TARGET)))
-				SYSROOT_FLAG=--sysroot /usr/local/$(TARGET)
-
-				ifneq (,$(findstring openbsd,$(TARGET)))
-					STATIC_FLAG=
-				endif
-			endif
-
-			TARGET_FLAG=-target $(TARGET)
-			export CPATH=/usr/$(TARGET)/include:/usr/local/$(TARGET)/usr/include
-		endif
+	ifeq ($(findstring w64,$(TARGET))$(findstring darwin,$(TARGET)),)
+		TARGET_FLAG=-target $(TARGET)
 	endif
 
 	ARTIFACT_DIR=bin/$(BANNER)/$(TARGET)
-	export CFLAGS=$(CPPFLAGS) $(STATIC_FLAG)
 endif
 
-ARTIFACT=$(ARTIFACT_DIR)/hello$(ARTIFACT_EXT)
+ARTIFACT=$(ARTIFACT_DIR)/hello$(SNEK_EXECUTABLE_FILE_EXTENSION)
 
 all: $(ARTIFACT)
 
@@ -55,8 +28,7 @@ $(ARTIFACT): hello.c
 	$(CC) \
 		-o $(ARTIFACT) \
 		$(TARGET_FLAG) \
-		$(SYSROOT_FLAG) \
-		$(PREFIXES) \
+		$(CPPFLAGS) \
 		hello.c
 
 test:

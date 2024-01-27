@@ -8,8 +8,10 @@
 #include <fstream>
 #include <iostream>
 #include <optional>
+#include <regex>
 #include <sstream>
 #include <string>
+#include <unordered_map>
 #include <variant>
 #include <vector>
 
@@ -19,94 +21,32 @@
 #include "snek/snek.hpp"
 
 namespace snek {
-[[nodiscard]] std::optional<std::string> Ship::Parse(const c4::yml::ConstNodeRef &root) {
-    if (!root.is_map()) {
-        return "ship is not a map";
+[[nodiscard]] std::optional<std::string> Config::LaunchImage(const std::string &image, const std::string &target) const {
+    std::cerr << "building " << target << "\n";
+
+    std::stringstream command_stream;
+    command_stream << "docker "
+                   << "run "
+                   << "--rm "
+                   << "-e TARGET=" << target << " "
+                   << "-v " << this->cwd << ":/src "
+                   << image << " "
+                   << "sh -c \"" << build_command << "\"";
+    const std::string command{ command_stream.str() };
+
+    if (debug) {
+        std::cerr << "command: " << command << "\n";
     }
 
-    if (!root.has_child("image")) {
-        return "missing image";
-    }
+    const int status{ system(command.c_str()) };
 
-    const c4::yml::ConstNodeRef image_node{ root["image"] };
-    std::string im;
-    image_node >> im;
-
-    if (im.empty()) {
-        return "blank image";
-    }
-
-    this->image = im;
-
-    if (!root.has_child("targets")) {
-        return "missing targets";
-    }
-
-    const auto targets_node{ root["targets"] };
-    std::vector<std::string> ts;
-
-    for (const auto &&target_node : targets_node) {
-        std::string t;
-        target_node >> t;
-        ts.push_back(t);
-    }
-
-    if (ts.empty()) {
-        return "empty targets";
-    }
-
-    this->targets = ts;
-    return std::nullopt;
-}
-
-void Ship::Format(c4::yml::NodeRef &root) const {
-    root.append_child() << c4::yml::key("image") << c4::to_csubstr(this->image.c_str());
-
-    root.append_child() << c4::yml::key("targets");
-
-    auto targets_node = root["targets"];
-    targets_node |= c4::yml::SEQ;
-
-    for (const auto &target : targets) {
-        targets_node.append_child() = c4::to_csubstr(target.c_str());
-    }
-}
-
-std::ostream &operator<<(std::ostream &out, const Ship &o) {
-    ryml::Tree tree;
-    ryml::NodeRef root{ tree.rootref() };
-    o.Format(root);
-    return out << tree;
-}
-
-[[nodiscard]] std::optional<std::string> Config::LaunchShip(const Ship &ship, const std::string &cwd) const {
-    for (const auto &target : ship.targets) {
-        std::cerr << "building " << target << "\n";
-
-        std::stringstream command_stream;
-        command_stream << "docker "
-                       << "run "
-                       << "--rm "
-                       << "-e TARGET=" << target << " "
-                       << "-v " << cwd << ":/src "
-                       << ship.image << " "
-                       << "sh -c \"" << build_command << "\"";
-        const std::string command{ command_stream.str() };
-
-        if (debug) {
-            std::cerr << "command: " << command << "\n";
-        }
-
-        const int status{ system(command.c_str()) };
-
-        if (status != EXIT_SUCCESS) {
-            std::stringstream err;
-            err << "error running toolchain command: "
-                << command
-                << " status: "
-                << status;
-            return err.str();
-        }
+    if (status != EXIT_SUCCESS) {
+        std::stringstream err;
+        err << "error running toolchain command: "
+            << command
+            << " status: "
+            << status;
+        return err.str();
     }
 
     return std::nullopt;
@@ -119,8 +59,15 @@ std::ostream &operator<<(std::ostream &out, const Ship &o) {
         std::cerr << "cwd: " << cwd << "\n";
     }
 
-    for (const Ship &ship : ships) {
-        if (const auto err_opt = LaunchShip(ship, cwd)) {
+    if (images.empty()) {
+        return "empty custom `images` list";
+    }
+
+    for (const auto &image : images) {
+        const auto target_iterator{ image_to_target.find(image) };
+        const auto target{ target_iterator->second };
+
+        if (const auto err_opt = LaunchImage(image, target)) {
             return *err_opt;
         }
     }
@@ -154,28 +101,17 @@ std::ostream &operator<<(std::ostream &out, const Ship &o) {
 
     this->build_command = cmd;
 
-    if (!root.has_child("ships")) {
-        return "missing ships";
-    }
+    if (root.has_child("images")) {
+        const c4::yml::ConstNodeRef images_node = root["images"];
+        this->images.clear();
 
-    const c4::yml::ConstNodeRef ships_node{ root["ships"] };
-    std::vector<Ship> ss;
-
-    for (const auto &&ship_node : ships_node) {
-        Ship ship;
-
-        if (const auto err_opt = ship.Parse(ship_node)) {
-            return *err_opt;
+        for (const auto image_node : images_node) {
+            std::string image;
+            image_node >> image;
+            this->images.push_back(image);
         }
-
-        ss.push_back(ship);
     }
 
-    if (ss.empty()) {
-        return "empty ships";
-    }
-
-    this->ships = ss;
     return std::nullopt;
 }
 
@@ -188,15 +124,11 @@ void Config::Format(c4::yml::NodeRef &root) const {
 
     root["build_command"] << ryml::to_csubstr(this->build_command);
 
-    auto ships_node = root["ships"];
-    ships_node |= ryml::SEQ;
+    auto images_node = root["images"];
+    images_node |= ryml::SEQ;
 
-    for (const auto &ship : this->ships) {
-        auto ship_node = ships_node.append_child();
-        ship_node |= ryml::MAP;
-        ryml::NodeRef shipRoot{ ship_node };
-        ship.Format(shipRoot);
-        ship_node = shipRoot;
+    for (const std::string &image : this->images) {
+        images_node.append_child() = ryml::to_csubstr(image);
     }
 }
 
@@ -237,9 +169,24 @@ std::variant<Config, std::string> Load() {
         return result;
     }
 
-    if (config.ships.empty()) {
-        result = "empty ships";
-        return result;
+    config.cwd = std::filesystem::current_path().string();
+
+    const std::regex dockerImagePattern{ DockerImagePattern };
+
+    for (const auto &image : config.images) {
+        std::smatch matches;
+
+        if (!std::regex_search(image, matches, dockerImagePattern)) {
+            std::stringstream ss;
+            ss << "expected pattern `<base>:<target>` for image: "
+               << image;
+            result = ss.str();
+            return result;
+        }
+
+        const auto target{ matches[1] };
+
+        config.image_to_target.insert({image, target});
     }
 
     result = config;
