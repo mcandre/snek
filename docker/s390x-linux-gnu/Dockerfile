@@ -18,6 +18,7 @@ RUN apt-get update && \
         /var/cache/apt/srcpkgcache.bin && \
     update-alternatives --set c++ /usr/bin/clang++ && \
     update-alternatives --set cc /usr/bin/clang
+COPY profile.ini /
 ENV CPPFLAGS "-static -target s390x-linux-gnu"
 ENV CPATH "/usr/s390x-linux-gnu/include:/usr/local/s390x-linux-gnu/usr/include"
 WORKDIR /src
