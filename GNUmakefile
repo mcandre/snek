@@ -41,10 +41,15 @@ endif
 
 COMPILER_VERSION=$(shell echo "$(COMPILER_BANNER)" | gawk "match(\$$0, /version\s+([0-9]+)/, version) { print version[1]; exit; }")
 
-CONAN_TARGET_FLAG=
+CONAN_FLAGS=-s compiler=$(COMPILER_NAME) \
+	-s compiler.version=$(COMPILER_VERSION)
 
 ifneq (,$(TARGET))
-	CONAN_TARGET_FLAG=--profile /profile.ini
+	ifneq (,$(findstring w64,$(TARGET)))
+		CONAN_FLAGS=-pr:b=default -pr:h=/profile.ini
+	else
+		CONAN_FLAGS=-pr=/profile.ini
+	endif
 endif
 
 all: build
@@ -58,15 +63,13 @@ build: cmake-init
 
 build/conaninfo.txt:
 	conan install \
-		$(CONAN_TARGET_FLAG) \
+		$(CONAN_FLAGS) \
 		-s compiler.cppstd=17 \
-		-s compiler=$(COMPILER_NAME) \
-		-s compiler.version=$(COMPILER_VERSION) \
 		--build missing . \
 		--install-folder build
 
 cmake-init: build/conaninfo.txt
-	BANNER="$(BANNER)" cmake -B build
+	BANNER="$(BANNER)" cmake -B build -G "Unix Makefiles"
 
 docker-build: cmake-init
 	cmake --build build --target docker-build
