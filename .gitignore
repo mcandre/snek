@@ -1,5 +1,6 @@
 .rez/
 .psenvrc
+html/
 bin/
 build/
 crash-*

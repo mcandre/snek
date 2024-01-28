@@ -20,11 +20,8 @@
 	install \
 	lint \
 	port \
-	safety \
-	snyk \
 	test \
-	uninstall \
-	unmake
+	uninstall
 
 BANNER=snek-0.0.3
 
@@ -54,7 +51,8 @@ endif
 
 all: build
 
-audit: docker_scout safety snyk
+audit: cmake-init
+	cmake --build build --target audit
 
 build: cmake-init
 	cmake --build build --config Release
@@ -71,6 +69,9 @@ build/conaninfo.txt:
 cmake-init: build/conaninfo.txt
 	BANNER="$(BANNER)" cmake -B build -G "Unix Makefiles"
 
+doc: cmake-init
+	BANNER=$(BANNER) cmake --build build --target doc
+
 docker-build: cmake-init
 	cmake --build build --target docker-build
 
@@ -83,7 +84,7 @@ docker-publish: cmake-init
 docker-scout: cmake-init
 	cmake --build build --target docker-scout
 
-lint: cmake-init unmake
+lint: cmake-init
 	cmake --build build --target lint
 
 install: build
@@ -93,18 +94,8 @@ port:
 	snek
 	sh -c "cd bin && tar czf $(BANNER).tgz $(BANNER)"
 
-safety:
-	cmake --build build --target safety
-
-snyk:
-	cmake --build build --target snyk
-
 uninstall: cmake-init
 	cmake --build build --target uninstall
-
-unmake:
-	unmake .
-	unmake -n .
 
 clean: clean-bin clean-cmake clean-doc
 

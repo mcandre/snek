@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 
 set(CMAKE_MESSAGE_LOG_LEVEL "WARNING")
-set(EXECUTABLE_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/bin")
+set(EXECUTABLE_OUTPUT_PATH "bin")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_STANDARD 17)
 
@@ -36,12 +36,9 @@ target_link_libraries(snek CONAN_PKG::rapidyaml)
 
 set(HOME "$ENV{HOME}")
 set(ARTIFACT snek)
-
 file(TO_NATIVE_PATH "${HOME}/bin" INSTALL_DIR)
 file(TO_NATIVE_PATH "${INSTALL_DIR}/${ARTIFACT}" INSTALL_FILE)
-
 install(PROGRAMS $<TARGET_FILE:snek> DESTINATION "${INSTALL_DIR}")
-
 add_custom_target(uninstall COMMAND rm -f "${INSTALL_FILE}")
 
 add_custom_target(cpplint COMMAND cpplint --recursive ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/src)
@@ -49,14 +46,17 @@ add_custom_target(clang-format COMMAND clang-format -i ${CPP_SOURCE_FILES})
 add_custom_target(yamllint COMMAND yamllint -s ${CMAKE_SOURCE_DIR}/.yamllint ${CMAKE_SOURCE_DIR})
 add_custom_target(unmake COMMAND unmake ${CMAKE_SOURCE_DIR})
 add_custom_target(unmake_dry_run COMMAND unmake -n ${CMAKE_SOURCE_DIR})
+add_custom_target(lint DEPENDS cpplint clang-format yamllint unmake unmake_dry_run)
 
-# Missing linter ports
-if(MSVC)
-    add_custom_target(lint DEPENDS yamllint unmake)
-else()
-    add_custom_target(lint DEPENDS cpplint clang-format yamllint unmake unmake_dry_run)
-endif()
+add_custom_target(doc COMMAND doxygen Doxyfile WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
+add_custom_target(safety COMMAND safety check)
+add_custom_target(snyk COMMAND snyk test --unmanaged --trust-policies "${HOME}/.conan/data")
+add_custom_target(audit DEPENDS docker-scout safety snyk)
+
+#
+# Docker image management
+#
 # Some toolchains (esp. non-Linux targets) break on non-x86 family Docker platforms.
 set(EXCLUDE_ARCH "arm64,arm/v6,arm/v7,mips64le,ppc64le,riscv64,s390x")
 
@@ -257,9 +257,3 @@ add_custom_target(docker-scout
                   docker-scout-x86_64-w64-mingw32-posix
                   docker-scout-x86_64-w64-mingw32-win32
 )
-
-add_custom_target(safety COMMAND safety check)
-
-add_custom_target(snyk COMMAND snyk test --unmanaged --trust-policies "${HOME}/.conan/data")
-
-add_custom_target(audit DEPENDS docker-scout safety snyk)
