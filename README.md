@@ -88,6 +88,8 @@ The total size of the image collection is only bounded by your build host's disk
 
 The Docker images for your ships are extensible and customizable. See [example/snek.yaml](example/snek.yaml) for more detail.
 
+Note that not all packages, such as certain Conan Central dependencies, will be available for all platforms.
+
 # CREDITS
 
 * [chroot](https://en.wikipedia.org/wiki/Chroot) can assist with isolating compiler toolchains on UNIX hosts
