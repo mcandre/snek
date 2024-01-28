@@ -49,6 +49,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* \
         /var/cache/apt/pkgcache.bin \
         /var/cache/apt/srcpkgcache.bin
+COPY profile.ini /
 ENV CXX "arm64-apple-darwin20.4-clang++"
 ENV CC "arm64-apple-darwin20.4-clang"
 ENV CROSSBUILD "arm64-apple-darwin"

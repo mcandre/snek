@@ -1,5 +1,5 @@
 .POSIX:
-.SILENT:
+# .SILENT:
 .IGNORE: \
 	clean \
 	clean-bin \
