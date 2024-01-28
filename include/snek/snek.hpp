@@ -15,7 +15,7 @@
 #include "ryml_std.hpp"
 
 namespace snek {
-constexpr auto Version{ "0.0.4" };
+constexpr auto Version{ "0.0.5" };
 
 constexpr auto ConfigFile{ "snek.yaml" };
 
