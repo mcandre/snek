@@ -23,7 +23,7 @@
 	test \
 	uninstall
 
-BANNER=snek-0.0.3
+BANNER=snek-0.0.4
 
 ifneq (,$(TARGET))
 	ifneq (,$(findstring w64,$(TARGET)))
