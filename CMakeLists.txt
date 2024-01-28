@@ -15,8 +15,8 @@ conan_basic_setup(TARGETS)
 set(CPPFLAGS "$ENV{CPPFLAGS} -O3 -Werror -Wextra -Wall -pedantic")
 set(CXXFLAGS "$ENV{CXXFLAGS}")
 
-# Work around linter bugs in old MinGW compilers
-if(NOT "$ENV{TARGET}" MATCHES "w64")
+# Work around linting bugs in older compilers
+if(NOT DEFINED ENV{TARGET})
     set(CXXFLAGS "${CXXFLAGS} -Weffc++")
 endif()
 
