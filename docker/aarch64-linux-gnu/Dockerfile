@@ -18,6 +18,7 @@ RUN apt-get update && \
         /var/cache/apt/srcpkgcache.bin && \
     update-alternatives --set c++ /usr/bin/clang++ && \
     update-alternatives --set cc /usr/bin/clang
+COPY profile.ini /
 ENV CPPFLAGS "-static -target aarch64-linux-gnu"
 ENV CPATH "/usr/aarch64-linux-gnu/include:/usr/local/aarch64-linux-gnu/usr/include"
 WORKDIR /src

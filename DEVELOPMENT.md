@@ -4,7 +4,7 @@
 * [clang](https://clang.llvm.org/) 14+ or [g++](https://gcc.gnu.org/) 12+
 * [clang-format](https://clang.llvm.org/docs/ClangFormat.html)
 * [clang-tidy](https://clang.llvm.org/extra/clang-tidy/)
-* [cmake](https://cmake.org/) 3.5+
+* [cmake](https://cmake.org/) 3.8+
 * [Docker](https://www.docker.com/) 20.10.12+
 * [git](https://git-scm.com/) 2.39+
 * [Go](https://go.dev/) 1.21.5+

@@ -18,6 +18,7 @@ RUN apt-get update && \
         /var/cache/apt/srcpkgcache.bin && \
     update-alternatives --set c++ /usr/bin/clang++ && \
     update-alternatives --set cc /usr/bin/clang
+COPY profile.ini /
 ENV CPPFLAGS "-static -target i686-pc-linux-gnu"
 ENV CPATH "/usr/i686-pc-linux-gnu/include:/usr/local/i686-pc-linux-gnu/usr/include"
 WORKDIR /src

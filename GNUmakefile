@@ -44,7 +44,7 @@ COMPILER_VERSION=$(shell echo "$(COMPILER_BANNER)" | gawk "match(\$$0, /version\
 CONAN_TARGET_FLAG=
 
 ifneq (,$(TARGET))
-	CONAN_TARGET_FLAG=--profile profile.ini
+	CONAN_TARGET_FLAG=--profile /profile.ini
 endif
 
 all: build
@@ -54,7 +54,7 @@ audit: docker_scout safety snyk
 build: cmake-init
 	cmake --build build --config Release
 	mkdir -p bin/$(BANNER)/$(TARGET)
-	cp build/bin/snek* bin/$(BANNER)/$(TARGET)
+	cp build/bin/* bin/$(BANNER)/$(TARGET)
 
 build/conaninfo.txt:
 	conan install \
