@@ -64,7 +64,6 @@ add_custom_target(docker-load-aarch64-linux-gnu            COMMAND tug -t mcandr
 add_custom_target(docker-load-arm-linux-gnueabi            COMMAND tug -t mcandre/snek:arm-linux-gnueabi            -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/arm-linux-gnueabi)
 add_custom_target(docker-load-arm-linux-gnueabihf          COMMAND tug -t mcandre/snek:arm-linux-gnueabihf          -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/arm-linux-gnueabihf)
 add_custom_target(docker-load-arm64-apple-darwin           COMMAND tug -t mcandre/snek:arm64-apple-darwin           -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/arm64-apple-darwin)
-add_custom_target(docker-load-arm64e-apple-darwin          COMMAND tug -t mcandre/snek:arm64e-apple-darwin          -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/arm64e-apple-darwin)
 add_custom_target(docker-load-i686-pc-linux-gnu            COMMAND tug -t mcandre/snek:i686-pc-linux-gnu            -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/i686-pc-linux-gnu)
 add_custom_target(docker-load-i686-w64-mingw32-posix       COMMAND tug -t mcandre/snek:i686-w64-mingw32-posix       -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/i686-w64-mingw32-posix)
 add_custom_target(docker-load-i686-w64-mingw32-win32       COMMAND tug -t mcandre/snek:i686-w64-mingw32-win32       -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/i686-w64-mingw32-win32)
@@ -92,14 +91,12 @@ add_custom_target(docker-load-x86_64-unknown-netbsd        COMMAND tug -t mcandr
 add_custom_target(docker-load-x86_64-unknown-openbsd       COMMAND tug -t mcandre/snek:x86_64-unknown-openbsd       -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/x86_64-unknown-openbsd)
 add_custom_target(docker-load-x86_64-w64-mingw32-posix     COMMAND tug -t mcandre/snek:x86_64-w64-mingw32-posix     -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/x86_64-w64-mingw32-posix)
 add_custom_target(docker-load-x86_64-w64-mingw32-win32     COMMAND tug -t mcandre/snek:x86_64-w64-mingw32-win32     -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/x86_64-w64-mingw32-win32)
-add_custom_target(docker-load-x86_64h-apple-darwin         COMMAND tug -t mcandre/snek:x86_64h-apple-darwin         -exclude-arch "${EXCLUDE_ARCH}" -load linux/amd64 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/x86_64h-apple-darwin)
 add_custom_target(docker-load
                   DEPENDS
                   docker-load-aarch64-linux-gnu
                   docker-load-arm-linux-gnueabi
                   docker-load-arm-linux-gnueabihf
-                #   docker-load-arm64-apple-darwin
-                #   docker-load-arm64e-apple-darwin
+                  docker-load-arm64-apple-darwin
                   docker-load-i686-pc-linux-gnu
                   docker-load-i686-w64-mingw32-posix
                   docker-load-i686-w64-mingw32-win32
@@ -119,7 +116,7 @@ add_custom_target(docker-load
                   docker-load-s390x-linux-gnu
                   docker-load-sparc64-linux-gnu
                   docker-load-x86_64-alpine-linux-musl
-                #   docker-load-x86_64-apple-darwin
+                  docker-load-x86_64-apple-darwin
                   docker-load-x86_64-linux-gnux32
                   docker-load-x86_64-pc-linux-gnu
                   docker-load-x86_64-unknown-freebsd
@@ -127,14 +124,12 @@ add_custom_target(docker-load
                   docker-load-x86_64-unknown-openbsd
                   docker-load-x86_64-w64-mingw32-posix
                   docker-load-x86_64-w64-mingw32-win32
-                #   docker-load-x86_64h-apple-darwin
 )
 
 add_custom_target(docker-publish-aarch64-linux-gnu            COMMAND tug -t mcandre/snek:aarch64-linux-gnu            -exclude-arch "${EXCLUDE_ARCH}" -push WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/aarch64-linux-gnu)
 add_custom_target(docker-publish-arm-linux-gnueabi            COMMAND tug -t mcandre/snek:arm-linux-gnueabi            -exclude-arch "${EXCLUDE_ARCH}" -push WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/arm-linux-gnueabi)
 add_custom_target(docker-publish-arm-linux-gnueabihf          COMMAND tug -t mcandre/snek:arm-linux-gnueabihf          -exclude-arch "${EXCLUDE_ARCH}" -push WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/arm-linux-gnueabihf)
 add_custom_target(docker-publish-arm64-apple-darwin           COMMAND tug -t mcandre/snek:arm64-apple-darwin           -exclude-arch "${EXCLUDE_ARCH}" -push WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/arm64-apple-darwin)
-add_custom_target(docker-publish-arm64e-apple-darwin          COMMAND tug -t mcandre/snek:arm64e-apple-darwin          -exclude-arch "${EXCLUDE_ARCH}" -push WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/arm64e-apple-darwin)
 add_custom_target(docker-publish-i686-pc-linux-gnu            COMMAND tug -t mcandre/snek:i686-pc-linux-gnu            -exclude-arch "${EXCLUDE_ARCH}" -push WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/i686-pc-linux-gnu)
 add_custom_target(docker-publish-i686-w64-mingw32-posix       COMMAND tug -t mcandre/snek:i686-w64-mingw32-posix       -exclude-arch "${EXCLUDE_ARCH}" -push WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/i686-w64-mingw32-posix)
 add_custom_target(docker-publish-i686-w64-mingw32-win32       COMMAND tug -t mcandre/snek:i686-w64-mingw32-posix-win32 -exclude-arch "${EXCLUDE_ARCH}" -push WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/i686-w64-mingw32-posix-win32)
@@ -162,14 +157,12 @@ add_custom_target(docker-publish-x86_64-unknown-netbsd        COMMAND tug -t mca
 add_custom_target(docker-publish-x86_64-unknown-openbsd       COMMAND tug -t mcandre/snek:x86_64-unknown-openbsd       -exclude-arch "${EXCLUDE_ARCH}" -push WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/x86_64-unknown-openbsd)
 add_custom_target(docker-publish-x86_64-w64-mingw32-posix     COMMAND tug -t mcandre/snek:x86_64-w64-mingw32-posix     -exclude-arch "${EXCLUDE_ARCH}" -push WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/x86_64-w64-mingw32-posix)
 add_custom_target(docker-publish-x86_64-w64-mingw32-win32     COMMAND tug -t mcandre/snek:x86_64-w64-mingw32-win32     -exclude-arch "${EXCLUDE_ARCH}" -push WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/x86_64-w64-mingw32-posix-win32)
-add_custom_target(docker-publish-x86_64h-apple-darwin         COMMAND tug -t mcandre/snek:x86_64h-apple-darwin         -exclude-arch "${EXCLUDE_ARCH}" -push WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/x86_64h-apple-darwin)
 add_custom_target(docker-publish
                   DEPENDS
                   docker-publish-aarch64-linux-gnu
                   docker-publish-arm-linux-gnueabi
                   docker-publish-arm-linux-gnueabihf
                   docker-publish-arm64-apple-darwin
-                  docker-publish-arm64e-apple-darwin
                   docker-publish-i686-pc-linux-gnu
                   docker-publish-i686-w64-mingw32-posix
                   docker-publish-i686-w64-mingw32-win32
@@ -197,14 +190,12 @@ add_custom_target(docker-publish
                   docker-publish-x86_64-unknown-openbsd
                   docker-publish-x86_64-w64-mingw32-posix
                   docker-publish-x86_64-w64-mingw32-win32
-                  docker-publish-x86_64h-apple-darwin
 )
 
 add_custom_target(docker-scout-aarch64-linux-gnu            COMMAND docker scout cves -e mcandre/snek:aarch64-linux-gnu            --platform linux/amd64)
 add_custom_target(docker-scout-arm-linux-gnueabi            COMMAND docker scout cves -e mcandre/snek:arm-linux-gnueabi            --platform linux/amd64)
 add_custom_target(docker-scout-arm-linux-gnueabihf          COMMAND docker scout cves -e mcandre/snek:arm-linux-gnueabihf          --platform linux/amd64)
 add_custom_target(docker-scout-arm64-apple-darwin           COMMAND docker scout cves -e mcandre/snek:arm64-apple-darwin           --platform linux/amd64)
-add_custom_target(docker-scout-arm64e-apple-darwin          COMMAND docker scout cves -e mcandre/snek:arm64e-apple-darwin          --platform linux/amd64)
 add_custom_target(docker-scout-i686-pc-linux-gnu            COMMAND docker scout cves -e mcandre/snek:i686-pc-linux-gnu            --platform linux/amd64)
 add_custom_target(docker-scout-i686-w64-mingw32-posix       COMMAND docker scout cves -e mcandre/snek:i686-w64-mingw32-posix       --platform linux/amd64)
 add_custom_target(docker-scout-i686-w64-mingw32-win32       COMMAND docker scout cves -e mcandre/snek:i686-w64-mingw32-win32       --platform linux/amd64)
@@ -232,14 +223,12 @@ add_custom_target(docker-scout-x86_64-unknown-netbsd        COMMAND docker scout
 add_custom_target(docker-scout-x86_64-unknown-openbsd       COMMAND docker scout cves -e mcandre/snek:x86_64-unknown-openbsd       --platform linux/amd64)
 add_custom_target(docker-scout-x86_64-w64-mingw32-posix     COMMAND docker scout cves -e mcandre/snek:x86_64-w64-mingw32-posix     --platform linux/amd64)
 add_custom_target(docker-scout-x86_64-w64-mingw32-win32     COMMAND docker scout cves -e mcandre/snek:x86_64-w64-mingw32-win32     --platform linux/amd64)
-add_custom_target(docker-scout-x86_64h-apple-darwin         COMMAND docker scout cves -e mcandre/snek:x86_64h-apple-darwin         --platform linux/amd64)
 add_custom_target(docker-scout
                   DEPENDS
                   docker-scout-aarch64-linux-gnu
                   docker-scout-arm-linux-gnueabi
                   docker-scout-arm-linux-gnueabihf
                   docker-scout-arm64-apple-darwin
-                  docker-scout-arm64e-apple-darwin
                   docker-scout-i686-pc-linux-gnu
                   docker-scout-i686-w64-mingw32-posix
                   docker-scout-i686-w64-mingw32-win32
@@ -267,7 +256,6 @@ add_custom_target(docker-scout
                   docker-scout-x86_64-unknown-openbsd
                   docker-scout-x86_64-w64-mingw32-posix
                   docker-scout-x86_64-w64-mingw32-win32
-                  docker-scout-x86_64h-apple-darwin
 )
 
 add_custom_target(safety COMMAND safety check)

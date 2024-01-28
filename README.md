@@ -31,15 +31,15 @@ $ snek
 
 $ tree bin
 bin
-├── hello-0.0.1
-│   ├── aarch64-linux-gnu
-│   │   └── hello
-│   ├── arm-linux-gnueabi
-│   │   └── hello
-│   ├── arm-linux-gnueabihf
-│   │   └── hello
-│   ├── arm64-apple-darwin
-│   │   └── hello
+└── hello-0.0.1
+    ├── aarch64-linux-gnu
+    │   └── hello
+    ├── arm-linux-gnueabi
+    │   └── hello
+    ├── arm-linux-gnueabihf
+    │   └── hello
+    ├── arm64-apple-darwin
+    │   └── hello
 ...
 ```
 

@@ -33,7 +33,6 @@ struct Config {
         "mcandre/snek:arm-linux-gnueabi",
         "mcandre/snek:arm-linux-gnueabihf",
         "mcandre/snek:arm64-apple-darwin",
-        "mcandre/snek:arm64e-apple-darwin",
         "mcandre/snek:i686-pc-linux-gnu",
         "mcandre/snek:i686-w64-mingw32-posix",
         "mcandre/snek:i686-w64-mingw32-win32",
@@ -61,7 +60,6 @@ struct Config {
         "mcandre/snek:x86_64-unknown-openbsd",
         "mcandre/snek:x86_64-w64-mingw32-posix",
         "mcandre/snek:x86_64-w64-mingw32-win32",
-        "mcandre/snek:x86_64h-apple-darwin",
     };
 
     /** cwd is overwritten by Load. */
