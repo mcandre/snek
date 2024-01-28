@@ -13,6 +13,7 @@ RUN apt-get update && \
         /var/lib/apt/lists/* \
         /var/cache/apt/pkgcache.bin \
         /var/cache/apt/srcpkgcache.bin
+COPY profile.ini /
 ENV CXX "arm-linux-gnueabihf-g++"
 ENV CC "arm-linux-gnueabihf-gcc"
 ENV CPPFLAGS "-static"

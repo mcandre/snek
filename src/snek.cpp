@@ -60,7 +60,7 @@ namespace snek {
     }
 
     if (images.empty()) {
-        return "empty custom `images` list";
+        return "error: empty custom `images` list";
     }
 
     for (const auto &image : images) {
