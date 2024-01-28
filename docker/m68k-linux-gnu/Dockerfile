@@ -18,6 +18,6 @@ RUN apt-get update && \
         /var/cache/apt/srcpkgcache.bin && \
     update-alternatives --set c++ /usr/bin/clang++ && \
     update-alternatives --set cc /usr/bin/clang
-ENV CPPFLAGS "-static"
+ENV CPPFLAGS "-target m68k-linux-gnu"
 ENV CPATH "/usr/m68k-linux-gnu/include:/usr/local/m68k-linux-gnu/usr/include"
 WORKDIR /src

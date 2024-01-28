@@ -1,5 +1,5 @@
 .POSIX:
-.SILENT:
+# .SILENT:
 .IGNORE: \
 	clean \
 	clean-bin \
@@ -41,15 +41,29 @@ endif
 
 COMPILER_VERSION=$(shell echo "$(COMPILER_BANNER)" | gawk "match(\$$0, /version\s+([0-9]+)/, version) { print version[1]; exit; }")
 
+CONAN_TARGET_FLAG=
+
+ifneq (,$(TARGET))
+	CONAN_TARGET_FLAG=--profile profile.ini
+endif
+
 all: build
 
 audit: docker_scout safety snyk
 
 build: cmake-init
 	cmake --build build --config Release
+	mkdir -p bin/$(BANNER)/$(TARGET)
+	cp build/bin/snek* bin/$(BANNER)/$(TARGET)
 
 build/conaninfo.txt:
-	conan install -s compiler.cppstd=17 -s compiler=$(COMPILER_NAME) -s compiler.version=$(COMPILER_VERSION) --build missing . --install-folder build
+	conan install \
+		$(CONAN_TARGET_FLAG) \
+		-s compiler.cppstd=17 \
+		-s compiler=$(COMPILER_NAME) \
+		-s compiler.version=$(COMPILER_VERSION) \
+		--build missing . \
+		--install-folder build
 
 cmake-init: build/conaninfo.txt
 	BANNER="$(BANNER)" cmake -B build

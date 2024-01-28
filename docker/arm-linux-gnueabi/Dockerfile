@@ -18,6 +18,6 @@ RUN apt-get update && \
         /var/cache/apt/srcpkgcache.bin && \
     update-alternatives --set c++ /usr/bin/clang++ && \
     update-alternatives --set cc /usr/bin/clang
-ENV CPPFLAGS "-static"
+ENV CPPFLAGS "-static -target arm-linux-gnueabi"
 ENV CPATH "/usr/arm-linux-gnueabi/include:/usr/local/arm-linux-gnueabi/usr/include"
 WORKDIR /src

@@ -18,6 +18,6 @@ RUN apt-get update && \
         /var/cache/apt/srcpkgcache.bin && \
     update-alternatives --set c++ /usr/bin/clang++ && \
     update-alternatives --set cc /usr/bin/clang
-ENV CPPFLAGS "-static"
+ENV CPPFLAGS "-static -target mips64-linux-gnuabi64"
 ENV CPATH "/usr/mips64-linux-gnuabi64/include:/usr/local/mips64-linux-gnuabi64/usr/include"
 WORKDIR /src

@@ -18,6 +18,6 @@ RUN apt-get update && \
         /var/cache/apt/srcpkgcache.bin && \
     update-alternatives --set c++ /usr/bin/clang++ && \
     update-alternatives --set cc /usr/bin/clang
-ENV CPPFLAGS "-static"
+ENV CPPFLAGS "-static -target mipsisa32r6el-linux-gnu"
 ENV CPATH "/usr/mipsisa32r6el-linux-gnu/include:/usr/local/mipsisa32r6el-linux-gnu/usr/include"
 WORKDIR /src

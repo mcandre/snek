@@ -18,6 +18,6 @@ RUN apt-get update && \
         /var/cache/apt/srcpkgcache.bin && \
     update-alternatives --set c++ /usr/bin/clang++ && \
     update-alternatives --set cc /usr/bin/clang
-ENV CPPFLAGS "-static"
+ENV CPPFLAGS "-static -target powerpc-linux-gnu"
 ENV CPATH "/usr/powerpc-linux-gnu/include:/usr/local/powerpc-linux-gnu/usr/include"
 WORKDIR /src

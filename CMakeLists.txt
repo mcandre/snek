@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
 set(CMAKE_MESSAGE_LOG_LEVEL "WARNING")
-set(EXECUTABLE_OUTPUT_PATH "../bin")
+set(EXECUTABLE_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/bin")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_STANDARD 17)
 
@@ -14,37 +14,8 @@ conan_basic_setup(TARGETS)
 
 set(CPPFLAGS "$ENV{CPPFLAGS} -O3 -Werror -Wextra -Wall -pedantic")
 set(CXXFLAGS "$ENV{CXXFLAGS} -Weffc++")
-
-if(DEFINED ENV{TARGET})
-    if(DEFINED ENV{TARGET} AND "$ENV{TARGET}" MATCHES "w64")
-        set(CMAKE_CXX_COMPILER "$ENV{TARGET}-g++-posix")
-        set(CMAKE_C_COMPILER "$ENV{TARGET}-gcc-posix")
-    elseif("$ENV{TARGET}" MATCHES "darwin")
-        set(CMAKE_CXX_COMPILER "$ENV{TARGET}20.4-clang++")
-        set(CMAKE_C_COMPILER "$ENV{TARGET}20.4-clang")
-        set(CROSSBUILD "$ENV{TARGET}")
-    else()
-        if("$ENV{TARGET}" MATCHES "bsd")
-            set(CMAKE_SYSROOT "/usr/local/$ENV{TARGET}")
-        endif()
-
-        set(CMAKE_CXX_COMPILER_TARGET "$ENV{TARGET}")
-        set(CMAKE_C_COMPILER_TARGET "$ENV{TARGET}")
-        include_directories("/usr/local/$ENV{TARGET}/include/c++/v1")
-        include_directories("/usr/$ENV{TARGET}/include/c++/9/$ENV{TARGET}")
-        include_directories("/usr/local/$ENV{TARGET}/usr/include/c++/v1")
-        include_directories("/usr/$ENV{TARGET}/include")
-        include_directories("/usr/local/$ENV{TARGET}/usr/include")
-
-        if(NOT "$ENV{TARGET}" MATCHES "openbsd")
-            include_directories("/usr/local/$ENV{TARGET}/usr/include/g++")
-        endif()
-    endif()
-
-    set(EXECUTABLE_OUTPUT_PATH "../bin/${BANNER}/$ENV{TARGET}")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CPPFLAGS}")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CPPFLAGS}")
-endif()
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CPPFLAGS} ${CXXFLAGS}")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CPPFLAGS}")
 
 if(CMAKE_C_COMPILER_ID MATCHES "Clang")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wmost")
@@ -121,8 +92,8 @@ add_custom_target(docker-load
                   docker-load-aarch64-linux-gnu
                   docker-load-arm-linux-gnueabi
                   docker-load-arm-linux-gnueabihf
-                  docker-load-arm64-apple-darwin
-                  docker-load-arm64e-apple-darwin
+                #   docker-load-arm64-apple-darwin
+                #   docker-load-arm64e-apple-darwin
                   docker-load-i686-pc-linux-gnu
                   docker-load-i686-w64-mingw32-posix
                   docker-load-i686-w64-mingw32-win32
@@ -142,7 +113,7 @@ add_custom_target(docker-load
                   docker-load-s390x-linux-gnu
                   docker-load-sparc64-linux-gnu
                   docker-load-x86_64-alpine-linux-musl
-                  docker-load-x86_64-apple-darwin
+                #   docker-load-x86_64-apple-darwin
                   docker-load-x86_64-linux-gnux32
                   docker-load-x86_64-pc-linux-gnu
                   docker-load-x86_64-unknown-freebsd
@@ -150,7 +121,7 @@ add_custom_target(docker-load
                   docker-load-x86_64-unknown-openbsd
                   docker-load-x86_64-w64-mingw32-posix
                   docker-load-x86_64-w64-mingw32-win32
-                  docker-load-x86_64h-apple-darwin
+                #   docker-load-x86_64h-apple-darwin
 )
 
 add_custom_target(docker-publish-aarch64-linux-gnu            COMMAND tug -t mcandre/snek:aarch64-linux-gnu            -exclude-arch "${EXCLUDE_ARCH}" -push WORKING_DIRECTORY ../docker/aarch64-linux-gnu)

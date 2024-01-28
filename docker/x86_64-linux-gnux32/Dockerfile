@@ -18,6 +18,6 @@ RUN apt-get update && \
         /var/cache/apt/srcpkgcache.bin && \
     update-alternatives --set c++ /usr/bin/clang++ && \
     update-alternatives --set cc /usr/bin/clang
-ENV CPPFLAGS "-static"
+ENV CPPFLAGS "-static -target x86_64-linux-gnux32"
 ENV CPATH "/usr/x86_64-linux-gnux32/include:/usr/local/x86_64-linux-gnux32/usr/include"
 WORKDIR /src

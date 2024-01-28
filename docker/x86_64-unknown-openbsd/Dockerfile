@@ -1,6 +1,5 @@
 FROM debian:12.4-slim
 ENV DEBIAN_FRONTEND=noninteractive
-ENV SYSROOT=/usr/local/x86_64-unknown-openbsd
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         ca-certificates \
@@ -34,6 +33,6 @@ RUN apt-get update && \
         /var/cache/apt/srcpkgcache.bin && \
     update-alternatives --set c++ /usr/bin/clang++ && \
     update-alternatives --set cc /usr/bin/clang
-ENV CPPFLAGS "--sysroot $SYSROOT -pthread"
+ENV CPPFLAGS "--sysroot /usr/local/x86_64-unknown-openbsd -target x86_64-unknown-openbsd-pthread"
 ENV CPATH "/usr/x86_64-unknown-openbsd/include:/usr/local/x86_64-unknown-openbsd/usr/include"
 WORKDIR /src
