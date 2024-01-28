@@ -28,28 +28,28 @@
 
 BANNER=snek-0.0.3
 
-COMPILER_BANNER=$(shell c++ --version)
-COMPILER_NAME=clang
-
-ifneq (,$(findstring Apple,$(COMPILER_BANNER)))
-	COMPILER_NAME=apple-clang
-else
-	ifneq (,$(findstring gcc,$(shell c++ --version)))
-		COMPILER_NAME=gcc
-	endif
-endif
-
-COMPILER_VERSION=$(shell echo "$(COMPILER_BANNER)" | gawk "match(\$$0, /version\s+([0-9]+)/, version) { print version[1]; exit; }")
-
-CONAN_FLAGS=-s compiler=$(COMPILER_NAME) \
-	-s compiler.version=$(COMPILER_VERSION)
-
 ifneq (,$(TARGET))
 	ifneq (,$(findstring w64,$(TARGET)))
 		CONAN_FLAGS=-pr:b=default -pr:h=/profile.ini
 	else
 		CONAN_FLAGS=-pr=/profile.ini
 	endif
+else
+	COMPILER_BANNER=$(shell c++ --version)
+	COMPILER_NAME=clang
+
+	ifneq (,$(findstring Apple,$(COMPILER_BANNER)))
+		COMPILER_NAME=apple-clang
+	else
+		ifneq (,$(findstring gcc,$(shell c++ --version)))
+			COMPILER_NAME=gcc
+		endif
+	endif
+
+	COMPILER_VERSION=$(shell echo "$(COMPILER_BANNER)" | gawk "match(\$$0, /version\s+([0-9]+)/, version) { print version[1]; exit; }")
+
+	CONAN_FLAGS=-s compiler=$(COMPILER_NAME) \
+		-s compiler.version=$(COMPILER_VERSION)
 endif
 
 all: build

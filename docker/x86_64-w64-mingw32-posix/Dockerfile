@@ -13,6 +13,7 @@ RUN apt-get update && \
         /var/lib/apt/lists/* \
         /var/cache/apt/pkgcache.bin \
         /var/cache/apt/srcpkgcache.bin
+COPY profile.ini /
 ENV CXX "x86_64-w64-mingw32-g++-posix"
 ENV CC "x86_64-w64-mingw32-gcc-posix"
 ENV CPPFLAGS "-static"
