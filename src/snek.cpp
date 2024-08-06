@@ -53,8 +53,6 @@ namespace snek {
 }
 
 [[nodiscard]] std::optional<std::string> Config::Launch() const {
-    const std::string cwd{ std::filesystem::current_path().string() };
-
     if (debug) {
         std::cerr << "cwd: " << cwd << "\n";
     }
@@ -68,7 +66,7 @@ namespace snek {
         const auto target{ target_iterator->second };
 
         if (const auto err_opt = LaunchImage(image, target)) {
-            return *err_opt;
+            return err_opt;
         }
     }
 
@@ -186,7 +184,7 @@ std::variant<Config, std::string> Load() {
 
         const auto target{ matches[1] };
 
-        config.image_to_target.insert({image, target});
+        config.image_to_target.insert({ image, target });
     }
 
     result = config;
