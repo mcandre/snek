@@ -79,7 +79,9 @@ add_custom_target(lint DEPENDS cpplint clang-format yamllint unmake unmake_dry_r
 
 add_custom_target(doc COMMAND doxygen Doxyfile WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
-add_custom_target(snyk COMMAND snyk test --unmanaged --trust-policies "${HOME}/.conan/data")
+add_custom_target(snyk-test COMMAND snyk test WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+add_custom_target(snyk-conan COMMAND snyk test --unmanaged --trust-policies "${HOME}/.conan/data")
+add_custom_target(snyk DEPENDS snyk-test snyk-conan)
 add_custom_target(audit DEPENDS docker-scout snyk)
 
 #
