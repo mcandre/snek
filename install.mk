@@ -11,4 +11,4 @@ all:
 	npm install -g snyk
 
 	python -m pip install --user --upgrade pip setuptools
-	pip install --user -r requirements-dev.txt
+	pip install --user -r requirements.txt

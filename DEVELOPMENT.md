@@ -7,7 +7,7 @@
 * [Docker](https://www.docker.com/) 20.10.12+
 * [Doxygen](https://www.doxygen.nl/index.html) 9.4+
 * [git](https://git-scm.com/) 2.39+
-* [Go](https://go.dev/) 1.21.5+
+* [Go](https://go.dev/) 1.23.0+
 * GNU [make](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/make.html) 3.81+
 * [Node.js](https://www.npmjs.com/) 20.10.0+
 * [Python](https://www.python.org/) 3.12.1+
