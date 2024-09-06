@@ -13,8 +13,8 @@ RUN apt-get update && \
         /var/lib/apt/lists/* \
         /var/cache/apt/pkgcache.bin \
         /var/cache/apt/srcpkgcache.bin
-ENV CXX "mips-linux-gnu-g++"
-ENV CC "mips-linux-gnu-gcc"
-ENV CPPFLAGS "-static"
-ENV CPATH "/usr/mips-linux-gnu/include:/usr/local/mips-linux-gnu/usr/include"
+ENV CXX="mips-linux-gnu-g++"
+ENV CC="mips-linux-gnu-gcc"
+ENV CPPFLAGS="-static"
+ENV CPATH="/usr/mips-linux-gnu/include:/usr/local/mips-linux-gnu/usr/include"
 WORKDIR /src

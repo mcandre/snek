@@ -13,8 +13,8 @@ RUN apt-get update && \
         /var/lib/apt/lists/* \
         /var/cache/apt/pkgcache.bin \
         /var/cache/apt/srcpkgcache.bin
-ENV CXX "mips64-linux-gnuabi64-g++"
-ENV CC "mips64-linux-gnuabi64-gcc"
-ENV CPPFLAGS "-static"
-ENV CPATH "/usr/mips64-linux-gnuabi64/include:/usr/local/mips64-linux-gnuabi64/usr/include"
+ENV CXX="mips64-linux-gnuabi64-g++"
+ENV CC="mips64-linux-gnuabi64-gcc"
+ENV CPPFLAGS="-static"
+ENV CPATH="/usr/mips64-linux-gnuabi64/include:/usr/local/mips64-linux-gnuabi64/usr/include"
 WORKDIR /src

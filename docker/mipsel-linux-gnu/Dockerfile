@@ -13,8 +13,8 @@ RUN apt-get update && \
         /var/lib/apt/lists/* \
         /var/cache/apt/pkgcache.bin \
         /var/cache/apt/srcpkgcache.bin
-ENV CXX "mipsel-linux-gnu-g++"
-ENV CC "mipsel-linux-gnu-gcc"
-ENV CPPFLAGS "-static"
-ENV CPATH "/usr/mipsel-linux-gnu/include:/usr/local/mipsel-linux-gnu/usr/include"
+ENV CXX="mipsel-linux-gnu-g++"
+ENV CC="mipsel-linux-gnu-gcc"
+ENV CPPFLAGS="-static"
+ENV CPATH="/usr/mipsel-linux-gnu/include:/usr/local/mipsel-linux-gnu/usr/include"
 WORKDIR /src

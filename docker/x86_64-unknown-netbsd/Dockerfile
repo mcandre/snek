@@ -42,7 +42,7 @@ RUN apt-get update && \
         /var/cache/apt/srcpkgcache.bin && \
     update-alternatives --set c++ /usr/bin/clang++ && \
     update-alternatives --set cc /usr/bin/clang
-ENV CPPFLAGS "-static --sysroot /usr/local/x86_64-unknown-netbsd -target x86_64-unknown-netbsd"
-ENV CXXFLAGS "-stdlib=libc++"
-ENV CPATH "/usr/x86_64-unknown-netbsd/include:/usr/local/x86_64-unknown-netbsd/usr/include"
+ENV CPPFLAGS="-static --sysroot /usr/local/x86_64-unknown-netbsd -target x86_64-unknown-netbsd"
+ENV CXXFLAGS="-stdlib=libc++"
+ENV CPATH="/usr/x86_64-unknown-netbsd/include:/usr/local/x86_64-unknown-netbsd/usr/include"
 WORKDIR /src

@@ -14,8 +14,8 @@ RUN apt-get update && \
         /var/cache/apt/pkgcache.bin \
         /var/cache/apt/srcpkgcache.bin
 COPY profile.ini /
-ENV CXX "x86_64-linux-gnu-g++"
-ENV CC "x86_64-linux-gnu-gcc"
-ENV CPPFLAGS "-static"
-ENV CPATH "/usr/x86_64-pc-linux-gnu/include:/usr/local/x86_64-pc-linux-gnu/usr/include"
+ENV CXX="x86_64-linux-gnu-g++"
+ENV CC="x86_64-linux-gnu-gcc"
+ENV CPPFLAGS="-static"
+ENV CPATH="/usr/x86_64-pc-linux-gnu/include:/usr/local/x86_64-pc-linux-gnu/usr/include"
 WORKDIR /src

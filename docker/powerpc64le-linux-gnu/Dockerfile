@@ -14,8 +14,8 @@ RUN apt-get update && \
         /var/cache/apt/pkgcache.bin \
         /var/cache/apt/srcpkgcache.bin
 COPY profile.ini /
-ENV CXX "powerpc64le-linux-gnu-g++"
-ENV CC "powerpc64le-linux-gnu-gcc"
-ENV CPPFLAGS "-static"
-ENV CPATH "/usr/powerpc64le-linux-gnu/include:/usr/local/powerpc64le-linux-gnu/usr/include"
+ENV CXX="powerpc64le-linux-gnu-g++"
+ENV CC="powerpc64le-linux-gnu-gcc"
+ENV CPPFLAGS="-static"
+ENV CPATH="/usr/powerpc64le-linux-gnu/include:/usr/local/powerpc64le-linux-gnu/usr/include"
 WORKDIR /src

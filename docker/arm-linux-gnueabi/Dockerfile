@@ -14,8 +14,8 @@ RUN apt-get update && \
         /var/cache/apt/pkgcache.bin \
         /var/cache/apt/srcpkgcache.bin
 COPY profile.ini /
-ENV CXX "arm-linux-gnueabi-g++"
-ENV CC "arm-linux-gnueabi-gcc"
-ENV CPPFLAGS "-static"
-ENV CPATH "/usr/arm-linux-gnueabi/include:/usr/local/arm-linux-gnueabi/usr/include"
+ENV CXX="arm-linux-gnueabi-g++"
+ENV CC="arm-linux-gnueabi-gcc"
+ENV CPPFLAGS="-static"
+ENV CPATH="/usr/arm-linux-gnueabi/include:/usr/local/arm-linux-gnueabi/usr/include"
 WORKDIR /src

@@ -13,8 +13,8 @@ RUN apt-get update && \
         /var/lib/apt/lists/* \
         /var/cache/apt/pkgcache.bin \
         /var/cache/apt/srcpkgcache.bin
-ENV CXX "sparc64-linux-gnu-g++"
-ENV CC "sparc64-linux-gnu-gcc"
-ENV CPPFLAGS "-static"
-ENV CPATH "/usr/sparc64-linux-gnu/include:/usr/local/sparc64-linux-gnu/usr/include"
+ENV CXX="sparc64-linux-gnu-g++"
+ENV CC="sparc64-linux-gnu-gcc"
+ENV CPPFLAGS="-static"
+ENV CPATH="/usr/sparc64-linux-gnu/include:/usr/local/sparc64-linux-gnu/usr/include"
 WORKDIR /src

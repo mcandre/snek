@@ -13,8 +13,8 @@ RUN apt-get update && \
         /var/lib/apt/lists/* \
         /var/cache/apt/pkgcache.bin \
         /var/cache/apt/srcpkgcache.bin
-ENV CXX "x86_64-linux-gnux32-g++"
-ENV CC "x86_64-linux-gnux32-gcc"
-ENV CPPFLAGS "-static"
-ENV CPATH "/usr/x86_64-linux-gnux32/include:/usr/local/x86_64-linux-gnux32/usr/include"
+ENV CXX="x86_64-linux-gnux32-g++"
+ENV CC="x86_64-linux-gnux32-gcc"
+ENV CPPFLAGS="-static"
+ENV CPATH="/usr/x86_64-linux-gnux32/include:/usr/local/x86_64-linux-gnux32/usr/include"
 WORKDIR /src

@@ -13,8 +13,8 @@ RUN apt-get update && \
         /var/lib/apt/lists/* \
         /var/cache/apt/pkgcache.bin \
         /var/cache/apt/srcpkgcache.bin
-ENV CXX "mipsisa32r6el-linux-gnu-g++"
-ENV CC "mipsisa32r6el-linux-gnu-gcc"
-ENV CPPFLAGS "-static"
-ENV CPATH "/usr/mipsisa32r6el-linux-gnu/include:/usr/local/mipsisa32r6el-linux-gnu/usr/include"
+ENV CXX="mipsisa32r6el-linux-gnu-g++"
+ENV CC="mipsisa32r6el-linux-gnu-gcc"
+ENV CPPFLAGS="-static"
+ENV CPATH="/usr/mipsisa32r6el-linux-gnu/include:/usr/local/mipsisa32r6el-linux-gnu/usr/include"
 WORKDIR /src

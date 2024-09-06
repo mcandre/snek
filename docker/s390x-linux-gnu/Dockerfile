@@ -14,8 +14,8 @@ RUN apt-get update && \
         /var/cache/apt/pkgcache.bin \
         /var/cache/apt/srcpkgcache.bin
 COPY profile.ini /
-ENV CXX "s390x-linux-gnu-g++"
-ENV CC "s390x-linux-gnu-gcc"
-ENV CPPFLAGS "-static"
-ENV CPATH "/usr/s390x-linux-gnu/include:/usr/local/s390x-linux-gnu/usr/include"
+ENV CXX="s390x-linux-gnu-g++"
+ENV CC="s390x-linux-gnu-gcc"
+ENV CPPFLAGS="-static"
+ENV CPATH="/usr/s390x-linux-gnu/include:/usr/local/s390x-linux-gnu/usr/include"
 WORKDIR /src

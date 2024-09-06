@@ -13,8 +13,8 @@ RUN apt-get update && \
         /var/lib/apt/lists/* \
         /var/cache/apt/pkgcache.bin \
         /var/cache/apt/srcpkgcache.bin
-ENV CXX "riscv64-linux-gnu-g++"
-ENV CC "riscv64-linux-gnu-gcc"
-ENV CPPFLAGS "-static"
-ENV CPATH "/usr/riscv64-linux-gnu/include:/usr/local/riscv64-linux-gnu/usr/include"
+ENV CXX="riscv64-linux-gnu-g++"
+ENV CC="riscv64-linux-gnu-gcc"
+ENV CPPFLAGS="-static"
+ENV CPATH="/usr/riscv64-linux-gnu/include:/usr/local/riscv64-linux-gnu/usr/include"
 WORKDIR /src

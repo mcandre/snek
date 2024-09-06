@@ -1,5 +1,5 @@
 FROM debian:12.4-slim
-ENV PATH /usr/local/osxcross/bin:${PATH}
+ENV PATH=/usr/local/osxcross/bin:${PATH}
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -50,8 +50,8 @@ RUN apt-get update && \
         /var/cache/apt/pkgcache.bin \
         /var/cache/apt/srcpkgcache.bin
 COPY profile.ini /
-ENV CXX "x86_64-apple-darwin20.4-clang++"
-ENV CC "x86_64-apple-darwin20.4-clang"
-ENV CROSSBUILD "x86_64-apple-darwin"
-ENV CPPFLAGS "-mmacosx-version-min=10.15"
+ENV CXX="x86_64-apple-darwin20.4-clang++"
+ENV CC="x86_64-apple-darwin20.4-clang"
+ENV CROSSBUILD="x86_64-apple-darwin"
+ENV CPPFLAGS="-mmacosx-version-min=10.15"
 WORKDIR /src
