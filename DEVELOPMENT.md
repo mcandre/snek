@@ -22,7 +22,7 @@
 * Apply `DOCKER_DEFAULT_PLATFORM` = `linux/amd64` environment variable
 * [ASDF](https://asdf-vm.com/) 0.10 (run `asdf reshim` after provisioning)
 * [clang-format](https://clang.llvm.org/docs/ClangFormat.html)
-* [clang-tidy](https://clang.llvm.org/extra/clang-tidy/)
+* [clang-tidy](https://clang.llvm.org/extra/clang-tidy/) (macOS: `brew install llvm`, then `brew link llvm --force`)
 * [direnv](https://direnv.net/) 2
 * [file](https://linux.die.net/man/1/file)
 * macOS [open](https://ss64.com/mac/open.html) or equivalent alias
