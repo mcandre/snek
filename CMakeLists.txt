@@ -72,10 +72,9 @@ add_custom_target(uninstall COMMAND rm -f "${INSTALL_FILE}")
 
 add_custom_target(cpplint COMMAND cpplint --recursive ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/src)
 add_custom_target(clang-format COMMAND clang-format -i ${CPP_SOURCE_FILES})
-add_custom_target(yamllint COMMAND yamllint -s ${CMAKE_SOURCE_DIR}/.yamllint ${CMAKE_SOURCE_DIR})
 add_custom_target(unmake COMMAND unmake ${CMAKE_SOURCE_DIR})
 add_custom_target(unmake_dry_run COMMAND unmake -n ${CMAKE_SOURCE_DIR})
-add_custom_target(lint DEPENDS cpplint clang-format yamllint unmake unmake_dry_run)
+add_custom_target(lint DEPENDS cpplint clang-format unmake unmake_dry_run)
 
 add_custom_target(doc COMMAND doxygen Doxyfile WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
