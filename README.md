@@ -100,4 +100,4 @@ Note that not all packages, such as certain Conan Central dependencies, will be 
 * [osxcross](https://github.com/tpoechtrager/osxcross) provides patches to enable Darwin targets.
 * [tug](https://github.com/mcandre/tug) automates multi-platform Docker image builds.
 * [WASM](https://webassembly.org/) provides a portable interface for C/C++ code.
-* [xgo](https://github.com/crazy-max/xgo) ports cgo applications
+* [xgo](https://github.com/techknowlogick/xgo) ports cgo applications
