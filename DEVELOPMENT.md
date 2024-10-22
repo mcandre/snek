@@ -8,12 +8,12 @@
 * [Doxygen](https://www.doxygen.nl/index.html) 9.4+
 * [git](https://git-scm.com/) 2.39+
 * [Go](https://go.dev/) 1.23.2+
-* GNU [make](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/make.html) 3.81+
+* [GNU](https://www.gnu.org/software/make/) / [BSD](https://man.freebsd.org/cgi/man.cgi?make(1)) make
 * [Python](https://www.python.org/) 3.12.1+
 * [Rust](https://www.rust-lang.org/en-US/) 1.75.0+
 * [Snyk](https://snyk.io/)
 * POSIX compatible [tar](https://pubs.opengroup.org/onlinepubs/7908799/xcu/tar.html)
-* Provision additional dev tools with `make -f install.mk`
+* Provision additional dev tools with `make -j 4 -f install.mk`
 
 ## Recommended
 
