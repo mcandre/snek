@@ -2,4 +2,4 @@
 rapidyaml/[>=0.5.0 <0.6]
 
 [generators]
-cmake
+CMakeToolchain

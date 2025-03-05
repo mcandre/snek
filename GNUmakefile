@@ -1,5 +1,5 @@
 .POSIX:
-.SILENT:
+# .SILENT:
 .IGNORE: \
 	clean \
 	clean-bin \
@@ -60,11 +60,11 @@ build: cmake-init
 	cp build/bin/* bin/$(BANNER)/$(TARGET)
 
 build/conaninfo.txt:
-	conan install \
+	.venv/bin/conan install \
 		$(CONAN_FLAGS) \
 		-s compiler.cppstd=17 \
 		--build missing . \
-		--install-folder build
+		--output-folder build
 
 cmake-init: build/conaninfo.txt
 	BANNER="$(BANNER)" cmake -B build -G "Unix Makefiles"
