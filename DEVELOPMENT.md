@@ -7,13 +7,13 @@
 * [Docker](https://www.docker.com/) 27.2.0+
 * [Doxygen](https://www.doxygen.nl/index.html) 9.4+
 * [git](https://git-scm.com/) 2.39+
-* [Go](https://go.dev/) 1.23.2+
-* [GNU](https://www.gnu.org/software/make/) / [BSD](https://man.freebsd.org/cgi/man.cgi?make(1)) make
+* [Go](https://go.dev/) 1.24.0+
+* POSIX compatible [make](https://pubs.opengroup.org/onlinepubs/9799919799/utilities/make.html)
 * [Python](https://www.python.org/) 3.12.1+
 * [Rust](https://www.rust-lang.org/en-US/) 1.75.0+
 * [Snyk](https://snyk.io/)
 * POSIX compatible [tar](https://pubs.opengroup.org/onlinepubs/7908799/xcu/tar.html)
-* Provision additional dev tools with `make -j 4 -f install.mk`
+* Provision additional dev tools with `make -f install.mk [-j 4]`
 
 ## Recommended
 
@@ -25,6 +25,7 @@
 * [clang-tidy](https://clang.llvm.org/extra/clang-tidy/) (macOS: `brew install llvm`, then `brew link llvm --force`)
 * [direnv](https://direnv.net/) 2
 * [file](https://linux.die.net/man/1/file)
+* [GNU](https://www.gnu.org/)/[BSD](https://en.wikipedia.org/wiki/Berkeley_Software_Distribution) make
 * macOS [open](https://ss64.com/mac/open.html) or equivalent alias
 * [tree](https://linux.die.net/man/1/tree)
 * a UNIX environment, such as macOS, Linux, BSD, [WSL](https://learn.microsoft.com/en-us/windows/wsl/), etc.

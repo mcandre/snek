@@ -1,0 +1,6 @@
+github.com/magefile/mage v1.15.0 h1:BvGheCMAsG3bWUDbZ8AyXXpCNwU9u5CB6sM+HNb9HYg=
+github.com/magefile/mage v1.15.0/go.mod h1:z5UZb/iS3GoOSn0JgWuiw7dxlurVYTu+/jHXqQg881A=
+github.com/mcandre/mage-extras v0.0.21 h1:Kif/BsdkQKCIQTmwseYC+TmZLxgjOf+1zJgKctmgNoA=
+github.com/mcandre/mage-extras v0.0.21/go.mod h1:zr+/cO9v8EtPmjHMVYx7ijYrbT3tfJSNgXc9ze6LJ4s=
+github.com/mcandre/tug v0.0.11 h1:IFrUcanqzJkqvHVhlSHzRssW2/vQcG9nKDA+FhalgWQ=
+github.com/mcandre/tug v0.0.11/go.mod h1:yaFBvXo1/rseg7DlzYYOm+tZWQdeX6VaucPIpnogtIk=

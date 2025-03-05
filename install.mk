@@ -9,12 +9,13 @@
 all: go python rust
 
 go:
-	go install github.com/mcandre/tug/cmd/tug@v0.0.8
 	go mod tidy
+	go install tool
 
 python:
-	python -m pip install --user --upgrade pip setuptools
-	pip install --user -r requirements.txt
+	python3 -m venv .venv
+	.venv/bin/python3 -m pip install --upgrade pip setuptools
+	.venv/bin/python3 -m pip install -r requirements.txt
 
 rust:
 	cargo install --force unmake@0.0.17
